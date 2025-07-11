@@ -9,63 +9,30 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-neutral-light via-white to-blue-50">
-      <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
-      
-      <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <section className="section py-32 flex flex-col items-center justify-center text-center">
+      <div className="container text-center">
         <div className="space-y-8">
           {/* Main Headline */}
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-neutral-dark leading-tight">
+          <h1 className="mb-4">
             One Big Bullshit Bill:
-            <span className="block text-brand-blue mt-2">
-              Understanding the Real Costs
-            </span>
+            <br />
+            Understanding the Real Costs
           </h1>
 
           {/* Subheading */}
-          <p className="text-xl sm:text-2xl text-neutral-gray max-w-3xl mx-auto leading-relaxed">
+          <p className="text-lg max-w-2xl mx-auto mb-8">
             A comprehensive analysis of the proposed legislation and its far-reaching implications 
             for our economy, society, and future generations.
           </p>
 
           {/* Call to Action */}
-          <div className="pt-8">
+          <div>
             <button
               onClick={scrollToDetails}
-              className="inline-flex items-center px-8 py-4 bg-brand-blue text-white font-semibold text-lg rounded-lg shadow-lg hover:bg-blue-700 transform hover:scale-105 transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-blue-300"
+              className="btn"
             >
               Explore Key Impacts
-              <svg 
-                className="ml-2 w-5 h-5" 
-                fill="none" 
-                stroke="currentColor" 
-                viewBox="0 0 24 24"
-              >
-                <path 
-                  strokeLinecap="round" 
-                  strokeLinejoin="round" 
-                  strokeWidth={2} 
-                  d="M19 14l-7 7m0 0l-7-7m7 7V3" 
-                />
-              </svg>
             </button>
-          </div>
-
-          {/* Scroll indicator */}
-          <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-            <svg 
-              className="w-6 h-6 text-neutral-gray" 
-              fill="none" 
-              stroke="currentColor" 
-              viewBox="0 0 24 24"
-            >
-              <path 
-                strokeLinecap="round" 
-                strokeLinejoin="round" 
-                strokeWidth={2} 
-                d="M19 14l-7 7m0 0l-7-7m7 7V3" 
-              />
-            </svg>
           </div>
         </div>
       </div>

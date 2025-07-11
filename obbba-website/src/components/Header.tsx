@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import ThemeToggle from './ThemeToggle';
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -24,55 +25,51 @@ export default function Header() {
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
       isScrolled 
-        ? 'bg-white/95 backdrop-blur-md shadow-sm border-b border-neutral-gray' 
+        ? 'bg-white border-b border-gray-200' 
         : 'bg-transparent'
-    }`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          {/* Logo */}
-          <div className="flex items-center">
-            <h1 className="text-xl font-bold text-neutral-dark">
-              OBBBA
-            </h1>
-          </div>
-
-          {/* Navigation */}
-          <nav className="hidden md:flex space-x-8">
-            <button
-              onClick={() => scrollToSection('pill-toggle-section')}
-              className="text-neutral-gray hover:text-neutral-dark transition-colors duration-200 font-medium"
-            >
-              Key Impacts
-            </button>
-            <button
-              onClick={() => scrollToSection('income-impact')}
-              className="text-neutral-gray hover:text-neutral-dark transition-colors duration-200 font-medium"
-            >
-              Calculator
-            </button>
-            <button
-              onClick={() => scrollToSection('code')}
-              className="text-neutral-gray hover:text-neutral-dark transition-colors duration-200 font-medium"
-            >
-              Code
-            </button>
-            <button
-              onClick={() => scrollToSection('embed')}
-              className="text-neutral-gray hover:text-neutral-dark transition-colors duration-200 font-medium"
-            >
-              Embed
-            </button>
-          </nav>
-
-          {/* Mobile menu button */}
-          <div className="md:hidden">
-            <button className="text-neutral-gray hover:text-neutral-dark">
-              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            </button>
-          </div>
-        </div>
+    }`} style={{ width: '100%' }}>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          width: '100%',
+          maxWidth: '1200px',
+          margin: '0 auto',
+          padding: '0 1.5rem',
+          height: '64px',
+        }}
+      >
+        {/* Logo */}
+        <div style={{ fontSize: '2.2rem', fontWeight: 300, letterSpacing: '0.05em', lineHeight: 1 }}>OBBBA</div>
+        {/* Navigation */}
+        <nav style={{ display: 'flex', gap: '2rem', fontSize: '1rem' }}>
+          <button
+            onClick={() => scrollToSection('pill-toggle-section')}
+            style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer', font: 'inherit', padding: 0 }}
+          >
+            Key Impacts
+          </button>
+          <button
+            onClick={() => scrollToSection('income-impact')}
+            style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer', font: 'inherit', padding: 0 }}
+          >
+            Calculator
+          </button>
+          <button
+            onClick={() => scrollToSection('code')}
+            style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer', font: 'inherit', padding: 0 }}
+          >
+            Code
+          </button>
+          <button
+            onClick={() => scrollToSection('embed')}
+            style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer', font: 'inherit', padding: 0 }}
+          >
+            Embed
+          </button>
+        </nav>
+        <ThemeToggle />
       </div>
     </header>
   );

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { ChevronDown, ChevronUp, ExternalLink } from 'lucide-react';
 
 export default function FAQSection() {
   const [openFAQ, setOpenFAQ] = useState<number | null>(null);
@@ -32,22 +33,26 @@ export default function FAQSection() {
     {
       title: "Full Bill Text",
       description: "Complete legislative language and amendments",
-      url: "#"
+      url: "#",
+      type: "Document"
     },
     {
       title: "CBO Analysis Report",
       description: "Detailed cost estimates and economic impact analysis",
-      url: "#"
+      url: "#",
+      type: "Analysis"
     },
     {
       title: "Interactive Cost Calculator",
       description: "Customize assumptions and see different scenarios",
-      url: "#"
+      url: "#",
+      type: "Tool"
     },
     {
       title: "Supporting Research",
       description: "Academic studies and policy research",
-      url: "#"
+      url: "#",
+      type: "Research"
     }
   ];
 
@@ -56,31 +61,47 @@ export default function FAQSection() {
   };
 
   return (
-    <section id="learn-more" className="section">
-      <div className="container">
-        <h2 className="mb-8">Frequently Asked Questions</h2>
-        <p className="mb-8">
-          Get answers to common questions about the legislation and explore additional resources 
-          for deeper understanding.
-        </p>
+    <section id="learn-more" className="py-20 bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Section Header */}
+        <div className="text-center mb-16">
+          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+            Frequently Asked Questions
+          </h2>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            Get answers to common questions about the legislation and explore additional resources 
+            for deeper understanding.
+          </p>
+        </div>
 
-        <div className="grid md:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* FAQ Section */}
           <div>
-            <h3 className="mb-8">Common Questions</h3>
+            <h3 className="text-2xl font-bold text-gray-900 mb-8">
+              Common Questions
+            </h3>
             <div className="space-y-4">
               {faqs.map((faq, index) => (
-                <div key={index} className="card">
+                <div key={index} className="border border-gray-200 rounded-lg">
                   <button
                     onClick={() => toggleFAQ(index)}
-                    className="w-full text-left"
+                    className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-gray-50 transition-colors duration-200"
                   >
-                    <h4 className="mb-2">{faq.question}</h4>
+                    <span className="font-medium text-gray-900 pr-4">
+                      {faq.question}
+                    </span>
+                    {openFAQ === index ? (
+                      <ChevronUp className="w-5 h-5 text-gray-500 flex-shrink-0" />
+                    ) : (
+                      <ChevronDown className="w-5 h-5 text-gray-500 flex-shrink-0" />
+                    )}
                   </button>
                   {openFAQ === index && (
-                    <p className="mt-4 pt-4 border-t">
-                      {faq.answer}
-                    </p>
+                    <div className="px-6 pb-4">
+                      <p className="text-gray-600 leading-relaxed">
+                        {faq.answer}
+                      </p>
+                    </div>
                   )}
                 </div>
               ))}
@@ -89,31 +110,48 @@ export default function FAQSection() {
 
           {/* Resources Section */}
           <div>
-            <h3 className="mb-8">Additional Resources</h3>
+            <h3 className="text-2xl font-bold text-gray-900 mb-8">
+              Additional Resources
+            </h3>
             <div className="space-y-4">
               {resources.map((resource, index) => (
                 <a
                   key={index}
                   href={resource.url}
-                  className="block card hover:border-gray-400 transition-colors"
+                  className="block p-6 border border-gray-200 rounded-lg hover:border-blue-300 hover:shadow-md transition-all duration-200 group"
                 >
-                  <h4 className="mb-2">{resource.title}</h4>
-                  <p className="text-sm">
-                    {resource.description}
-                  </p>
+                  <div className="flex items-start justify-between">
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 mb-2">
+                        <h4 className="font-semibold text-gray-900 group-hover:text-blue-600 transition-colors">
+                          {resource.title}
+                        </h4>
+                        <span className="px-2 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-full">
+                          {resource.type}
+                        </span>
+                      </div>
+                      <p className="text-gray-600 text-sm">
+                        {resource.description}
+                      </p>
+                    </div>
+                    <ExternalLink className="w-4 h-4 text-gray-400 group-hover:text-blue-600 transition-colors flex-shrink-0 mt-1" />
+                  </div>
                 </a>
               ))}
             </div>
 
             {/* Contact Section */}
-            <div className="mt-8 card">
-              <h4 className="mb-2">Need More Information?</h4>
-              <p className="text-sm mb-4">
+            <div className="mt-8 p-6 bg-blue-50 rounded-lg">
+              <h4 className="font-semibold text-gray-900 mb-2">
+                Need More Information?
+              </h4>
+              <p className="text-gray-600 text-sm mb-4">
                 Can't find what you're looking for? We're here to help clarify any questions 
                 about the legislation and its implications.
               </p>
-              <button className="btn">
+              <button className="inline-flex items-center px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors">
                 Contact Us
+                <ExternalLink className="w-4 h-4 ml-2" />
               </button>
             </div>
           </div>

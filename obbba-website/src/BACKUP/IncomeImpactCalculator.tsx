@@ -3,7 +3,6 @@
 import React, { useState, useMemo } from 'react';
 import { ChevronDown, ChevronUp, Calendar, AlertTriangle, Minus } from 'lucide-react';
 import { incomeBrackets } from './incomeBrackets';
-import TimelineImpact from './TimelineImpact';
 
 // Helper for color interpolation (reverse: 1=red, 0=green)
 function interpolateColor(val: number) {
@@ -18,6 +17,7 @@ function interpolateColor(val: number) {
   }
 }
 
+// Add this helper function inside the component:
 function incomeToSlider(income: number) {
   const min = 0;
   const max = 1000000;
@@ -25,6 +25,7 @@ function incomeToSlider(income: number) {
   return Math.round(norm * 100);
 }
 
+// Nonlinear income mapping: slider 0-100 → income 0-1,000,000 (quadratic ramp)
 function sliderToIncome(slider: number) {
   const min = 0;
   const max = 1000000;
@@ -149,24 +150,43 @@ export default function IncomeImpactCalculator() {
 
   return (
     <section className="py-20 bg-neutral-light" id="income-impact">
-      <div className="glass max-w-5xl mx-auto p-8 grid gap-10" style={{gridTemplateColumns:'300px 1fr'}}>
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 rounded-2xl shadow-lg bg-white">
         <h2 className="text-2xl sm:text-3xl font-bold text-brand-blue mb-6 text-center">Personal Impact Calculator</h2>
         <p className="text-neutral-dark mb-8 text-center">Use the slider to select your annual income and see how the OBBBA may affect your finances over time.</p>
         
         {/* Timeline Section */}
-        <div className="mb-8">
-          <TimelineImpact />
+        <div className="mb-8 p-6 bg-gradient-to-r from-blue-100 to-purple-100 rounded-xl border border-brand-blue">
+          <div className="flex items-center justify-center mb-4">
+            <Calendar className="w-5 h-5 mr-2 text-brand-blue" />
+            <h3 className="text-lg font-semibold text-brand-blue">Timeline Impact</h3>
+          </div>
+          <div className="flex items-center justify-between text-sm">
+            <div className="text-center">
+              <div className="font-bold text-green-700">2025–2026</div>
+              <div className="text-xs text-gray-600">Temporary Benefits</div>
+            </div>
+            <div className="flex-1 mx-4 h-1 bg-gradient-to-r from-green-500 to-red-500 rounded-full relative">
+              <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1 bg-red-500 text-white text-xs px-2 py-1 rounded">
+                <AlertTriangle className="w-3 h-3 inline mr-1" />
+                Year 3 Cliff
+              </div>
+            </div>
+            <div className="text-center">
+              <div className="font-bold text-red-700">2027+</div>
+              <div className="text-xs text-gray-600">Sunset Effects</div>
+            </div>
+          </div>
         </div>
         
-        <div className="flex flex-col md:flex-row gap-10 justify-center">
-          {/* Left column: thermometers */}
-          <div className="flex flex-col items-center gap-8">
-            <Thermometer value={bracket.impactPreSunset} maxGain={maxGain} maxLoss={maxLoss} label="Years 1-2" />
-            <Thermometer value={bracket.impactPostSunset} maxGain={maxGain} maxLoss={maxLoss} label="Year 3+" />
-          </div>
+        <div className="flex flex-col md:flex-row items-center gap-8 justify-center">
+          {/* Pre-Sunset Thermometer */}
+          <Thermometer value={bracket.impactPreSunset} maxGain={maxGain} maxLoss={maxLoss} label="Years 1-2" />
 
-          {/* Right column: slider + impact card */}
-          <div className="flex-1 flex flex-col items-center md:items-start gap-6" style={{minWidth:'280px'}}>
+          {/* Post-Sunset Thermometer */}
+          <Thermometer value={bracket.impactPostSunset} maxGain={maxGain} maxLoss={maxLoss} label="Year 3+" />
+
+          {/* Slider and main info */}
+          <div className="flex-1 flex flex-col items-center md:items-start w-full">
             <label htmlFor="income-slider" className="mb-2 font-medium text-neutral-dark">
               Annual Income: <span className="text-brand-blue font-bold">${income.toLocaleString()}</span>
             </label>
@@ -239,91 +259,94 @@ export default function IncomeImpactCalculator() {
                   setSlider(incomeToSlider(val));
                   setIsEditingInput(false);
                 }}
-                className="pl-6 pr-2 py-1 rounded-lg border border-gray-300 focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/20 text-base w-full bg-white"
-                aria-label="Annual income input"
+                onKeyDown={e => {
+                  if (e.key === 'Enter') {
+                    let val = Math.round(inputIncome / 1000) * 1000;
+                    val = Math.max(0, Math.min(1000000, val));
+                    setInputIncome(val);
+                    setSlider(incomeToSlider(val));
+                    setIsEditingInput(false);
+                  }
+                }}
+                className="w-full pl-6 pr-2 py-1 border border-gray-300 rounded text-right font-mono"
+                aria-label="Enter annual income in dollars"
               />
             </div>
-            {/* Impact Card */}
-            <div className="glass w-full p-6">
-              <h3 className="mb-4 font-semibold">{bracket.label}</h3>
-              <div className="grid grid-cols-2 gap-4 mb-4">
+
+            {/* Main impact box */}
+            <div className="w-full mt-6 p-6 rounded-xl bg-blue-100 border border-brand-blue text-blue-900">
+              <h3 className="text-lg font-semibold mb-2">{bracket.label}</h3>
+              <div className="grid grid-cols-2 gap-4 mb-3">
                 <div className="text-center">
-                  <div className="text-sm font-medium">Years 1-2</div>
-                  <div className="text-lg font-bold" style={{color: bracket.impactPreSunset < 0 ? 'var(--loss)' : 'var(--gain)'}}>
+                  <div className="text-sm text-green-700 font-medium">Years 1-2</div>
+                  <div className="text-lg font-bold">
                     {bracket.impactPreSunset < 0 ? '-' : '+'}${Math.abs(bracket.impactPreSunset).toLocaleString()}/yr
                   </div>
                 </div>
                 <div className="text-center">
-                  <div className="text-sm font-medium">Year 3+</div>
-                  <div className="text-lg font-bold" style={{color: bracket.impactPostSunset < 0 ? 'var(--loss)' : 'var(--gain)'}}>
+                  <div className="text-sm text-red-700 font-medium">Year 3+</div>
+                  <div className="text-lg font-bold">
                     {bracket.impactPostSunset < 0 ? '-' : '+'}${Math.abs(bracket.impactPostSunset).toLocaleString()}/yr
                   </div>
                 </div>
               </div>
-              <div className="text-center mb-4 font-semibold" style={{color: bracket.impactPreSunset > bracket.impactPostSunset ? 'var(--loss)' : bracket.impactPreSunset < bracket.impactPostSunset ? 'var(--gain)' : 'var(--text-primary)'}}>
-                {bracket.impactPreSunset > bracket.impactPostSunset ? 
-                  `Cliff: -$${Math.abs(bracket.impactPreSunset - bracket.impactPostSunset).toLocaleString()}/yr drop` :
-                  bracket.impactPreSunset < bracket.impactPostSunset ?
-                  `Improvement: +$${Math.abs(bracket.impactPostSunset - bracket.impactPreSunset).toLocaleString()}/yr gain` :
-                  'No change'
-                }
-              </div>
-              <p className="text-sm" style={{color:'var(--text-secondary)'}}>{bracket.oneLineWhy}</p>
-            </div>
-          </div>
-
-          {/* Collapsible Sunset Details Section */}
-          <div className="glass mb-8 p-6" style={{borderColor:'var(--loss)'}}>
-            <button
-              onClick={() => setShowSunsetDetails(!showSunsetDetails)}
-              className="w-full text-left flex items-center justify-between"
-            >
-              <h3 className="mb-0">Year 3 sunset effects</h3>
-              {showSunsetDetails ? (
-                <ChevronUp className="w-5 h-5" />
-              ) : (
-                <ChevronDown className="w-5 h-5" />
-              )}
-            </button>
-            {showSunsetDetails && (
-              <div className="mt-4 pt-4 border-t space-y-2 text-sm">
-                {bracket.sunsetDetails.map((detail, index) => (
-                  <div key={index} className="flex items-start" style={{color:'var(--text-secondary)'}}>
-                    <span className="mr-2">•</span>
-                    {detail}
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-
-          {/* General details */}
-          <div className="glass p-6 mb-8">
-            <h3 className="mb-4">General details</h3>
-            <div className="space-y-2 text-sm mb-4">
-              {bracket.details.map((detail, index) => (
-                <div key={index} className="flex items-start" style={{color:'var(--text-secondary)'}}>
-                  <span className="mr-2">•</span>
-                  {detail}
+              <div className="text-center">
+                <div className="text-sm font-bold text-red-600">
+                  {bracket.impactPreSunset > bracket.impactPostSunset ? 
+                    `Cliff: -$${Math.abs(bracket.impactPreSunset - bracket.impactPostSunset).toLocaleString()}/yr drop` :
+                    bracket.impactPreSunset < bracket.impactPostSunset ?
+                    `Improvement: +$${Math.abs(bracket.impactPostSunset - bracket.impactPreSunset).toLocaleString()}/yr gain` :
+                    'No change'
+                  }
                 </div>
-              ))}
-            </div>
-            <div className="pt-4 border-t">
-              <p className="text-xs mb-2">Sources:</p>
-              <div className="flex flex-wrap gap-2">
-                {bracket.sources.map((source, index) => (
-                  <a
-                    key={index}
-                    href={source.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-xs underline"
-                  >
-                    {source.text}
-                  </a>
-                ))}
               </div>
+              <p className="text-sm mt-2">{bracket.oneLineWhy}</p>
             </div>
+
+            {/* Sunset Details Section */}
+            <Expander title="Year 3 sunset effects" icon={<AlertTriangle className="w-4 h-4 mr-1" />} colorClass="text-red-700 hover:text-red-800">
+              <div className="mt-3 p-4 bg-red-50 rounded-lg border border-red-200">
+                <h4 className="font-semibold text-red-800 mb-3">What happens in Year 3:</h4>
+                <ul className="space-y-2 text-sm text-red-700">
+                  {bracket.sunsetDetails.map((detail, index) => (
+                    <li key={index} className="flex items-start">
+                      <span className="text-red-500 mr-2">•</span>
+                      {detail}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </Expander>
+
+            {/* General details */}
+            <Expander title="General details" icon={null} colorClass="text-blue-700 hover:text-blue-800">
+              <div className="mt-3 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                <ul className="space-y-2 text-sm text-gray-700">
+                  {bracket.details.map((detail, index) => (
+                    <li key={index} className="flex items-start">
+                      <span className="text-blue-500 mr-2">•</span>
+                      {detail}
+                    </li>
+                  ))}
+                </ul>
+                <div className="mt-4 pt-3 border-t border-gray-200">
+                  <p className="text-xs text-gray-500 mb-2">Sources:</p>
+                  <div className="flex flex-wrap gap-2">
+                    {bracket.sources.map((source, index) => (
+                      <a
+                        key={index}
+                        href={source.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs text-blue-600 hover:text-blue-800 underline"
+                      >
+                        {source.text}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </Expander>
           </div>
         </div>
       </div>
