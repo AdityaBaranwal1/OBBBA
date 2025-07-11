@@ -1,0 +1,132 @@
+/* PillToggleSection Enhanced Animations
+ * Implements:
+ * 1. Slide-Out & Slide-In Animation
+ * 2. Mobile-Only Accordion
+ * 3. Enhanced Insertion Animation
+ * 4. Spacing & Typography Consistency
+ */
+
+/* 1. Slide-Out & Slide-In Animation */
+@keyframes slideOut {
+  to {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Base panel styling with overflow hidden to prevent flicker */
+.panel {
+  overflow: hidden;
+  transition: height 300ms ease, opacity 300ms ease;
+}
+
+/* Exit animation for removed panels */
+.panel.exiting {
+  animation: slideOut 250ms cubic-bezier(.4,0,.2,1) forwards;
+}
+
+/* Entry animation for new panels */
+.panel.entering {
+  animation: slideIn 250ms cubic-bezier(.4,0,.2,1) forwards;
+}
+
+/* 3. Enhanced Insertion Animation with 3D pop */
+@keyframes insertPop {
+  0% {
+    transform: scale(.95) rotateX(10deg);
+    filter: hue-rotate(0deg);
+  }
+  50% {
+    transform: scale(1.05) rotateX(0deg);
+    filter: hue-rotate(20deg);
+  }
+  100% {
+    transform: scale(1) rotateX(0deg);
+    filter: hue-rotate(0deg);
+  }
+}
+
+/* Combined animation for panels that need the enhanced pop effect */
+.panel.entering.with-pop {
+  animation: 
+    slideIn 250ms cubic-bezier(.4,0,.2,1) forwards,
+    insertPop 400ms cubic-bezier(.4,0,.2,1);
+}
+
+/* 2. Mobile-Only Accordion */
+@media (max-width: 768px) {
+  .panel {
+    transition: height 300ms ease, opacity 300ms ease;
+    max-height: 0;
+    opacity: 0;
+  }
+  
+  .panel.active {
+    max-height: 2000px; /* Arbitrary large value */
+    opacity: 1;
+  }
+}
+
+/* 5. Spacing & Typography Consistency */
+.pill-toggle-section {
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 32px;
+  --space-6: 48px;
+}
+
+.pill-toggle-section .pill {
+  margin-right: var(--space-2);
+  font-family: var(--font-heading);
+  font-weight: 700;
+}
+
+.pill-toggle-section .panel-content {
+  padding: var(--space-3) var(--space-2);
+  line-height: 1.5;
+}
+
+/* Detail Card Styles */
+.detail-card {
+  border-radius: 1rem;
+  border-left-width: 4px;
+  border-left-style: solid;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  transition: box-shadow 0.2s, border-color 0.2s, transform 0.2s;
+}
+.detail-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.10);
+  border-left-color: var(--brand-blue);
+  filter: brightness(1.03);
+}
+
+/* Detail Grid Styles */
+.detail-grid {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  column-gap: 16px;
+  row-gap: 12px;
+  margin-top: 0.5rem;
+}
+.label {
+  font-weight: 600;
+  font-size: 1rem;
+}
+.description {
+  color: var(--neutral-dark);
+  font-size: 1rem;
+}

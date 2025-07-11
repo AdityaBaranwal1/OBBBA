@@ -1,0 +1,369 @@
+@import "tailwindcss";
+
+:root {
+  --background: #F7F9FC;
+  --foreground: #181A20;
+  --card-bg: #FFF;
+  --card-bg-tint: #F0F4FF;
+  --border: #E5E7EB;
+  --shadow: 0 2px 8px rgba(0,0,0,0.06);
+
+  /* Accent Colors */
+  --brand-blue: #1F5EFF;
+  --brand-blue-tint: #EAF1FF;
+  --accent-red: #E94E3E;
+  --accent-red-tint: #FFF0EE;
+  --accent-green: #3CB371;
+  --accent-green-tint: #EAFBF3;
+  --accent-purple: #8F63E8;
+  --accent-purple-tint: #F4EEFF;
+
+  --neutral-light: #F7F9FC;
+  --neutral-gray: #6B7280;
+  --neutral-dark: #181A20;
+
+  /* Enhanced 8px Spacing System */
+  --spacing-0: 0;
+  --spacing-1: 0.5rem;  /* 8px */
+  --spacing-2: 1rem;    /* 16px */
+  --spacing-3: 1.5rem;  /* 24px */
+  --spacing-4: 2rem;    /* 32px */
+  --spacing-5: 2.5rem;  /* 40px */
+  --spacing-6: 3rem;    /* 48px */
+  --spacing-8: 4rem;    /* 64px */
+  --spacing-10: 5rem;   /* 80px */
+  --spacing-12: 6rem;   /* 96px */
+  
+  /* Legacy spacing for backward compatibility */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  --space-3xl: 4rem;
+  
+  /* Enhanced Typography System */
+  --font-heading: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  
+  /* Typography Scale */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+  
+  /* Border Radius */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #111827;
+    --foreground: #F7F9FC;
+    --card-bg: #181A20;
+    --card-bg-tint: #23263A;
+    --border: #23263A;
+    --shadow: 0 2px 8px rgba(0,0,0,0.18);
+    --neutral-light: #23263A;
+    --neutral-dark: #F7F9FC;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--foreground);
+  font-family: var(--font-heading);
+}
+
+/* Custom grid pattern for hero section */
+.bg-grid-pattern {
+  background-image: 
+    linear-gradient(rgba(31, 94, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(31, 94, 255, 0.1) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+/* Smooth scrolling for the entire page */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--neutral-light);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--neutral-gray);
+  border-radius: var(--radius-sm);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--brand-blue);
+}
+
+/* Custom focus styles for better accessibility */
+button:focus,
+a:focus {
+  outline: 2px solid var(--brand-blue);
+  outline-offset: 2px;
+}
+
+/* Animation for the hero scroll indicator */
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}
+
+.animate-bounce {
+  animation: bounce 2s infinite;
+}
+
+/* Pill Toggle Animations */
+@keyframes shake {
+  0% { transform: translateX(0); }
+  20% { transform: translateX(-4px); }
+  40% { transform: translateX(4px); }
+  60% { transform: translateX(-2px); }
+  80% { transform: translateX(2px); }
+  100% { transform: translateX(0); }
+}
+
+.animate-shake {
+  animation: shake 0.3s;
+}
+
+/* Enhanced Crack Animation System */
+@keyframes drawCrack {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes crackFade {
+  to {
+    opacity: 0;
+    transform: scale(1.05);
+  }
+}
+
+/* Fragment burst animation for glass shatter effect */
+@keyframes fragmentBurst {
+  0% {
+    opacity: 1;
+    transform: scale(1) translate(0, 0);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.2) translate(var(--burst-x, 10px), var(--burst-y, -10px));
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.5) translate(var(--burst-x, 20px), var(--burst-y, -20px));
+  }
+}
+
+/* Smoke puff fade animation */
+@keyframes smokeFade {
+  0% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(2);
+  }
+}
+
+/* Enhanced insertion animation with 3D depth pulse */
+@keyframes insertPop {
+  0% {
+    transform: scale(0.95) rotateX(10deg);
+    filter: hue-rotate(0deg);
+  }
+  50% {
+    transform: scale(1.05) rotateX(0deg);
+    filter: hue-rotate(20deg);
+  }
+  100% {
+    transform: scale(1) rotateX(0deg);
+    filter: hue-rotate(0deg);
+  }
+}
+
+/* Enhanced insertion animation with 3D depth pulse and color flash */
+.inserting {
+  animation: insertPop 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/*
+ * Panel Slide Animations for PillToggleSection
+ * - .panel.exiting: slide up and fade out
+ * - .panel.entering: slide in from below and fade in (with pop)
+ * - .panel: base panel style with overflow hidden
+ * - .panel-content: spacing and typography
+ * - Accordion: smooth height/opacity transitions on mobile
+ */
+@keyframes slideOut {
+  to {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+}
+@keyframes slideIn {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.panel {
+  overflow: hidden;
+  transition: height 300ms ease, opacity 300ms ease;
+}
+.panel-content {
+  padding: var(--spacing-3) var(--spacing-2);
+  line-height: 1.5;
+  font-family: var(--font-body);
+}
+.panel.exiting {
+  animation: slideOut 250ms cubic-bezier(.4,0,.2,1) forwards;
+}
+.panel.entering {
+  animation: slideIn 250ms cubic-bezier(.4,0,.2,1) forwards;
+}
+.panel.entering.with-pop {
+  animation: slideIn 250ms cubic-bezier(.4,0,.2,1) forwards, insertPop 400ms cubic-bezier(.4,0,.2,1);
+}
+@media (max-width: 768px) {
+  .panel {
+    transition: height 300ms ease, opacity 300ms ease;
+  }
+}
+
+/* Enhanced Typography Utility Classes */
+.font-heading { font-family: var(--font-heading); }
+.font-body { font-family: var(--font-body); }
+.font-normal { font-weight: var(--font-weight-normal); }
+.font-medium { font-weight: var(--font-weight-medium); }
+.font-semibold { font-weight: var(--font-weight-semibold); }
+.font-bold { font-weight: var(--font-weight-bold); }
+
+/* Enhanced Spacing Utility Classes */
+.p-spacing-1 { padding: var(--spacing-1); }
+.p-spacing-2 { padding: var(--spacing-2); }
+.p-spacing-3 { padding: var(--spacing-3); }
+.p-spacing-4 { padding: var(--spacing-4); }
+.p-spacing-6 { padding: var(--spacing-6); }
+
+.m-spacing-1 { margin: var(--spacing-1); }
+.m-spacing-2 { margin: var(--spacing-2); }
+.m-spacing-3 { margin: var(--spacing-3); }
+.m-spacing-4 { margin: var(--spacing-4); }
+.m-spacing-6 { margin: var(--spacing-6); }
+
+.gap-spacing-1 { gap: var(--spacing-1); }
+.gap-spacing-2 { gap: var(--spacing-2); }
+.gap-spacing-3 { gap: var(--spacing-3); }
+.gap-spacing-4 { gap: var(--spacing-4); }
+.gap-spacing-6 { gap: var(--spacing-6); }
+
+/* Utility classes for the design system */
+.text-brand-blue { color: var(--brand-blue); }
+.text-accent-red { color: var(--accent-red); }
+.text-accent-green { color: var(--accent-green); }
+.text-accent-purple { color: var(--accent-purple); }
+.text-neutral-light { color: var(--neutral-light); }
+.text-neutral-gray { color: var(--neutral-gray); }
+.text-neutral-dark { color: var(--neutral-dark); }
+
+.bg-brand-blue { background-color: var(--brand-blue); }
+.bg-accent-red { background-color: var(--accent-red); }
+.bg-accent-green { background-color: var(--accent-green); }
+.bg-accent-purple { background-color: var(--accent-purple); }
+.bg-neutral-light { background-color: var(--neutral-light); }
+.bg-neutral-gray { background-color: var(--neutral-gray); }
+.bg-neutral-dark { background-color: var(--neutral-dark); }
+
+.border-brand-blue { border-color: var(--brand-blue); }
+.border-accent-red { border-color: var(--accent-red); }
+.border-accent-green { border-color: var(--accent-green); }
+.border-accent-purple { border-color: var(--accent-purple); }
+
+/* Card backgrounds */
+.detail-card {
+  background: var(--card-bg);
+  box-shadow: var(--shadow);
+  border-radius: 1rem;
+  border-left-width: 4px;
+  border-left-style: solid;
+  border-color: var(--border);
+  transition: box-shadow 0.2s, border-color 0.2s, transform 0.2s;
+}
+.detail-card[data-accent="blue"] {
+  border-left-color: var(--brand-blue);
+  background: var(--brand-blue-tint);
+}
+.detail-card[data-accent="green"] {
+  border-left-color: var(--accent-green);
+  background: var(--accent-green-tint);
+}
+.detail-card[data-accent="red"] {
+  border-left-color: var(--accent-red);
+  background: var(--accent-red-tint);
+}
+.detail-card[data-accent="purple"] {
+  border-left-color: var(--accent-purple);
+  background: var(--accent-purple-tint);
+}
+.detail-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.10);
+  filter: brightness(1.03);
+}
