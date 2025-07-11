@@ -361,3 +361,18 @@ input[type="range"]::-moz-range-thumb {
 .thermo-track {
   background: rgba(255,255,255,0.08);
 }
+
+/* Enhanced glass card with 3D hover */
+.glass-3d {
+  background: var(--surface-glass);
+  backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+  border-radius: 18px;
+  transform-style: preserve-3d;
+  transition: transform 0.4s cubic-bezier(.4,0,.2,1), box-shadow 0.4s cubic-bezier(.4,0,.2,1);
+}
+.glass-3d:hover {
+  transform: translateY(-6px) rotateX(4deg);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.45);
+}

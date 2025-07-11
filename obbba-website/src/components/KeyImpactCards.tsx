@@ -40,7 +40,7 @@ export default function KeyImpactCards() {
         {impacts.map((impact, idx) => (
           <div
             key={idx}
-            className="impact-card"
+            className="impact-card glass-3d"
             tabIndex={0}
             style={{ cursor: 'pointer', outline: 'none' }}
           >
