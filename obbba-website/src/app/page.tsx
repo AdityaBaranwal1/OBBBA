@@ -5,7 +5,6 @@ import TimelineImpact from '@/components/TimelineImpact';
 import PillToggleSection from '@/components/PillToggleSection';
 import IncomeImpactCalculator from '@/components/IncomeImpactCalculator';
 import DistributionalImpact from '@/components/DistributionalImpact';
-import CodeSection from '@/components/CodeSection';
 import EmbedSection from '@/components/EmbedSection';
 import FAQSection from '@/components/FAQSection';
 import Footer from '@/components/Footer';
@@ -20,7 +19,6 @@ export default function Home() {
       <PillToggleSection />
       <IncomeImpactCalculator />
       <DistributionalImpact />
-      <CodeSection />
       <EmbedSection />
       <FAQSection />
       <Footer />

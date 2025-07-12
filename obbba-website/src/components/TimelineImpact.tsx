@@ -77,9 +77,10 @@ export default function TimelineImpact() {
     <section className="section">
       <div className="container">
         <h2 className="mb-8">One Big Beautiful Bill Act – Timeline of Key Individual Impacts</h2>
-        <div className="relative w-full" style={{ maxWidth: 700, margin: '0 auto', minHeight: 120 }}>
+        <div className="relative w-full" style={{ maxWidth: 700, margin: '0 auto' }}>
           {/* Timeline line */}
           <div style={{ position: 'absolute', top: 40, left: 0, right: 0, height: 6, background: '#e5e5e5', borderRadius: 3, zIndex: 1 }} />
+          
           {/* Dots */}
           {timelineEvents.map((event, idx) => {
             const left = (idx / (timelineEvents.length - 1)) * 100;
@@ -88,8 +89,6 @@ export default function TimelineImpact() {
               <div
                 key={event.year}
                 style={{ position: 'absolute', left: `calc(${left}% - 12px)`, top: 28, zIndex: 2, cursor: 'pointer' }}
-                onMouseEnter={() => setActiveIdx(idx)}
-                onMouseLeave={() => setActiveIdx(null)}
                 onClick={() => setActiveIdx(idx === activeIdx ? null : idx)}
               >
                 <div style={{
@@ -97,30 +96,148 @@ export default function TimelineImpact() {
                   background: isActive ? 'var(--accent, #2563eb)' : '#fff',
                   border: isActive ? '3px solid var(--accent, #2563eb)' : '2px solid #000',
                   boxShadow: isActive ? '0 0 0 4px var(--accent-glow, #3b82f6)' : undefined,
-                  display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'background 0.2s, box-shadow 0.2s, border 0.2s',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center', 
+                  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                  transform: isActive ? 'scale(1.1)' : 'scale(1)',
                 }} />
-                <div style={{ textAlign: 'center', marginTop: 8, fontWeight: 500, fontSize: 14 }}>{event.year}</div>
-                {/* Popover */}
-                {isActive && (
-                  <div className="card" style={{
-                    position: 'absolute', top: 40, left: '50%', transform: 'translateX(-50%)',
-                    minWidth: 260, maxWidth: 340, padding: 16, zIndex: 10,
-                  }}>
-                    <div style={{ fontWeight: 600, marginBottom: 8, fontSize: 16 }}>{event.label}</div>
-                    <ul style={{ fontSize: 15, margin: 0, padding: 0, listStyle: 'disc inside' }}>
-                      {event.details.map((d, i) => <li key={i} style={{ marginBottom: 8 }}>{d}</li>)}
-                    </ul>
-                    <div style={{ marginTop: 12, fontSize: 13, color: '#666', display: 'flex', flexWrap: 'wrap', gap: 8 }}>
-                      {event.sources.map((src, i) => (
-                        <a key={i} href={src.url} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'underline' }}>{src.label}</a>
-                      ))}
-                    </div>
-                  </div>
-                )}
+                <div style={{ 
+                  textAlign: 'center', 
+                  marginTop: 8, 
+                  fontWeight: 500, 
+                  fontSize: 14,
+                  transition: 'color 0.3s ease',
+                  color: isActive ? 'var(--accent, #2563eb)' : 'inherit'
+                }}>
+                  {event.year}
+                </div>
               </div>
             );
           })}
+          
+          {/* Expanded content area - pushes down other content */}
+          <div style={{ 
+            marginTop: 80,
+            minHeight: activeIdx !== null ? 'auto' : 0,
+            overflow: 'hidden',
+            transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+            opacity: activeIdx !== null ? 1 : 0,
+            transform: activeIdx !== null ? 'translateY(0)' : 'translateY(-20px)',
+          }}>
+            {activeIdx !== null && (
+              <div className="glass" style={{
+                padding: 24,
+                borderRadius: 16,
+                background: 'rgba(255,255,255,0.10)',
+                backdropFilter: 'blur(14px) saturate(150%)',
+                border: '1px solid rgba(255,255,255,0.08)',
+                boxShadow: '0 8px 32px rgba(0,0,0,0.35)',
+                animation: 'popIn 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+              }}>
+                <div style={{ 
+                  fontWeight: 600, 
+                  marginBottom: 16, 
+                  fontSize: 18,
+                  color: 'var(--accent, #2563eb)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 12
+                }}>
+                  <span style={{
+                    background: 'var(--accent, #2563eb)',
+                    color: 'white',
+                    borderRadius: '12px',
+                    minWidth: 44,
+                    minHeight: 32,
+                    padding: '4px 10px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: 14,
+                    fontWeight: 600,
+                    lineHeight: 1.1,
+                    textAlign: 'center',
+                    whiteSpace: 'pre-line',
+                    boxSizing: 'border-box',
+                  }}>
+                    {timelineEvents[activeIdx].year}
+                  </span>
+                  {timelineEvents[activeIdx].label}
+                </div>
+                <ul style={{ 
+                  fontSize: 15, 
+                  margin: 0, 
+                  padding: 0, 
+                  listStyle: 'none',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 12
+                }}>
+                  {timelineEvents[activeIdx].details.map((d, i) => (
+                    <li key={i} style={{ 
+                      marginBottom: 0,
+                      paddingLeft: 20,
+                      position: 'relative',
+                      lineHeight: 1.6
+                    }}>
+                      <span style={{
+                        position: 'absolute',
+                        left: 0,
+                        top: 8,
+                        width: 6,
+                        height: 6,
+                        borderRadius: '50%',
+                        background: 'var(--accent, #2563eb)'
+                      }} />
+                      {d}
+                    </li>
+                  ))}
+                </ul>
+                <div style={{ 
+                  marginTop: 20, 
+                  fontSize: 13, 
+                  color: '#666', 
+                  display: 'flex', 
+                  flexWrap: 'wrap', 
+                  gap: 12,
+                  paddingTop: 16,
+                  borderTop: '1px solid rgba(255,255,255,0.1)'
+                }}>
+                  <span style={{ fontWeight: 500, color: '#888' }}>Sources:</span>
+                  {timelineEvents[activeIdx].sources.map((src, i) => (
+                    <a 
+                      key={i} 
+                      href={src.url} 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      style={{ 
+                        textDecoration: 'underline',
+                        color: 'var(--accent, #2563eb)',
+                        transition: 'opacity 0.2s ease'
+                      }}
+                      onMouseEnter={(e) => e.currentTarget.style.opacity = '0.7'}
+                      onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
+                    >
+                      {src.label}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
         </div>
+        
+        <style jsx>{`
+          @keyframes popIn {
+            0% {
+              opacity: 0;
+              transform: scale(0.9) translateY(-10px);
+            }
+            100% {
+              opacity: 1;
+              transform: scale(1) translateY(0);
+            }
+          }
+        `}</style>
       </div>
     </section>
   );

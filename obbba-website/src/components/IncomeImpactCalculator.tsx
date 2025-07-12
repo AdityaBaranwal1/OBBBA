@@ -106,7 +106,6 @@ export default function IncomeImpactCalculator() {
   const [inputIncome, setInputIncome] = useState(0);
   const [isEditingInput, setIsEditingInput] = useState(false);
   const [expandedBracket, setExpandedBracket] = useState<number | null>(null);
-  const [showSunsetDetails, setShowSunsetDetails] = useState(false);
   
   // Memoize maxGain and maxLoss
   const maxGain = useMemo(() => Math.max(
@@ -149,26 +148,16 @@ export default function IncomeImpactCalculator() {
 
   return (
     <section className="py-20 bg-neutral-light" id="income-impact">
-      <div className="glass max-w-5xl mx-auto p-8 grid gap-10" style={{gridTemplateColumns:'300px 1fr'}}>
-        <h2 className="text-2xl sm:text-3xl font-bold text-brand-blue mb-6 text-center">Personal Impact Calculator</h2>
-        <p className="text-neutral-dark mb-8 text-center">Use the slider to select your annual income and see how the OBBBA may affect your finances over time.</p>
-        
-        {/* Timeline Section */}
-        <div className="mb-8">
-          <TimelineImpact />
+      <div className="glass max-w-5xl mx-auto p-8 grid gap-10" style={{gridTemplateColumns:'1fr 1fr', boxShadow:'0 8px 32px rgba(0,0,0,0.35)', borderRadius:'24px', background:'linear-gradient(135deg, rgba(255,255,255,0.10) 0%, rgba(37,99,235,0.08) 100%)'}}>
+        <div className="col-span-2 flex flex-col items-center mb-8">
+          <h2 className="text-3xl sm:text-4xl font-bold text-brand-blue mb-2" style={{letterSpacing:'-0.01em'}}>Personal Impact Calculator</h2>
+          <p className="text-neutral-dark text-lg text-center max-w-2xl">Use the slider or input to select your annual income and see how the OBBBA may affect your finances over time.</p>
         </div>
-        
-        <div className="flex flex-col md:flex-row gap-10 justify-center">
-          {/* Left column: thermometers */}
-          <div className="flex flex-col items-center gap-8">
-            <Thermometer value={bracket.impactPreSunset} maxGain={maxGain} maxLoss={maxLoss} label="Years 1-2" />
-            <Thermometer value={bracket.impactPostSunset} maxGain={maxGain} maxLoss={maxLoss} label="Year 3+" />
-          </div>
-
-          {/* Right column: slider + impact card */}
-          <div className="flex-1 flex flex-col items-center md:items-start gap-6" style={{minWidth:'280px'}}>
-            <label htmlFor="income-slider" className="mb-2 font-medium text-neutral-dark">
-              Annual Income: <span className="text-brand-blue font-bold">${income.toLocaleString()}</span>
+        {/* Slider/Input Section - now at the top, spanning both columns */}
+        <div className="col-span-2 flex flex-col gap-6 items-center justify-center mb-4">
+          <div className="glass w-full p-8 flex flex-col gap-6 items-center shadow-lg" style={{borderRadius:'20px', minWidth:'320px', background:'rgba(255,255,255,0.10)', boxShadow:'0 8px 32px rgba(37,99,235,0.10)'}}>
+            <label htmlFor="income-slider" className="mb-2 font-medium text-neutral-dark text-lg">
+              Annual Income: <span className="text-brand-blue font-bold text-2xl">${income.toLocaleString()}</span>
             </label>
             <div className="flex items-center gap-2 w-full relative" style={{height: '48px'}}>
               <input
@@ -189,7 +178,7 @@ export default function IncomeImpactCalculator() {
                 aria-valuetext={`Annual income: $${income.toLocaleString()}`}
               />
               {/* Slider tick labels aligned to correct slider values */}
-              <div className="absolute left-0 right-0 top-8 w-full" style={{pointerEvents: 'none'}}>
+              <div className="absolute left-0 right-0" style={{top: '2.8rem', pointerEvents: 'none'}}>
                 {[
                   { label: '$0', value: 0 },
                   { label: '$40k', value: 40000 },
@@ -204,7 +193,7 @@ export default function IncomeImpactCalculator() {
                       key={label}
                       style={{
                         position: 'absolute',
-                        left: `calc(${percent}% - 18px)`, // 18px is half the label width for centering
+                        left: `calc(${percent}% - 18px)`,
                         minWidth: '36px',
                         textAlign: 'center',
                         fontSize: '14px',
@@ -218,14 +207,14 @@ export default function IncomeImpactCalculator() {
                 })}
               </div>
             </div>
-            <div className="relative w-28">
-              <span className="absolute left-2 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">$</span>
+            <div className="flex items-center gap-2 w-full justify-center mt-2">
+              <span className="text-gray-400 text-lg">$</span>
               <input
                 type="number"
                 min={0}
                 max={1000000}
                 step={1000}
-                value={inputIncome}
+                value={isEditingInput ? inputIncome : income}
                 onChange={e => {
                   setIsEditingInput(true);
                   let val = Number(e.target.value.replace(/[^\d]/g, ''));
@@ -239,77 +228,61 @@ export default function IncomeImpactCalculator() {
                   setSlider(incomeToSlider(val));
                   setIsEditingInput(false);
                 }}
-                className="pl-6 pr-2 py-1 rounded-lg border border-gray-300 focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/20 text-base w-full bg-white"
+                className="pr-2 py-2 rounded-lg border border-gray-300 focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/20 text-lg w-full bg-white shadow-sm"
                 aria-label="Annual income input"
               />
             </div>
-            {/* Impact Card */}
-            <div className="glass w-full p-6">
-              <h3 className="mb-4 font-semibold">{bracket.label}</h3>
-              <div className="grid grid-cols-2 gap-4 mb-4">
-                <div className="text-center">
-                  <div className="text-sm font-medium">Years 1-2</div>
-                  <div className="text-lg font-bold" style={{color: bracket.impactPreSunset < 0 ? 'var(--loss)' : 'var(--gain)'}}>
-                    {bracket.impactPreSunset < 0 ? '-' : '+'}${Math.abs(bracket.impactPreSunset).toLocaleString()}/yr
-                  </div>
-                </div>
-                <div className="text-center">
-                  <div className="text-sm font-medium">Year 3+</div>
-                  <div className="text-lg font-bold" style={{color: bracket.impactPostSunset < 0 ? 'var(--loss)' : 'var(--gain)'}}>
-                    {bracket.impactPostSunset < 0 ? '-' : '+'}${Math.abs(bracket.impactPostSunset).toLocaleString()}/yr
-                  </div>
-                </div>
-              </div>
-              <div className="text-center mb-4 font-semibold" style={{color: bracket.impactPreSunset > bracket.impactPostSunset ? 'var(--loss)' : bracket.impactPreSunset < bracket.impactPostSunset ? 'var(--gain)' : 'var(--text-primary)'}}>
-                {bracket.impactPreSunset > bracket.impactPostSunset ? 
-                  `Cliff: -$${Math.abs(bracket.impactPreSunset - bracket.impactPostSunset).toLocaleString()}/yr drop` :
-                  bracket.impactPreSunset < bracket.impactPostSunset ?
-                  `Improvement: +$${Math.abs(bracket.impactPostSunset - bracket.impactPreSunset).toLocaleString()}/yr gain` :
-                  'No change'
-                }
-              </div>
-              <p className="text-sm" style={{color:'var(--text-secondary)'}}>{bracket.oneLineWhy}</p>
-            </div>
           </div>
-
-          {/* Collapsible Sunset Details Section */}
-          <div className="glass mb-8 p-6" style={{borderColor:'var(--loss)'}}>
-            <button
-              onClick={() => setShowSunsetDetails(!showSunsetDetails)}
-              className="w-full text-left flex items-center justify-between"
-            >
-              <h3 className="mb-0">Year 3 sunset effects</h3>
-              {showSunsetDetails ? (
-                <ChevronUp className="w-5 h-5" />
-              ) : (
-                <ChevronDown className="w-5 h-5" />
-              )}
-            </button>
-            {showSunsetDetails && (
-              <div className="mt-4 pt-4 border-t space-y-2 text-sm">
+        </div>
+        {/* Left: Impact Card */}
+        <div className="flex flex-col gap-8 items-center justify-start">
+          <div className="glass w-full p-8 flex flex-col gap-6 items-center shadow-lg" style={{borderRadius:'20px', minWidth:'320px', background:'rgba(255,255,255,0.10)', boxShadow:'0 8px 32px rgba(37,99,235,0.10)'}}>
+            <h3 className="mb-2 font-semibold text-xl text-brand-blue" style={{letterSpacing:'-0.01em'}}>{bracket.label}</h3>
+            <div className="grid grid-cols-2 gap-6 w-full">
+              <div className="text-center">
+                <div className="text-sm font-medium">Years 1-2</div>
+                <div className="text-2xl font-bold" style={{color: bracket.impactPreSunset < 0 ? 'var(--loss)' : 'var(--gain)', textShadow:'0 2px 8px rgba(0,0,0,0.10)'}}>
+                  {bracket.impactPreSunset < 0 ? '-' : '+'}${Math.abs(bracket.impactPreSunset).toLocaleString()}/yr
+                </div>
+              </div>
+              <div className="text-center">
+                <div className="text-sm font-medium">Year 3+</div>
+                <div className="text-2xl font-bold" style={{color: bracket.impactPostSunset < 0 ? 'var(--loss)' : 'var(--gain)', textShadow:'0 2px 8px rgba(0,0,0,0.10)'}}>
+                  {bracket.impactPostSunset < 0 ? '-' : '+'}${Math.abs(bracket.impactPostSunset).toLocaleString()}/yr
+                </div>
+              </div>
+            </div>
+            <div className="text-center mb-2 font-semibold" style={{color: bracket.impactPreSunset > bracket.impactPostSunset ? 'var(--loss)' : bracket.impactPreSunset < bracket.impactPostSunset ? 'var(--gain)' : 'var(--text-primary)'}}>
+              {bracket.impactPreSunset > bracket.impactPostSunset ? 
+                `Cliff: -$${Math.abs(bracket.impactPreSunset - bracket.impactPostSunset).toLocaleString()}/yr drop` :
+                bracket.impactPreSunset < bracket.impactPostSunset ?
+                `Improvement: +$${Math.abs(bracket.impactPostSunset - bracket.impactPreSunset).toLocaleString()}/yr gain` :
+                'No change'
+              }
+            </div>
+            <p className="text-sm text-neutral-dark mb-2">{bracket.oneLineWhy}</p>
+            {/* Always show 3-year effect details (no dropdown) */}
+            <div className="w-full mt-4 p-4 rounded-xl" style={{background:'rgba(37,99,235,0.07)', boxShadow:'0 2px 8px rgba(37,99,235,0.06)'}}>
+              <h4 className="text-lg font-semibold mb-2 text-brand-blue flex items-center gap-2"><Calendar className="w-5 h-5" /> Year 3+ Effects</h4>
+              <ul className="space-y-2 text-sm">
                 {bracket.sunsetDetails.map((detail, index) => (
-                  <div key={index} className="flex items-start" style={{color:'var(--text-secondary)'}}>
-                    <span className="mr-2">•</span>
-                    {detail}
-                  </div>
+                  <li key={index} className="flex items-start text-neutral-dark"><span className="mr-2">•</span>{detail}</li>
                 ))}
-              </div>
-            )}
-          </div>
-
-          {/* General details */}
-          <div className="glass p-6 mb-8">
-            <h3 className="mb-4">General details</h3>
-            <div className="space-y-2 text-sm mb-4">
-              {bracket.details.map((detail, index) => (
-                <div key={index} className="flex items-start" style={{color:'var(--text-secondary)'}}>
-                  <span className="mr-2">•</span>
-                  {detail}
-                </div>
-              ))}
+              </ul>
             </div>
-            <div className="pt-4 border-t">
-              <p className="text-xs mb-2">Sources:</p>
+          </div>
+        </div>
+        {/* Right: General details above, Thermometers below */}
+        <div className="flex flex-col gap-8 items-center justify-start">
+          <div className="glass w-full p-6" style={{borderRadius:'18px', background:'rgba(255,255,255,0.10)'}}>
+            <h4 className="mb-2 text-brand-blue font-semibold text-lg">General details</h4>
+            <ul className="space-y-2 text-sm mb-4">
+              {bracket.details.map((detail, index) => (
+                <li key={index} className="flex items-start text-neutral-dark"><span className="mr-2">•</span>{detail}</li>
+              ))}
+            </ul>
+            <div className="pt-4 border-t border-gray-300">
+              <p className="text-xs mb-2 text-neutral-dark">Sources:</p>
               <div className="flex flex-wrap gap-2">
                 {bracket.sources.map((source, index) => (
                   <a
@@ -317,13 +290,18 @@ export default function IncomeImpactCalculator() {
                     href={source.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-xs underline"
+                    className="text-xs underline text-brand-blue hover:opacity-80"
                   >
                     {source.text}
                   </a>
                 ))}
               </div>
             </div>
+          </div>
+          {/* Thermometers below general details */}
+          <div className="flex flex-row gap-8 mt-4">
+            <Thermometer value={bracket.impactPreSunset} maxGain={maxGain} maxLoss={maxLoss} label="Years 1-2" />
+            <Thermometer value={bracket.impactPostSunset} maxGain={maxGain} maxLoss={maxLoss} label="Year 3+" />
           </div>
         </div>
       </div>

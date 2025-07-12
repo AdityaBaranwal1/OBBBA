@@ -75,7 +75,7 @@ body {
 
 /* Typography */
 h1, h2, h3, h4, h5, h6 {
-  color: #fff;
+  color: var(--text-primary);
   font-weight: 700;
   line-height: var(--leading-tight);
   margin: 0 0 var(--space-sm) 0;
@@ -211,7 +211,7 @@ a:hover {
   padding: 0.5em 1.5em;
   font-weight: 500;
   background: rgba(37,99,235,0.08);
-  color: #f3f4f6;
+  color: var(--text-primary);
   border: 1.5px solid #2563eb33;
   margin: 0 0.5em;
   cursor: pointer;
@@ -232,7 +232,7 @@ a:hover {
   font-size: 1.1em;
   font-weight: 500;
   background: rgba(24,24,27,0.92);
-  color: #f3f4f6;
+  color: var(--text-primary);
   flex: 0 0 auto;
 }
 
@@ -360,4 +360,51 @@ input[type="range"]::-moz-range-thumb {
 /* Thermometer track update */
 .thermo-track {
   background: rgba(255,255,255,0.08);
+}
+
+.glass-card {
+  width: 240px;
+  height: 360px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 0 20px 10px rgba(255, 255, 255, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.8),
+    transparent
+  );
+}
+
+.glass-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.8),
+    transparent,
+    rgba(255, 255, 255, 0.3)
+  );
 }

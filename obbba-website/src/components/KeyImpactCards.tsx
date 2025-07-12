@@ -40,10 +40,9 @@ export default function KeyImpactCards() {
         {impacts.map((impact, idx) => (
           <div
             key={idx}
-            className="impact-card"
+            className="glass-card flex flex-col justify-center items-center"
             tabIndex={0}
-            style={{ cursor: 'pointer', outline: 'none' }}
-          >
+            >
             <div style={{ fontWeight: 700, fontSize: '1.3rem', marginBottom: 12 }}>
               <span style={{ marginRight: 8 }}>{impact.icon}</span>
               {impact.title}
