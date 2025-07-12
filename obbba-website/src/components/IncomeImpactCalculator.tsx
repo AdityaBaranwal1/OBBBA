@@ -1,22 +1,8 @@
 'use client';
 
 import React, { useState, useMemo } from 'react';
-import { ChevronDown, ChevronUp, Calendar, AlertTriangle, Minus } from 'lucide-react';
+import { ChevronDown, ChevronUp, Calendar, Minus } from 'lucide-react';
 import { incomeBrackets } from './incomeBrackets';
-import TimelineImpact from './TimelineImpact';
-
-// Helper for color interpolation (reverse: 1=red, 0=green)
-function interpolateColor(val: number) {
-  if (val > 0.5) {
-    const r = 255;
-    const g = Math.round(255 * (1 - (val - 0.5) / 0.5));
-    return `rgb(${r},${g},0)`;
-  } else {
-    const g = 255;
-    const r = Math.round(255 * (val / 0.5));
-    return `rgb(${r},${g},0)`;
-  }
-}
 
 function incomeToSlider(income: number) {
   const min = 0;
@@ -37,13 +23,6 @@ type ThermometerProps = {
   maxGain: number;
   maxLoss: number;
   label: string;
-};
-
-type ExpanderProps = {
-  title: string;
-  icon?: React.ReactNode;
-  children: React.ReactNode;
-  colorClass?: string;
 };
 
 function Thermometer({ value, maxGain, maxLoss, label }: ThermometerProps) {
@@ -87,58 +66,22 @@ function Thermometer({ value, maxGain, maxLoss, label }: ThermometerProps) {
   );
 }
 
-function Expander({ title, icon, children, colorClass }: ExpanderProps) {
-  return (
-    <div className="w-full mt-4">
-      <details className="group">
-        <summary className={`flex items-center text-sm font-medium cursor-pointer ${colorClass || ''}`}>
-          {icon}
-          {title}
-        </summary>
-        <div>{children}</div>
-      </details>
-    </div>
-  );
-}
-
 export default function IncomeImpactCalculator() {
   const [slider, setSlider] = useState(0);
   const [inputIncome, setInputIncome] = useState(0);
   const [isEditingInput, setIsEditingInput] = useState(false);
-  const [expandedBracket, setExpandedBracket] = useState<number | null>(null);
   
   // Memoize maxGain and maxLoss
   const maxGain = useMemo(() => Math.max(
     ...incomeBrackets.map(b => Math.max(b.impactPreSunset, b.impactPostSunset, 0))
-  ), [incomeBrackets]);
+  ), []);
   const maxLoss = useMemo(() => Math.abs(Math.min(
     ...incomeBrackets.map(b => Math.min(b.impactPreSunset, b.impactPostSunset, 0))
-  )), [incomeBrackets]);
-  // Memoize interpolateColor
-  const interpolateColor = useMemo(() => (val: number) => {
-    if (val > 0.5) {
-      const r = 255;
-      const g = Math.round(255 * (1 - (val - 0.5) / 0.5));
-      return `rgb(${r},${g},0)`;
-    } else {
-      const g = 255;
-      const r = Math.round(255 * (val / 0.5));
-      return `rgb(${r},${g},0)`;
-    }
-  }, []);
-  // Memoize income, bracket, bracketIndex
+  )), []);
+  // Memoize income and bracket
   const income = useMemo(() => sliderToIncome(slider), [slider]);
-  const bracket = useMemo(() => incomeBrackets.find(b => income >= b.min && income <= b.max) || incomeBrackets[0], [income, incomeBrackets]);
-  const bracketIndex = useMemo(() => incomeBrackets.findIndex(b => b === bracket), [bracket, incomeBrackets]);
+  const bracket = useMemo(() => incomeBrackets.find(b => income >= b.min && income <= b.max) || incomeBrackets[0], [income]);
   
-  // Calculate colors and heights for both thermometers
-  const preSunsetDangerNorm = bracket.impactPreSunset < 0 ? 0.8 : 0.2;
-  const postSunsetDangerNorm = bracket.impactPostSunset < 0 ? 0.9 : 0.1;
-  const preSunsetColor = interpolateColor(preSunsetDangerNorm);
-  const postSunsetColor = interpolateColor(postSunsetDangerNorm);
-  const preSunsetHeight = `${Math.max(5, Math.abs(bracket.impactPreSunset) / 20000 * 100)}%`;
-  const postSunsetHeight = `${Math.max(5, Math.abs(bracket.impactPostSunset) / 20000 * 100)}%`;
-
   // In a useEffect, keep inputIncome in sync with slider changes only if not editing
   React.useEffect(() => {
     if (!isEditingInput) {
@@ -159,7 +102,7 @@ export default function IncomeImpactCalculator() {
             <label htmlFor="income-slider" className="mb-2 font-medium text-neutral-dark text-lg">
               Annual Income: <span className="text-brand-blue font-bold text-2xl">${income.toLocaleString()}</span>
             </label>
-            <div className="flex items-center gap-2 w-full relative" style={{height: '48px'}}>
+            <div className="flex items-center gap-2 w-full relative" style={{height: 'clamp(2.5rem, 6vw, 3.5rem)'}}>
               <input
                 id="income-slider"
                 type="range"
@@ -237,7 +180,7 @@ export default function IncomeImpactCalculator() {
         {/* Left: Impact Card */}
         <div className="flex flex-col gap-8 items-center justify-start">
           <div className="glass w-full p-8 flex flex-col gap-6 items-center shadow-lg" style={{borderRadius:'20px', minWidth:'320px', background:'rgba(255,255,255,0.10)', boxShadow:'0 8px 32px rgba(37,99,235,0.10)'}}>
-            <h3 className="mb-2 font-semibold text-xl text-brand-blue" style={{letterSpacing:'-0.01em'}}>{bracket.label}</h3>
+            <h3 className="mb-4 font-semibold">{bracket.label.replace(/\s*\([^)]*\)/, '')}</h3>
             <div className="grid grid-cols-2 gap-6 w-full">
               <div className="text-center">
                 <div className="text-sm font-medium">Years 1-2</div>

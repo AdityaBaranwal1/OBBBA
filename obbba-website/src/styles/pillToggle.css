@@ -105,10 +105,9 @@
   border-left-style: solid;
   background: white;
   box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-  transition: box-shadow 0.2s, border-color 0.2s, transform 0.2s;
+  transition: box-shadow 0.2s, border-color 0.2s;
 }
 .detail-card:hover {
-  transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0,0,0,0.10);
   border-left-color: var(--brand-blue);
   filter: brightness(1.03);

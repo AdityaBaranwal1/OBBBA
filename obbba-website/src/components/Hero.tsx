@@ -14,7 +14,7 @@ export default function Hero() {
         <div className="space-y-8">
           {/* Main Headline */}
           <h1 className="mb-4">
-            One Big Bullshit Bill:
+            One Big Beautiful Bill:
             <br />
             Understanding the Real Costs
           </h1>

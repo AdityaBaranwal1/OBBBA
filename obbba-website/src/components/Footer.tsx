@@ -1,4 +1,4 @@
-import { Github, Heart } from 'lucide-react';
+import { Github } from 'lucide-react';
 
 export default function Footer() {
   return (
@@ -109,32 +109,20 @@ export default function Footer() {
               <span>Data sourced from official government reports</span>
             </div>
             
-            <div className="flex items-center space-x-6">
+            <div>
               <a
-                href="https://github.com"
+                href="https://github.com/AdityaBaranwal1/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-neutral-gray hover:text-white transition-colors duration-200"
+                className="flex items-center space-x-2 text-neutral-gray hover:text-white transition-colors duration-200"
               >
                 <Github className="w-5 h-5" />
+                <span className="text-sm">GitHub</span>
               </a>
-              <div className="flex items-center text-sm text-neutral-gray">
-                <span>Made with</span>
-                <Heart className="w-4 h-4 mx-1 text-accent-red" />
-                <span>and</span>
-                <a 
-                  href="https://cursor.sh" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="ml-1 text-brand-blue hover:text-blue-300 transition-colors duration-200"
-                >
-                  Cursor
-                </a>
-              </div>
             </div>
           </div>
         </div>
       </div>
     </footer>
   );
-} 
+}

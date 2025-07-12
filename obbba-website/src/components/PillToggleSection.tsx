@@ -16,16 +16,16 @@ const SECTION_CONTENT = {
   gdp: (
     <div>
       <h3>GDP & Economic Growth</h3>
-      <p><strong>Short-Term:</strong> OBBBA's tax cut extensions provide a modest short-term boost to GDP (+0.6% in 2026 per Tax Policy Center), but these gains fade as higher debt and interest rates offset the stimulus.</p>
-      <p><strong>Long-Term:</strong> Most independent analyses (CBO, CRFB, Tax Foundation) project only a 0.4–0.8% increase in GDP over decades, with most of the bill's cost not offset by growth. By 2049, higher debt could actually reduce GDP below baseline.</p>
-      <p><strong>Expert Consensus:</strong> "Extraordinary growth" claims are not supported by mainstream models. Most experts agree the long-run economic impact is minor, while the debt impact is large.</p>
+      <p><strong>Short-Term:</strong> OBBBA&rsquo;s tax cut extensions provide a modest short-term boost to GDP (+0.6% in 2026 per Tax Policy Center), but these gains fade as higher debt and interest rates offset the stimulus.</p>
+      <p><strong>Long-Term:</strong> Most independent analyses (CBO, CRFB, Tax Foundation) project only a 0.4–0.8% increase in GDP over decades, with most of the bill&rsquo;s cost not offset by growth. By 2049, higher debt could actually reduce GDP below baseline.</p>
+      <p><strong>Expert Consensus:</strong> &quot;Extraordinary growth&quot; claims are not supported by mainstream models. Most experts agree the long-run economic impact is minor, while the debt impact is large.</p>
     </div>
   ),
   snap: (
     <div>
       <h3>Nutrition Assistance (SNAP)</h3>
       <p><strong>Benefit Updates Frozen:</strong> SNAP benefits can only rise with inflation, not with food cost or diet changes, reducing future purchasing power.</p>
-      <p><strong>Stricter Work Requirements:</strong> Raises work age cutoff from 49 to 65 for "able-bodied adults without dependents." Many older low-income adults risk losing benefits.</p>
+      <p><strong>Stricter Work Requirements:</strong> Raises work age cutoff from 49 to 65 for &ldquo;able-bodied adults without dependents.&rdquo; Many older low-income adults risk losing benefits.</p>
       <p><strong>Impact:</strong> 22.3 million families face SNAP cuts; 5.3 million lose ≥ $25/month. Hardest-hit: families with children, working families, and those with a full-time worker.</p>
     </div>
   ),
@@ -101,9 +101,9 @@ export default function PillToggleSection() {
         </div>
 
         {/* Content Sections */}
-        <div className="space-y-6">
+        <div className="space-y-6" style={{ width: '100%' }}>
           {selected.map(key => (
-            <div key={key} className="card">
+            <div key={key} className="impact-card-apple">
               {SECTION_CONTENT[key as keyof typeof SECTION_CONTENT]}
             </div>
           ))}

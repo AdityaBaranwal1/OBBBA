@@ -36,23 +36,32 @@ const impacts = [
 export default function KeyImpactCards() {
   return (
     <section className="section">
-      <div className="container" style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'stretch', width: '100%' }}>
-        {impacts.map((impact, idx) => (
-          <div
-            key={idx}
-            className="glass-card flex flex-col justify-center items-center"
-            tabIndex={0}
+      <div className="container">
+        <div className="grid-layout grid-4" style={{ width: '100%' }}>
+          {impacts.map((impact, idx) => (
+            <div
+              key={idx}
+              className="impact-card-apple"
+              tabIndex={0}
             >
-            <div style={{ fontWeight: 700, fontSize: '1.3rem', marginBottom: 12 }}>
-              <span style={{ marginRight: 8 }}>{impact.icon}</span>
-              {impact.title}
+              <div className="impact-title">
+                <span style={{ marginRight: 8 }}>{impact.icon}</span>
+                {impact.title}
+              </div>
+              <div className="impact-desc">
+                {impact.description}
+              </div>
+              <a 
+                href={impact.url} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="impact-source"
+              >
+                {impact.source}
+              </a>
             </div>
-            <div style={{ fontSize: '1.05rem', opacity: 0.92, marginBottom: 12 }}>{impact.description}</div>
-            <a href={impact.url} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--accent, #2563eb)', textDecoration: 'underline', fontWeight: 500 }}>
-              {impact.source}
-            </a>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </section>
   );

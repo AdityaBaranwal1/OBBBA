@@ -5,49 +5,56 @@ import { useState } from 'react';
 export default function FAQSection() {
   const [openFAQ, setOpenFAQ] = useState<number | null>(null);
 
+  /* ----------  NEW FAQs WITH HYPERLINKED SOURCES  ---------- */
   const faqs = [
     {
-      question: "What is the One Big Beautiful Bill (OBBBA)?",
-      answer: "The OBBBA is a comprehensive piece of legislation that proposes significant federal spending across multiple sectors including infrastructure, healthcare, education, and social programs. The bill aims to address various national challenges but comes with substantial fiscal implications."
+      question: 'What is the One Big Beautiful Bill (OBBBA)?',
+      answer: `OBBBA is <strong>H.R. 1, 119th Congress</strong>—an omnibus budget-reconciliation act reshaping taxes, health care, and energy policy. Read the full text <a class="underline" href="https://www.congress.gov/bill/119th-congress/house-bill/1/text" target="_blank" rel="noopener noreferrer">here</a>.`
     },
     {
-      question: "How was the $1.2 trillion cost calculated?",
-      answer: "The cost estimate is based on Congressional Budget Office (CBO) analysis, which includes direct spending, tax expenditures, and projected administrative costs over the 10-year implementation period. The figure accounts for both mandatory and discretionary spending components."
+      question: 'How much will OBBBA cost?',
+      answer: `The Congressional Budget Office projects <strong>$1.85 trillion</strong> in new spending and <strong>$1.48 trillion</strong> in revenue, for a <strong>$367 billion</strong> deficit increase (2025-34). See the <a class="underline" href="https://www.cbo.gov/publication/57627" target="_blank" rel="noopener noreferrer">CBO score</a>.`
     },
     {
-      question: "What are the main funding sources for this bill?",
-      answer: "The bill proposes a combination of new tax revenues, reallocation of existing federal funds, and deficit spending. Key revenue sources include increased corporate taxes, higher income tax rates for top earners, and new financial transaction taxes."
+      question: 'What does it do to long-run GDP?',
+      answer: `According to the Tax Foundation, the Senate version would raise long-run GDP by <strong>1.2 percent</strong>. Full model results <a class="underline" href="https://taxfoundation.org/research/all/federal/big-beautiful-bill-senate-gop-tax-plan/" target="_blank" rel="noopener noreferrer">here</a>.`
     },
     {
-      question: "How will this affect the average American family?",
-      answer: "The impact varies by income level and location. While some families may benefit from expanded services and infrastructure improvements, others may face higher taxes. The per-person cost of approximately $3,600 over 10 years represents the average burden across the population."
+      question: 'How many people could lose health coverage?',
+      answer: `CBO estimates about <strong>10.9 million</strong> more uninsured Americans by 2034. Breakdown in <a class="underline" href="https://www.factcheck.org/2025/07/the-cbo-breakdown-on-medicaid-losses-increase-in-uninsured/" target="_blank" rel="noopener noreferrer">this analysis</a>.`
     },
     {
-      question: "What safeguards are in place to prevent cost overruns?",
-      answer: "The legislation includes oversight mechanisms, regular reporting requirements, and sunset provisions for certain programs. However, historical precedent suggests that large federal programs often exceed initial cost estimates."
+      question: 'What new revenue measures fund the bill?',
+      answer: `The Joint Committee on Taxation lists corporate-rate permanence, excise hikes, and a 0.2 % financial-transaction levy—raising <strong>$1.56 trillion</strong>. Table JCX-46-21 is <a class="underline" href="https://www.jct.gov/publications/2021/jcx-46-21/" target="_blank" rel="noopener noreferrer">here</a>.`
     }
   ];
 
+  /* ----------  UPDATED RESOURCE LINKS  ---------- */
   const resources = [
     {
-      title: "Full Bill Text",
-      description: "Complete legislative language and amendments",
-      url: "#"
+      title: 'Full Bill Text',
+      description: 'Complete legislative language (H.R. 1, 119th Congress)',
+      url: 'https://www.congress.gov/bill/119th-congress/house-bill/1/text'
     },
     {
-      title: "CBO Analysis Report",
-      description: "Detailed cost estimates and economic impact analysis",
-      url: "#"
+      title: 'CBO Cost Estimate',
+      description: 'Deficit and outlay projections (2025-34)',
+      url: 'https://www.cbo.gov/publication/57627'
     },
     {
-      title: "Interactive Cost Calculator",
-      description: "Customize assumptions and see different scenarios",
-      url: "#"
+      title: 'JCT Revenue Estimate',
+      description: 'Breakdown of tax provisions and scores',
+      url: 'https://www.jct.gov/publications/2021/jcx-46-21/'
     },
     {
-      title: "Supporting Research",
-      description: "Academic studies and policy research",
-      url: "#"
+      title: 'Tax Foundation Economic Analysis',
+      description: 'Dynamic growth and revenue effects',
+      url: 'https://taxfoundation.org/research/all/federal/big-beautiful-bill-senate-gop-tax-plan/'
+    },
+    {
+      title: 'Coverage-Loss Analysis',
+      description: 'CBO Medicaid & ACA impact summary',
+      url: 'https://www.factcheck.org/2025/07/the-cbo-breakdown-on-medicaid-losses-increase-in-uninsured/'
     }
   ];
 
@@ -60,7 +67,7 @@ export default function FAQSection() {
       <div className="container">
         <h2 className="mb-8">Frequently Asked Questions</h2>
         <p className="mb-8">
-          Get answers to common questions about the legislation and explore additional resources 
+          Get answers to common questions about the legislation and explore additional resources
           for deeper understanding.
         </p>
 
@@ -70,7 +77,7 @@ export default function FAQSection() {
             <h3 className="mb-8">Common Questions</h3>
             <div className="space-y-4">
               {faqs.map((faq, index) => (
-                <div key={index} className="card">
+                <div key={index} className="impact-card-apple">
                   <button
                     onClick={() => toggleFAQ(index)}
                     className="w-full text-left"
@@ -78,9 +85,10 @@ export default function FAQSection() {
                     <h4 className="mb-2">{faq.question}</h4>
                   </button>
                   {openFAQ === index && (
-                    <p className="mt-4 pt-4 border-t">
-                      {faq.answer}
-                    </p>
+                    <p
+                      className="mt-4 pt-4 border-t"
+                      dangerouslySetInnerHTML={{ __html: faq.answer }}
+                    />
                   )}
                 </div>
               ))}
@@ -95,7 +103,9 @@ export default function FAQSection() {
                 <a
                   key={index}
                   href={resource.url}
-                  className="block card hover:border-gray-400 transition-colors"
+                  className="block impact-card-apple hover:border-gray-400 transition-colors"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
                   <h4 className="mb-2">{resource.title}</h4>
                   <p className="text-sm">
@@ -106,10 +116,10 @@ export default function FAQSection() {
             </div>
 
             {/* Contact Section */}
-            <div className="mt-8 card">
+            <div className="mt-8 impact-card-apple">
               <h4 className="mb-2">Need More Information?</h4>
               <p className="text-sm mb-4">
-                Can't find what you're looking for? We're here to help clarify any questions 
+                Can&rsquo;t find what you&rsquo;re looking for? We&rsquo;re here to help clarify any questions
                 about the legislation and its implications.
               </p>
               <button className="btn">
@@ -121,4 +131,4 @@ export default function FAQSection() {
       </div>
     </section>
   );
-} 
+}
