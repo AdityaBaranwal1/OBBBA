@@ -88,7 +88,7 @@ export default function PillToggleSection() {
         <h2 className="mb-8">Key Impacts</h2>
         
         {/* Topic Pills */}
-        <div className="flex flex-wrap gap-2 mb-8">
+        <div className="flex flex-wrap gap-2 mb-8 justify-center">
           {TOPICS.map(topic => (
             <button
               key={topic.key}

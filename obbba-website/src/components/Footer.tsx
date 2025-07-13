@@ -36,18 +36,10 @@ export default function Footer() {
               </li>
               <li>
                 <a 
-                  href="#code" 
+                  href="#faq-section" 
                   className="text-neutral-gray hover:text-white transition-colors duration-200"
                 >
-                  Code Analysis
-                </a>
-              </li>
-              <li>
-                <a 
-                  href="#embed" 
-                  className="text-neutral-gray hover:text-white transition-colors duration-200"
-                >
-                  Visualizations
+                  FAQ
                 </a>
               </li>
             </ul>
@@ -55,7 +47,7 @@ export default function Footer() {
 
           {/* External Links */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Resources</h3>
+            <h3 className="text-lg font-semibold mb-4">Resources & Contact</h3>
             <ul className="space-y-2 text-sm">
               <li>
                 <a 
@@ -94,6 +86,18 @@ export default function Footer() {
                   <svg className="w-3 h-3 ml-1" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
                   </svg>
+                </a>
+              </li>
+              <li className="pt-2 border-t border-neutral-gray">
+                <a 
+                  href="mailto:questions@obbba-analysis.dev?subject=OBBBA%20Analysis%20Question"
+                  className="text-neutral-gray hover:text-white transition-colors duration-200 flex items-center"
+                >
+                  <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+                    <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+                  </svg>
+                  Questions? Email us
                 </a>
               </li>
             </ul>

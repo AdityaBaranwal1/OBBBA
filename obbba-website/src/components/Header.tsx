@@ -194,8 +194,7 @@ export default function Header() {
                 alignItems: 'center',
                 justifyContent: 'space-between'
               }}>
-                <span style={{
-                  color: 'var(--text-primary)',
+                <span className="mobile-menu-theme-text" style={{
                   fontSize: '1.125rem',
                   fontWeight: 500
                 }}>
@@ -210,14 +209,10 @@ export default function Header() {
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
+                className="mobile-menu-item"
                 style={{
-                  background: 'var(--surface-glass)',
-                  backdropFilter: 'blur(20px)',
-                  WebkitBackdropFilter: 'blur(20px)',
-                  border: '1px solid rgba(128,128,128,0.2)',
                   borderRadius: '16px',
                   padding: '1rem 1.5rem',
-                  color: 'var(--text-primary)',
                   fontSize: '1.125rem',
                   fontWeight: 500,
                   textAlign: 'left',
@@ -229,12 +224,10 @@ export default function Header() {
                 onTouchStart={(e) => {
                   const target = e.target as HTMLElement;
                   target.style.transform = 'scale(0.95)';
-                  target.style.background = 'var(--surface-1)';
                 }}
                 onTouchEnd={(e) => {
                   const target = e.target as HTMLElement;
                   target.style.transform = 'scale(1)';
-                  target.style.background = 'var(--surface-glass)';
                 }}
               >
                 {item.label}
