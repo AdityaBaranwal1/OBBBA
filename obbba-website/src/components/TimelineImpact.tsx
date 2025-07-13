@@ -74,7 +74,7 @@ export default function TimelineImpact() {
   const [activeIdx, setActiveIdx] = useState<number | null>(null);
 
   return (
-    <section className="section">
+    <section id="timeline-impact" className="section">
       <div className="container">
         <h2 className="mb-8">One Big Beautiful Bill Act – Timeline of Key Individual Impacts</h2>
         <div className="relative w-full" style={{ maxWidth: 700, margin: '0 auto' }}>

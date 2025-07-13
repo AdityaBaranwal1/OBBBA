@@ -35,14 +35,15 @@ const impacts = [
 
 export default function KeyImpactCards() {
   return (
-    <section className="section">
+    <section className="section section-transition">
       <div className="container">
         <div className="grid-layout grid-4" style={{ width: '100%' }}>
           {impacts.map((impact, idx) => (
             <div
               key={idx}
-              className="impact-card-apple"
+              className={`impact-card-apple scroll-fade-in glass-scroll-effect animate-delay-${(idx + 1) * 100}`}
               tabIndex={0}
+              style={{ animationDelay: `${idx * 0.1}s` }}
             >
               <div className="impact-title">
                 <span style={{ marginRight: 8 }}>{impact.icon}</span>

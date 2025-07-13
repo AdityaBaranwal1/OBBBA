@@ -63,7 +63,7 @@ export default function FAQSection() {
   };
 
   return (
-    <section id="learn-more" className="section">
+    <section id="faq-section" className="section">
       <div className="container">
         <h2 className="mb-8">Frequently Asked Questions</h2>
         <p className="mb-8">

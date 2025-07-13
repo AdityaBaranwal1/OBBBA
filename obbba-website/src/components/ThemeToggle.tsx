@@ -32,22 +32,33 @@ export default function ThemeToggle() {
     <button
       onClick={toggle}
       aria-label="Toggle dark / light mode"
-      className="button"
+      className="theme-toggle-button"
       style={{
         display: 'flex',
         alignItems: 'center',
         gap: 8,
-        padding: '0.4rem 1rem',
+        padding: '0.5rem 1rem',
         background: 'var(--surface-glass)',
-        backdropFilter: 'blur(8px)',
-        border: '1px solid rgba(255,255,255,0.12)',
+        backdropFilter: 'blur(12px)',
+        WebkitBackdropFilter: 'blur(12px)',
+        border: '1px solid rgba(128,128,128,0.2)',
         borderRadius: 9999,
         fontSize: 14,
-        color: 'var(--text-primary)'
+        color: 'var(--text-primary)',
+        cursor: 'pointer',
+        transition: 'all 0.2s ease',
+        touchAction: 'manipulation',
+        WebkitTouchCallout: 'none',
+        WebkitUserSelect: 'none',
+        userSelect: 'none',
+        minHeight: '44px', // Better touch target for mobile
+        minWidth: '44px'
       }}
     >
       {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
-      {theme === 'dark' ? 'Light' : 'Dark'}
+      <span style={{ fontSize: '14px', fontWeight: 500 }}>
+        {theme === 'dark' ? 'Light' : 'Dark'}
+      </span>
     </button>
   );
 } 

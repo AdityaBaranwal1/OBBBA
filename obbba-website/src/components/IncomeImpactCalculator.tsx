@@ -35,33 +35,43 @@ function Thermometer({ value, maxGain, maxLoss, label }: ThermometerProps) {
     ? `${Math.max(5, Math.abs(value) / maxLoss * 50)}%`
     : '4%';
   const barColor = isGain
-    ? 'bg-green-200'
+    ? '#32d74b'
     : isLoss
-    ? 'bg-red-200'
-    : 'bg-gray-300';
+    ? '#ff3b30'
+    : '#8e8e93';
   const barStyle = isGain
     ? { bottom: '50%', height: barHeight, transition: 'height 0.6s cubic-bezier(0.4,0,0.2,1)' }
     : isLoss
     ? { top: '50%', height: barHeight, transition: 'height 0.6s cubic-bezier(0.4,0,0.2,1)' }
     : { top: '48%', height: barHeight, transition: 'height 0.6s cubic-bezier(0.4,0,0.2,1)' };
+  
   return (
-    <div className="flex flex-col items-center">
-      <div className="text-sm font-medium mb-2 {isGain ? 'text-green-700' : isLoss ? 'text-red-700' : 'text-gray-700'}">{label}</div>
-      <div className="h-64 w-12 flex items-center relative">
+    <div className="thermometer-wrapper">
+      <div className="thermometer-label">{label}</div>
+      <div className="thermometer-container">
         {/* Background track */}
-        <div className="absolute left-0 right-0 top-0 bottom-0 bg-gray-100 rounded-full z-0" />
-        <div className="absolute left-0 right-0 top-1/2 h-0.5 bg-gray-300 z-10" />
-        <div className={`absolute left-0 right-0 rounded-full z-20 ${barColor}`} style={barStyle} />
+        <div className="thermometer-track" />
+        <div className="thermometer-centerline" />
+        <div 
+          className="thermometer-bar" 
+          style={{
+            ...barStyle,
+            background: `linear-gradient(180deg, ${barColor}, ${barColor}dd)`,
+            boxShadow: `0 2px 8px ${barColor}40`
+          }} 
+        />
       </div>
-      <div className={`mt-4 text-lg font-bold flex items-center justify-center`}>
-        {isGain && <ChevronUp className="w-5 h-5 text-green-700 mr-1" />} 
-        {isLoss && <ChevronDown className="w-5 h-5 text-red-700 mr-1" />} 
-        {isSmall && <Minus className="w-5 h-5 text-gray-500 mr-1" />} 
-        <span className={isGain ? 'text-green-700' : isLoss ? 'text-red-700' : 'text-gray-700'}>
+      <div className="thermometer-status">
+        {isGain && <ChevronUp className="status-icon gain-icon" />} 
+        {isLoss && <ChevronDown className="status-icon loss-icon" />} 
+        {isSmall && <Minus className="status-icon neutral-icon" />} 
+        <span className={`status-text ${isGain ? 'gain-text' : isLoss ? 'loss-text' : 'neutral-text'}`}>
           {isLoss ? 'Loss' : isGain ? 'Gain' : 'Small change'}
         </span>
       </div>
-      <div className={`text-base font-semibold mt-1 ${isGain ? 'text-green-700' : isLoss ? 'text-red-700' : 'text-gray-700'}`}>${value < 0 ? '-' : ''}{Math.abs(value).toLocaleString()}/yr</div>
+      <div className={`thermometer-value ${isGain ? 'gain-text' : isLoss ? 'loss-text' : 'neutral-text'}`}>
+        ${value < 0 ? '-' : ''}{Math.abs(value).toLocaleString()}/yr
+      </div>
     </div>
   );
 }
@@ -90,19 +100,32 @@ export default function IncomeImpactCalculator() {
   }, [income, isEditingInput]);
 
   return (
-    <section className="py-20 bg-neutral-light" id="income-impact">
-      <div className="glass max-w-5xl mx-auto p-8 grid gap-10" style={{gridTemplateColumns:'1fr 1fr', boxShadow:'0 8px 32px rgba(0,0,0,0.35)', borderRadius:'24px', background:'linear-gradient(135deg, rgba(255,255,255,0.10) 0%, rgba(37,99,235,0.08) 100%)'}}>
-        <div className="col-span-2 flex flex-col items-center mb-8">
-          <h2 className="text-3xl sm:text-4xl font-bold text-brand-blue mb-2" style={{letterSpacing:'-0.01em'}}>Personal Impact Calculator</h2>
-          <p className="text-neutral-dark text-lg text-center max-w-2xl">Use the slider or input to select your annual income and see how the OBBBA may affect your finances over time.</p>
+    <section className="py-16 bg-neutral-light section-transition" id="income-impact">
+      <div className="max-w-6xl mx-auto px-4">
+        {/* Header */}
+        <div className="text-center mb-8">
+          <h2 className="text-3xl sm:text-4xl font-bold text-brand-blue mb-3" style={{letterSpacing:'-0.01em'}}>Personal Impact Calculator</h2>
+          <p className="text-neutral-dark text-lg max-w-2xl mx-auto">Select your annual income to see how the OBBBA Act may affect your finances over time.</p>
+          <div className="mt-4 text-center">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-50 border border-blue-200 rounded-lg text-xs text-blue-700">
+              <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+              </svg>
+              Educational purposes only • Data is fact-checked
+            </div>
+          </div>
         </div>
-        {/* Slider/Input Section - now at the top, spanning both columns */}
-        <div className="col-span-2 flex flex-col gap-6 items-center justify-center mb-4">
-          <div className="glass w-full p-8 flex flex-col gap-6 items-center shadow-lg" style={{borderRadius:'20px', minWidth:'320px', background:'rgba(255,255,255,0.10)', boxShadow:'0 8px 32px rgba(37,99,235,0.10)'}}>
-            <label htmlFor="income-slider" className="mb-2 font-medium text-neutral-dark text-lg">
-              Annual Income: <span className="text-brand-blue font-bold text-2xl">${income.toLocaleString()}</span>
-            </label>
-            <div className="flex items-center gap-2 w-full relative" style={{height: 'clamp(2.5rem, 6vw, 3.5rem)'}}>
+
+        {/* Main Calculator Container */}
+        <div className="calculator-glass-container">
+          {/* Income Input Section */}
+          <div className="income-input-section">
+            <div className="income-display">
+              <span className="income-label">Annual Income</span>
+              <span className="income-value">${income.toLocaleString()}</span>
+            </div>
+            
+            <div className="slider-container">
               <input
                 id="income-slider"
                 type="range"
@@ -113,15 +136,10 @@ export default function IncomeImpactCalculator() {
                   setSlider(Number(e.target.value));
                   if (!isEditingInput) setInputIncome(sliderToIncome(Number(e.target.value)));
                 }}
-                className="w-full accent-brand-blue"
+                className="income-slider"
                 aria-label="Annual income slider"
-                aria-valuemin={0}
-                aria-valuemax={100}
-                aria-valuenow={slider}
-                aria-valuetext={`Annual income: $${income.toLocaleString()}`}
               />
-              {/* Slider tick labels aligned to correct slider values */}
-              <div className="absolute left-0 right-0" style={{top: '2.8rem', pointerEvents: 'none'}}>
+              <div className="slider-labels">
                 {[
                   { label: '$0', value: 0 },
                   { label: '$40k', value: 40000 },
@@ -132,26 +150,16 @@ export default function IncomeImpactCalculator() {
                 ].map(({ label, value }) => {
                   const percent = incomeToSlider(value);
                   return (
-                    <span
-                      key={label}
-                      style={{
-                        position: 'absolute',
-                        left: `calc(${percent}% - 18px)`,
-                        minWidth: '36px',
-                        textAlign: 'center',
-                        fontSize: '14px',
-                        color: '#6B7280',
-                        fontWeight: 500
-                      }}
-                    >
+                    <span key={label} style={{ left: `${percent}%` }}>
                       {label}
                     </span>
                   );
                 })}
               </div>
             </div>
-            <div className="flex items-center gap-2 w-full justify-center mt-2">
-              <span className="text-gray-400 text-lg">$</span>
+
+            <div className="manual-input">
+              <span className="currency-symbol">$</span>
               <input
                 type="number"
                 min={0}
@@ -171,80 +179,89 @@ export default function IncomeImpactCalculator() {
                   setSlider(incomeToSlider(val));
                   setIsEditingInput(false);
                 }}
-                className="pr-2 py-2 rounded-lg border border-gray-300 focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/20 text-lg w-full bg-white shadow-sm"
-                aria-label="Annual income input"
+                className="income-manual-input"
+                placeholder="Enter amount"
               />
             </div>
           </div>
-        </div>
-        {/* Left: Impact Card */}
-        <div className="flex flex-col gap-8 items-center justify-start">
-          <div className="glass w-full p-8 flex flex-col gap-6 items-center shadow-lg" style={{borderRadius:'20px', minWidth:'320px', background:'rgba(255,255,255,0.10)', boxShadow:'0 8px 32px rgba(37,99,235,0.10)'}}>
-            <h3 className="mb-4 font-semibold">{bracket.label.replace(/\s*\([^)]*\)/, '')}</h3>
-            <div className="grid grid-cols-2 gap-6 w-full">
-              <div className="text-center">
-                <div className="text-sm font-medium">Years 1-2</div>
-                <div className="text-2xl font-bold" style={{color: bracket.impactPreSunset < 0 ? 'var(--loss)' : 'var(--gain)', textShadow:'0 2px 8px rgba(0,0,0,0.10)'}}>
-                  {bracket.impactPreSunset < 0 ? '-' : '+'}${Math.abs(bracket.impactPreSunset).toLocaleString()}/yr
+
+          {/* Results Grid */}
+          <div className="results-grid">
+            {/* Impact Summary Card */}
+            <div className="impact-summary-card">
+              <h3 className="bracket-title">{bracket.label.replace(/\s*\([^)]*\)/, '')}</h3>
+              
+              <div className="impact-timeline">
+                <div className="impact-period">
+                  <span className="period-label">Years 1-2</span>
+                  <span className={`impact-amount ${bracket.impactPreSunset < 0 ? 'negative' : 'positive'}`}>
+                    {bracket.impactPreSunset < 0 ? '-' : '+'}${Math.abs(bracket.impactPreSunset).toLocaleString()}/yr
+                  </span>
+                </div>
+                <div className="impact-period">
+                  <span className="period-label">Year 3+</span>
+                  <span className={`impact-amount ${bracket.impactPostSunset < 0 ? 'negative' : 'positive'}`}>
+                    {bracket.impactPostSunset < 0 ? '-' : '+'}${Math.abs(bracket.impactPostSunset).toLocaleString()}/yr
+                  </span>
                 </div>
               </div>
-              <div className="text-center">
-                <div className="text-sm font-medium">Year 3+</div>
-                <div className="text-2xl font-bold" style={{color: bracket.impactPostSunset < 0 ? 'var(--loss)' : 'var(--gain)', textShadow:'0 2px 8px rgba(0,0,0,0.10)'}}>
-                  {bracket.impactPostSunset < 0 ? '-' : '+'}${Math.abs(bracket.impactPostSunset).toLocaleString()}/yr
+
+              <div className="cliff-indicator">
+                {bracket.impactPreSunset > bracket.impactPostSunset ? 
+                  <span className="cliff-warning">Cliff: -${Math.abs(bracket.impactPreSunset - bracket.impactPostSunset).toLocaleString()}/yr drop</span> :
+                  bracket.impactPreSunset < bracket.impactPostSunset ?
+                  <span className="cliff-improvement">Improvement: +${Math.abs(bracket.impactPostSunset - bracket.impactPreSunset).toLocaleString()}/yr gain</span> :
+                  <span className="cliff-neutral">No change</span>
+                }
+              </div>
+
+              <p className="impact-explanation">{bracket.oneLineWhy}</p>
+
+              <div className="year-effects">
+                <h4 className="effects-title">
+                  <Calendar className="w-4 h-4" /> Year 3+ Effects
+                </h4>
+                <ul className="effects-list">
+                  {bracket.sunsetDetails.map((detail, index) => (
+                    <li key={index}>{detail}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            {/* Details and Visualizations */}
+            <div className="details-section">
+              <div className="general-details">
+                <h4 className="details-title">General Details</h4>
+                <ul className="details-list">
+                  {bracket.details.map((detail, index) => (
+                    <li key={index}>{detail}</li>
+                  ))}
+                </ul>
+                
+                <div className="sources-section">
+                  <p className="sources-label">Sources:</p>
+                  <div className="sources-links">
+                    {bracket.sources.map((source, index) => (
+                      <a
+                        key={index}
+                        href={source.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="source-link"
+                      >
+                        {source.text}
+                      </a>
+                    ))}
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="text-center mb-2 font-semibold" style={{color: bracket.impactPreSunset > bracket.impactPostSunset ? 'var(--loss)' : bracket.impactPreSunset < bracket.impactPostSunset ? 'var(--gain)' : 'var(--text-primary)'}}>
-              {bracket.impactPreSunset > bracket.impactPostSunset ? 
-                `Cliff: -$${Math.abs(bracket.impactPreSunset - bracket.impactPostSunset).toLocaleString()}/yr drop` :
-                bracket.impactPreSunset < bracket.impactPostSunset ?
-                `Improvement: +$${Math.abs(bracket.impactPostSunset - bracket.impactPreSunset).toLocaleString()}/yr gain` :
-                'No change'
-              }
-            </div>
-            <p className="text-sm text-neutral-dark mb-2">{bracket.oneLineWhy}</p>
-            {/* Always show 3-year effect details (no dropdown) */}
-            <div className="w-full mt-4 p-4 rounded-xl" style={{background:'rgba(37,99,235,0.07)', boxShadow:'0 2px 8px rgba(37,99,235,0.06)'}}>
-              <h4 className="text-lg font-semibold mb-2 text-brand-blue flex items-center gap-2"><Calendar className="w-5 h-5" /> Year 3+ Effects</h4>
-              <ul className="space-y-2 text-sm">
-                {bracket.sunsetDetails.map((detail, index) => (
-                  <li key={index} className="flex items-start text-neutral-dark"><span className="mr-2">•</span>{detail}</li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
-        {/* Right: General details above, Thermometers below */}
-        <div className="flex flex-col gap-8 items-center justify-start">
-          <div className="glass w-full p-6" style={{borderRadius:'18px', background:'rgba(255,255,255,0.10)'}}>
-            <h4 className="mb-2 text-brand-blue font-semibold text-lg">General details</h4>
-            <ul className="space-y-2 text-sm mb-4">
-              {bracket.details.map((detail, index) => (
-                <li key={index} className="flex items-start text-neutral-dark"><span className="mr-2">•</span>{detail}</li>
-              ))}
-            </ul>
-            <div className="pt-4 border-t border-gray-300">
-              <p className="text-xs mb-2 text-neutral-dark">Sources:</p>
-              <div className="flex flex-wrap gap-2">
-                {bracket.sources.map((source, index) => (
-                  <a
-                    key={index}
-                    href={source.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-xs underline text-brand-blue hover:opacity-80"
-                  >
-                    {source.text}
-                  </a>
-                ))}
+
+              <div className="thermometers-container">
+                <Thermometer value={bracket.impactPreSunset} maxGain={maxGain} maxLoss={maxLoss} label="Years 1-2" />
+                <Thermometer value={bracket.impactPostSunset} maxGain={maxGain} maxLoss={maxLoss} label="Year 3+" />
               </div>
             </div>
-          </div>
-          {/* Thermometers below general details */}
-          <div className="flex flex-row gap-8 mt-4">
-            <Thermometer value={bracket.impactPreSunset} maxGain={maxGain} maxLoss={maxLoss} label="Years 1-2" />
-            <Thermometer value={bracket.impactPostSunset} maxGain={maxGain} maxLoss={maxLoss} label="Year 3+" />
           </div>
         </div>
       </div>
