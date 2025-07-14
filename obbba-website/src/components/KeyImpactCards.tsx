@@ -18,11 +18,11 @@ const impacts = [
     icon: '📈',
   },
   {
-    title: 'Time Frame',
-    description: 'FY 2025 ➜ 2034 (changes phase-in, fully felt by 2034).',
-    source: 'CRFB',
-    url: 'https://www.crfb.org/blogs/breaking-down-one-big-beautiful-bill',
-    icon: '📅',
+    title: 'Healthcare',
+    description: '≈ 16 million could lose health insurance by 2034.',
+    source: 'CBPP',
+    url: 'https://www.cbpp.org/research/health/by-the-numbers-house-bill-takes-health-coverage-away-from-millions-of-people-and?utm_source=chatgpt.com',
+    icon: '🩺',
   },
   {
     title: 'Deficit Hit',

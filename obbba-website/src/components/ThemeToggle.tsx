@@ -4,29 +4,61 @@ import { useEffect, useState } from "react";
 import { Sun, Moon } from "lucide-react";
 
 export default function ThemeToggle() {
-  const [theme, setTheme] = useState<'dark' | 'light'>("light");
+  const [theme, setTheme] = useState<'dark' | 'light' | null>(null);
+  const [mounted, setMounted] = useState(false);
 
-  // On mount, read localStorage or system preference
+  // On mount, read localStorage and set theme
   useEffect(() => {
-    const stored = typeof window !== 'undefined' ? localStorage.getItem("theme") : null;
+    setMounted(true);
+    const stored = localStorage.getItem("theme");
     if (stored === "light" || stored === "dark") {
       setTheme(stored);
-      document.documentElement.setAttribute("data-theme", stored);
     } else {
-      // fall back to light mode as default
-      const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
-      const initial = prefersLight ? 'light' : 'light'; // Default to light
-      setTheme(initial);
-      document.documentElement.setAttribute("data-theme", initial);
+      // Default to dark mode
+      setTheme('dark');
+      localStorage.setItem("theme", 'dark');
     }
   }, []);
 
+  useEffect(() => {
+    if (theme && mounted) {
+      document.documentElement.setAttribute("data-theme", theme);
+    }
+  }, [theme, mounted]);
+
   const toggle = () => {
+    if (!mounted) return;
     const newTheme = theme === "dark" ? "light" : "dark";
     setTheme(newTheme);
-    document.documentElement.setAttribute("data-theme", newTheme);
     localStorage.setItem("theme", newTheme);
   };
+
+  // Don't render anything until mounted to prevent hydration issues
+  if (!mounted || !theme) {
+    return (
+      <button
+        style={{
+          background: 'var(--surface-glass)',
+          backdropFilter: 'blur(12px)',
+          WebkitBackdropFilter: 'blur(12px)',
+          border: '2px solid rgba(255, 255, 255, 0.3)',
+          borderRadius: '12px',
+          width: '48px',
+          height: '48px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          cursor: 'pointer',
+          transition: 'all 0.2s ease',
+          color: 'var(--text-primary)',
+          visibility: 'hidden' // Hide until mounted
+        }}
+        disabled
+      >
+        <Moon size={20} />
+      </button>
+    );
+  }
 
   return (
     <button

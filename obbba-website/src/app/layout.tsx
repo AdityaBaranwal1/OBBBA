@@ -68,6 +68,23 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        {/* Prevent flash and hydration mismatch - set theme before React hydration */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  const stored = localStorage.getItem('theme');
+                  const theme = stored || 'dark';
+                  document.documentElement.setAttribute('data-theme', theme);
+                } catch (e) {
+                  document.documentElement.setAttribute('data-theme', 'dark');
+                }
+              })();
+            `
+          }}
+        />
+        
         {/* Additional SEO meta tags */}
         <link rel="canonical" href="https://obbba.org" />
         <meta name="author" content="OBBBA Analysis Team" />

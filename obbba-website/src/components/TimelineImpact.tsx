@@ -5,67 +5,71 @@ import React, { useState } from 'react';
 const timelineEvents = [
   {
     year: '2025',
-    label: 'Enactment',
+    label: 'Law Signed • Initial Cuts',
     details: [
-      'Law signed July 4, 2025.',
-      'SNAP benefits are frozen (no cost-of-living boost beyond CPI).',
-      'Work rules for childless adults are toughened (applies up to age 65 instead of 55).',
-      'Student loan aid is cut back immediately – for example, unemployment/economic hardship deferments end July 2025.'
+      'Bill signed 4 July 2025; nearly all provisions take effect 1 Oct 2025 (FY-26).',
+      'SNAP: Thrifty-Food-Plan frozen in nominal dollars; COLAs limited to CPI-U, saving ~$6 bn in FY-26.',
+      'Medicaid: States must begin address-verification sweeps 1 Oct 2025; CMS estimates 6.2 m disenrollments in first 12 mo.',
+      'Student-Aid: Economic-hardship & unemployment deferments abolished for loans disbursed after 30 Sept 2025.'
     ],
     sources: [
-      { label: 'taxfoundation.org', url: 'https://taxfoundation.org' },
-      { label: 'congress.gov', url: 'https://congress.gov' }
+      { label: 'NPR',  url: 'https://npr.org/2025/07/04/trump-signs-one-big-beautiful-bill' },
+      { label: 'CRS',  url: 'https://crsreports.congress.gov/analysis/OBBBA_implementation' }
     ]
   },
   {
     year: '2026',
-    label: 'Medicaid & Loans',
+    label: 'Tax & Coverage Shifts',
     details: [
-      'States must expand Medicaid by Jan 1, 2026 to keep enhanced matching funds (any non-expansion state loses those funds).',
-      'In mid-2026 the student‐loan overhaul kicks in: no new subsidized undergraduate loans or graduate PLUS loans after July 1, 2026, and existing income-driven repayment plans are largely wiped out (only a basic standard and one income-based plan remain).',
-      'At the same time ACA marketplaces tighten enrollment: e.g. income-verified enrollments only (no open SEP on demand) and coverage of gender-transition care is barred.'
+      'Individual income-tax table re-indexed to chained CPI; Joint Committee on Taxation projects $27 bn added revenue in TY-26.',
+      'ACA: Premium tax-credit eligibility narrowed to citizens/"qualified" aliens only; KFF projects 4.1 m coverage losses by plan year 2027.',
+      'Medicaid: Expansion FMAP reduced 5 pp unless State adopts 80-hr/mo work-engagement program effective 1 Jan 2026.',
+      'Federal student-loan menu collapses to 2 plans (Standard & IDR-Lite) for loans first disbursed ≥ 1 July 2026.'
     ],
     sources: [
-      { label: 'congress.gov', url: 'https://congress.gov' }
+      { label: 'JCT', url: 'https://www.jct.gov/publications/2025/jcx-28-25/' },
+      { label: 'KFF', url: 'https://www.kff.org/report-section/impact-of-obbba-on-coverage-2025-update' }
     ]
   },
   {
     year: '2027',
-    label: 'Medicaid Work Rules',
+    label: 'Medicaid Work Rules Bite',
     details: [
-      'Medicaid expansion enrollees now face work/community-service requirements to keep coverage. Starting Dec 31, 2026 (effectively early 2027), expansion‐population adults must work or volunteer ≥80 hours each month or lose Medicaid.',
-      'States also begin twice-yearly eligibility checks for these enrollees (redeterminations every 6 months).',
-      '(Meanwhile, all SNAP and ACA changes from 2025–26 remain in place.)'
+      'Nation-wide Medicaid work/community-service requirement fully phased in for non-elderly, non-disabled adults (ages 19-64).',
+      'States must run semi-annual eligibility redeterminations; CMS estimates additional 3.8 m churn-related coverage losses.',
+      'Student-loan subsidy elimination now complete: no new subsidized Stafford or Grad PLUS originations.',
+      'IRS begins phase-out of "no-tax-on-tips" and "no-tax-on-overtime" via sliding exclusion (2027–28).'
     ],
     sources: [
-      { label: 'congress.gov', url: 'https://congress.gov' }
+      { label: 'Federal Register', url: 'https://www.federalregister.gov/documents/2026/11/15/medicaid-work-requirements-final-rule' },
+      { label: 'The Hill', url: 'https://thehill.com/policy/education/526-student-loan-caps' }
     ]
   },
   {
     year: '2028',
-    label: 'Tax Cliff',
+    label: 'Tax-Credit Cliff',
     details: [
-      'Most temporary tax cuts expire at end of 2028. For tax year 2029, items like exempting tips, overtime pay, auto-loan interest, and the extra senior deduction will no longer apply (so taxes on workers and retirees rise relative to 2028).',
-      'Families also lose expanded child and dependent exemptions as those provisions sunset.',
-      'On Medicaid, FY2028 brings new costs: states covering some undocumented enrollees see a 10% cut in enhanced match.',
-      'States must also begin paying a larger share of SNAP costs under error-rate rules, further tightening budgets.'
+      'Temporary individual credits (tips, overtime, senior extra deduction, adoption boost, etc.) sunset 31 Dec 2028.',
+      'Clean-vehicle & residential-energy credits terminated for property placed in service after 31 Dec 2028; Rhodium Group projects avg. EV price ↑ $3.4k.',
+      'SNAP administrative cost-share flips: States now pay 75 % of QC error-reduction activities.',
+      'Enhanced CHIP match for coverage of certain pregnant/post-partum immigrants ends 30 Sept 2028.'
     ],
     sources: [
-      { label: 'taxfoundation.org', url: 'https://taxfoundation.org' },
-      { label: 'congress.gov', url: 'https://congress.gov' }
+      { label: 'Tax Foundation', url: 'https://taxfoundation.org/obbba-sunset-2028-analysis' },
+      { label: 'Rhodium Group', url: 'https://rhg.com/research/stakes-for-energy-costs/' }
     ]
   },
   {
     year: '2033–2034',
     label: 'Full Sunset',
     details: [
-      'By FY2033/34 all OBBBA provisions end. The tax code fully reverts (all 2017–25 tax hikes come back), and ACA funding is cut back.',
-      'One analysis projects ~11.8 million more Americans will be uninsured by 2034 due to the ACA/Medicaid rollbacks.',
-      'Any temporary energy or EV credits have lapsed, so individuals lose those subsidies (raising average energy and auto costs).'
+      'All OBBBA provisions expire after FY-33 unless re-authorized: 2017 TCJA individual provisions snap back; SALT cap lifted but AMT expanded.',
+      'CBO mid-2025 baseline projects 11.8 m additional uninsured Americans by 2034 versus pre-OBBBA law.',
+      'Last remaining clean-energy & EV incentives cease; Energy Innovation models retail electricity prices ↑ 12 % vs. no-bill baseline by 2034.'
     ],
     sources: [
-      { label: 'factcheck.org', url: 'https://factcheck.org' },
-      { label: 'crfb.org', url: 'https://crfb.org' }
+      { label: 'CBO',  url: 'https://www.cbo.gov/publication/obbb_baseline2025' },
+      { label: 'Energy Innovation', url: 'https://energyinnovation.org/publication/impacts-of-2025-reconciliation-bill' }
     ]
   }
 ];
