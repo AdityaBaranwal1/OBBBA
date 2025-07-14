@@ -125,22 +125,24 @@ a:hover {
 
 /* Layout Utilities */
 .container {
-  width: min(90%, 1400px);
+  width: min(88%, 1400px);
   margin: 0 auto;
-  padding: 0 clamp(1rem, 4vw, 2rem);
+  padding: 0 clamp(1.5rem, 5vw, 3rem);
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
+  margin-bottom: clamp(2rem, 6vw, 4rem);
 }
 
 /* Grid System */
 .grid-layout {
   display: grid;
-  gap: clamp(1rem, 3vw, 2rem);
+  gap: clamp(1.5rem, 4vw, 3rem);
   width: 100%;
   justify-items: center !important;
   place-items: center !important;
+  margin-bottom: clamp(2rem, 5vw, 3rem);
 }
 
 .grid-1 { grid-template-columns: 1fr; }
@@ -179,24 +181,13 @@ a:hover {
 
 /* Section Spacing */
 .section {
-  padding: clamp(2rem, 8vw, 6rem) 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
+  padding: clamp(3rem, 10vw, 8rem) 0 !important;
+  margin-bottom: clamp(1.5rem, 4vw, 3rem);
 }
 
 .section-sm {
-  padding: clamp(1.5rem, 6vw, 4rem) 0;
-}
-
-.section {
-  padding: var(--space-lg) 0;
-}
-
-.section-sm {
-  padding: var(--space-lg) 0;
+  padding: clamp(2rem, 8vw, 6rem) 0 !important;
+  margin-bottom: clamp(1rem, 3vw, 2rem);
 }
 
 /* Button Styles */
@@ -211,7 +202,7 @@ a:hover {
   cursor: pointer;
   transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
   border-radius: var(--radius-md);
-  margin: 0 auto !important;
+  margin: clamp(1rem, 3vw, 2rem) auto !important;
   font-weight: 600;
   box-shadow: 0 4px 16px rgba(37, 99, 235, 0.3);
 }
@@ -252,7 +243,7 @@ a:hover {
 }
 
 /* Card Styles */
-.card, .button, .pill, .impact-card {
+.card, .button, .pill, .impact-card, .glass-card, .impact-card-apple {
   background: var(--surface-1);
   border-radius: 18px;
   box-shadow: 0 4px 24px rgba(0,0,0,0.18), 0 1.5px 4px rgba(0,0,0,0.10);
@@ -262,7 +253,7 @@ a:hover {
   border: 1.5px solid transparent;
   will-change: box-shadow;
   color: var(--text-primary);
-  margin: 0 auto !important;
+  margin: clamp(1rem, 3vw, 2rem) auto !important;
   text-align: center !important;
 }
 .card:hover, .button:hover, .pill:hover, .impact-card:hover,
@@ -459,12 +450,14 @@ input[type="range"]::-moz-range-thumb {
 
 @media (max-width: 640px) {
   .container {
-    width: 95%;
-    padding: 0 1rem;
+    width: 92%;
+    padding: 0 1.5rem;
+    margin-bottom: 2rem;
   }
   
   .grid-layout {
-    gap: 1rem;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
   }
   
   .flex-container {
@@ -523,8 +516,8 @@ input[type="range"]::-moz-range-thumb {
     0 24px 48px rgba(0, 0, 0, 0.3),
     0 1px 1px rgba(255, 255, 255, 0.15) inset,
     0 8px 16px rgba(0, 0, 0, 0.1);
-  padding: 2rem;
-  margin: 0 auto;
+  padding: clamp(2rem, 5vw, 3rem);
+  margin: clamp(3rem, 8vw, 6rem) auto;
   max-width: 1200px;
   position: relative;
   overflow: hidden;
@@ -1547,5 +1540,319 @@ input[type="range"]::-moz-range-thumb {
   .bg-gradient-overlay-1,
   .bg-gradient-overlay-2 {
     opacity: 0.5;
+  }
+}
+
+/* Enhanced Spacing Improvements - Focused on header-to-title spacing */
+
+/* Specific spacing for hero section (header to title) */
+#hero {
+  padding-top: clamp(160px, 25vh, 220px) !important;
+  padding-bottom: clamp(3rem, 8vw, 6rem) !important;
+}
+
+/* Reset other spacing to normal levels */
+.section {
+  padding: clamp(2rem, 8vw, 6rem) 0 !important;
+  margin-bottom: 0;
+}
+
+.section-sm {
+  padding: clamp(1.5rem, 6vw, 4rem) 0 !important;
+  margin-bottom: 0;
+}
+
+/* Normal container spacing */
+.container {
+  width: min(90%, 1400px);
+  padding: 0 clamp(1rem, 4vw, 2rem);
+  margin-bottom: 0;
+}
+
+/* Normal grid gaps */
+.grid-layout {
+  gap: clamp(1rem, 3vw, 2rem) !important;
+  margin-bottom: 0;
+}
+
+/* Normal text spacing */
+h1, h2, h3, h4, h5, h6 {
+  margin: 0 0 var(--space-sm) 0 !important;
+}
+
+p {
+  margin: 0 0 var(--space-sm) 0 !important;
+  line-height: var(--leading-relaxed) !important;
+}
+
+/* Normal component spacing */
+.calculator-glass-container {
+  margin: 2rem auto !important;
+  padding: 2rem !important;
+}
+
+.faq-grid-balanced {
+  gap: clamp(2rem, 6vw, 3rem) !important;
+  margin: 0;
+}
+
+/* Normal button spacing */
+.btn {
+  margin: 0 auto !important;
+  padding: var(--space-xs) var(--space-sm) !important;
+}
+
+/* Normal card spacing */
+.card, .glass-card, .impact-card-apple {
+  margin-bottom: clamp(1rem, 3vw, 1.5rem) !important;
+  padding: clamp(1rem, 3vw, 1.5rem) !important;
+}
+
+/* Mobile hero spacing */
+@media (max-width: 768px) {
+  #hero {
+    padding-top: clamp(140px, 20vh, 180px) !important;
+    padding-bottom: clamp(2rem, 6vw, 4rem) !important;
+  }
+  
+  .section {
+    padding: clamp(1.5rem, 6vw, 4rem) 0 !important;
+  }
+  
+  .container {
+    width: 95%;
+    padding: 0 1rem;
+  }
+  
+  .grid-layout {
+    gap: 1rem !important;
+  }
+  
+  .card, .glass-card, .impact-card-apple {
+    margin-bottom: 1rem !important;
+    padding: 1rem !important;
+  }
+}
+
+/* Header and Navigation Styles */
+.header-scrolled {
+  background: var(--surface-glass);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+[data-theme='light'] .header-scrolled {
+  background: var(--surface-glass);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Mobile Menu Styles */
+.mobile-menu-item {
+  background: var(--surface-glass) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  color: var(--text-primary) !important;
+}
+
+.mobile-menu-item:hover,
+.mobile-menu-item:focus {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border-color: rgba(255, 255, 255, 0.25) !important;
+}
+
+.mobile-menu-theme-text {
+  color: var(--text-primary) !important;
+}
+
+/* Light Mode Mobile Menu Fixes */
+[data-theme='light'] .mobile-menu-item {
+  background: rgba(255, 255, 255, 0.8) !important;
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+  color: var(--text-primary) !important;
+}
+
+[data-theme='light'] .mobile-menu-item:hover,
+[data-theme='light'] .mobile-menu-item:focus {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-color: rgba(0, 0, 0, 0.15) !important;
+}
+
+[data-theme='light'] .mobile-menu-theme-text {
+  color: var(--text-primary) !important;
+}
+
+/* Mobile Menu Dropdown Background Fix */
+.fixed.inset-0.z-40 {
+  background: var(--background) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+}
+
+[data-theme='light'] .fixed.inset-0.z-40 {
+  background: var(--background) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+}
+
+/* Mobile Menu Button Enhancements */
+.theme-toggle-button {
+  background: var(--surface-glass) !important;
+  color: var(--text-primary) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  min-width: 88px !important;
+  height: 44px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
+}
+
+.theme-toggle-button svg {
+  color: var(--text-primary) !important;
+  stroke: var(--text-primary) !important;
+}
+
+.theme-toggle-button span {
+  color: var(--text-primary) !important;
+  font-weight: 500 !important;
+}
+
+[data-theme='light'] .theme-toggle-button {
+  background: rgba(255, 255, 255, 0.95) !important;
+  color: var(--text-primary) !important;
+  border: 1px solid rgba(0, 0, 0, 0.15) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+[data-theme='light'] .theme-toggle-button svg {
+  color: #1c1c1e !important;
+  stroke: #1c1c1e !important;
+  stroke-width: 1.5 !important;
+}
+
+[data-theme='light'] .theme-toggle-button span {
+  color: #1c1c1e !important;
+  font-weight: 500 !important;
+}
+
+/* Ensure mobile menu hamburger button visibility */
+@media (max-width: 768px) {
+  button[aria-label="Toggle mobile menu"] {
+    background: var(--surface-glass) !important;
+    color: var(--text-primary) !important;
+    border: 2px solid rgba(255, 255, 255, 0.3) !important;
+    min-width: 48px !important;
+    min-height: 48px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    position: relative !important;
+    z-index: 50 !important;
+  }
+  
+  /* Ensure button is visible with box shadow */
+  button[aria-label="Toggle mobile menu"]:not(:hover) {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
+  }
+  
+  /* Dark mode hamburger icon */
+  button[aria-label="Toggle mobile menu"] svg {
+    color: var(--text-primary) !important;
+    stroke: var(--text-primary) !important;
+    stroke-width: 2.5 !important;
+    width: 24px !important;
+    height: 24px !important;
+  }
+}
+  
+  [data-theme='light'] button[aria-label="Toggle mobile menu"] {
+    background: rgba(255, 255, 255, 0.95) !important;
+    color: var(--text-primary) !important;
+    border: 2px solid rgba(0, 0, 0, 0.2) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+  }
+  
+  /* Light mode hamburger icon - ensure high contrast */
+  [data-theme='light'] button[aria-label="Toggle mobile menu"] svg {
+    color: #1c1c1e !important;
+    stroke: #1c1c1e !important;
+    stroke-width: 2.5 !important;
+    width: 24px !important;
+    height: 24px !important;
+  }
+  
+  /* Light mode fallback text */
+  [data-theme='light'] button[aria-label="Toggle mobile menu"]:empty::before {
+    content: "☰" !important;
+    font-size: 20px !important;
+    color: #1c1c1e !important;
+    display: block !important;
+  }
+  
+  /* Dark mode fallback text - only when light theme is not active */
+  :not([data-theme='light']) button[aria-label="Toggle mobile menu"]:empty::before {
+    content: "☰" !important;
+    font-size: 20px !important;
+    color: var(--text-primary) !important;
+    display: block !important;
+  }
+  
+  /* Mobile Menu Dropdown Container - Fix the white background issue */
+  .fixed.inset-0.z-40 {
+    background: var(--surface-0) !important;
+    color: var(--text-primary) !important;
+  }
+  
+  [data-theme='light'] .fixed.inset-0.z-40 {
+    background: var(--surface-0) !important;
+    color: var(--text-primary) !important;
+  }
+  
+  /* Mobile Menu Navigation Container */
+  .fixed.inset-0.z-40 nav {
+    background: transparent !important;
+  }
+  
+  /* Mobile Menu Theme Toggle Container */
+  .fixed.inset-0.z-40 nav > div:first-child {
+    background: var(--surface-glass) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  }
+  
+  [data-theme='light'] .fixed.inset-0.z-40 nav > div:first-child {
+    background: rgba(255, 255, 255, 0.9) !important;
+    border: 1px solid rgba(0, 0, 0, 0.1) !important;
+  }
+
+/* Mobile Menu Additional Styles */
+@media (max-width: 768px) {
+  /* Light mode fallback text for hamburger */
+  [data-theme='light'] button[aria-label="Toggle mobile menu"] span {
+    color: #1c1c1e !important;
+  }
+  
+  /* Mobile Menu Dropdown Container */
+  .fixed.inset-0.z-40 {
+    background: var(--surface-0) !important;
+    color: var(--text-primary) !important;
+  }
+  
+  [data-theme='light'] .fixed.inset-0.z-40 {
+    background: var(--surface-0) !important;
+    color: var(--text-primary) !important;
+  }
+  
+  /* Mobile Menu Navigation Container */
+  .fixed.inset-0.z-40 nav {
+    background: transparent !important;
+  }
+  
+  /* Mobile Menu Theme Toggle Container */
+  .fixed.inset-0.z-40 nav > div:first-child {
+    background: var(--surface-glass) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  }
+  
+  [data-theme='light'] .fixed.inset-0.z-40 nav > div:first-child {
+    background: rgba(255, 255, 255, 0.9) !important;
+    border: 1px solid rgba(0, 0, 0, 0.1) !important;
   }
 }

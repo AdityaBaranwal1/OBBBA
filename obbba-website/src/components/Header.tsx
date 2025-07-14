@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
 import ThemeToggle from './ThemeToggle';
 import { useScrollDirection } from '../hooks/useScrollEffects';
 
@@ -142,19 +141,22 @@ export default function Header() {
                 background: 'var(--surface-glass)',
                 backdropFilter: 'blur(12px)',
                 WebkitBackdropFilter: 'blur(12px)',
-                border: '1px solid rgba(128,128,128,0.2)',
+                border: '2px solid rgba(255, 255, 255, 0.3)',
                 borderRadius: '12px',
                 color: 'var(--text-primary)',
                 cursor: 'pointer',
                 transition: 'all 0.2s ease',
-                touchAction: 'manipulation'
+                touchAction: 'manipulation',
+                fontSize: '18px',
+                fontWeight: 'bold',
+                fontFamily: 'monospace'
               }}
               aria-label="Toggle mobile menu"
             >
               {isMobileMenuOpen ? (
-                <X size={24} strokeWidth={2} />
+                <span style={{ fontSize: '20px', lineHeight: 1 }}>✕</span>
               ) : (
-                <Menu size={24} strokeWidth={2} />
+                <span style={{ fontSize: '16px', lineHeight: 1 }}>☰</span>
               )}
             </button>
           </div>
@@ -166,7 +168,7 @@ export default function Header() {
         <div 
           className="fixed inset-0 z-40 md:hidden"
           style={{
-            background: 'var(--surface-0)',
+            background: 'var(--background)',
             backdropFilter: 'blur(20px)',
             WebkitBackdropFilter: 'blur(20px)',
             paddingTop: 'clamp(68px, 12vh, 84px)', // Account for header height
@@ -196,7 +198,8 @@ export default function Header() {
               }}>
                 <span className="mobile-menu-theme-text" style={{
                   fontSize: '1.125rem',
-                  fontWeight: 500
+                  fontWeight: 500,
+                  color: 'var(--text-primary)'
                 }}>
                   Theme
                 </span>
@@ -219,7 +222,12 @@ export default function Header() {
                   cursor: 'pointer',
                   transition: 'all 0.2s ease',
                   touchAction: 'manipulation',
-                  animation: `fadeInUp 0.3s ease-out ${(index + 1) * 0.1}s both` // Offset by 1 for theme toggle
+                  animation: `fadeInUp 0.3s ease-out ${(index + 1) * 0.1}s both`, // Offset by 1 for theme toggle
+                  background: 'var(--surface-glass)',
+                  border: '1px solid rgba(255, 255, 255, 0.15)',
+                  color: 'var(--text-primary)',
+                  display: 'block',
+                  width: '100%'
                 }}
                 onTouchStart={(e) => {
                   const target = e.target as HTMLElement;

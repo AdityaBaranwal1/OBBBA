@@ -36,12 +36,12 @@ export default function ThemeToggle() {
       style={{
         display: 'flex',
         alignItems: 'center',
-        gap: 8,
+        gap: 6,
         padding: '0.5rem 1rem',
         background: 'var(--surface-glass)',
         backdropFilter: 'blur(12px)',
         WebkitBackdropFilter: 'blur(12px)',
-        border: '1px solid rgba(128,128,128,0.2)',
+        border: '1px solid rgba(255, 255, 255, 0.2)',
         borderRadius: 9999,
         fontSize: 14,
         color: 'var(--text-primary)',
@@ -52,11 +52,19 @@ export default function ThemeToggle() {
         WebkitUserSelect: 'none',
         userSelect: 'none',
         minHeight: '44px', // Better touch target for mobile
-        minWidth: '44px'
+        minWidth: '88px' // Ensure button is wide enough for text
       }}
     >
-      {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
-      <span style={{ fontSize: '14px', fontWeight: 500 }}>
+      {theme === 'dark' ? (
+        <Sun size={18} style={{ color: 'var(--text-primary)' }} />
+      ) : (
+        <Moon size={18} style={{ color: 'var(--text-primary)' }} />
+      )}
+      <span style={{ 
+        fontSize: '14px', 
+        fontWeight: 500,
+        color: 'var(--text-primary)'
+      }}>
         {theme === 'dark' ? 'Light' : 'Dark'}
       </span>
     </button>
