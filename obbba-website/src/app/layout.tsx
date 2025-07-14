@@ -38,6 +38,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="antialiased">
+        {/* Apple-style background shapes */}
+        <div className="background-shapes">
+          <div className="bg-shape-1"></div>
+          <div className="bg-shape-2"></div>
+          <div className="bg-shape-3"></div>
+          <div className="bg-gradient-overlay-1"></div>
+          <div className="bg-gradient-overlay-2"></div>
+          <div className="bg-grid-pattern"></div>
+        </div>
         {children}
       </body>
     </html>
