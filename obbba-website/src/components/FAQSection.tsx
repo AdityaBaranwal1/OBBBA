@@ -65,30 +65,37 @@ export default function FAQSection() {
   return (
     <section id="faq-section" className="section">
       <div className="container">
-        <h2 className="mb-8">Frequently Asked Questions</h2>
-        <p className="mb-8">
+        <h2 className="mb-8 text-center">Frequently Asked Questions</h2>
+        <p className="mb-12 text-center max-w-3xl mx-auto">
           Get answers to common questions about the legislation and explore additional resources
           for deeper understanding.
         </p>
 
-        <div className="grid md:grid-cols-2 gap-12">
+        <div className="faq-grid-balanced">
           {/* FAQ Section */}
-          <div>
-            <h3 className="mb-8">Common Questions</h3>
-            <div className="space-y-4">
+          <div className="faq-column">
+            <h3 className="faq-section-title text-center lg:text-left">Common Questions</h3>
+            <div className="space-y-4 flex-1 faq-questions-container">
               {faqs.map((faq, index) => (
-                <div key={index} className="impact-card-apple">
+                <div key={index} className="impact-card-apple faq-question-item hover:border-blue-400 hover:shadow-lg transition-all duration-300 group">
                   <button
                     onClick={() => toggleFAQ(index)}
-                    className="w-full text-left"
+                    className="w-full text-left faq-button focus:outline-none"
                   >
-                    <h4 className="mb-2">{faq.question}</h4>
+                    <div className="flex justify-between items-start">
+                      <h4 className="faq-question-text pr-4 flex-1 group-hover:text-blue-400 transition-colors">{faq.question}</h4>
+                      <div className={`faq-toggle-icon ${openFAQ === index ? 'expanded' : ''}`}>
+                        {openFAQ === index ? '−' : '+'}
+                      </div>
+                    </div>
                   </button>
                   {openFAQ === index && (
-                    <p
-                      className="mt-4 pt-4 border-t"
-                      dangerouslySetInnerHTML={{ __html: faq.answer }}
-                    />
+                    <div className="mt-4 pt-4 border-t border-opacity-30 border-gray-400 animate-in">
+                      <div
+                        className="faq-answer-text"
+                        dangerouslySetInnerHTML={{ __html: faq.answer }}
+                      />
+                    </div>
                   )}
                 </div>
               ))}
@@ -96,35 +103,51 @@ export default function FAQSection() {
           </div>
 
           {/* Resources Section */}
-          <div>
-            <h3 className="mb-8">Additional Resources</h3>
-            <div className="space-y-4">
+          <div className="faq-column">
+            <h3 className="faq-section-title text-center lg:text-left">Additional Resources</h3>
+            <div className="space-y-4 flex-1 faq-resources-container">
               {resources.map((resource, index) => (
                 <a
                   key={index}
                   href={resource.url}
-                  className="block impact-card-apple hover:border-gray-400 transition-colors"
+                  className="block impact-card-apple resource-card hover:border-blue-400 hover:shadow-lg transition-all duration-300 group faq-resource-item"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <h4 className="mb-2">{resource.title}</h4>
-                  <p className="text-sm">
-                    {resource.description}
-                  </p>
+                  <div className="flex items-start justify-between">
+                    <div className="flex-1">
+                      <h4 className="resource-title mb-2 group-hover:text-blue-400 transition-colors">
+                        {resource.title}
+                      </h4>
+                      <p className="resource-description">
+                        {resource.description}
+                      </p>
+                    </div>
+                    <span className="external-link-icon text-blue-400 opacity-60 group-hover:opacity-100 transition-all ml-3 flex-shrink-0 text-lg">
+                      ↗
+                    </span>
+                  </div>
                 </a>
               ))}
             </div>
+          </div>
+        </div>
 
-            {/* Contact Section */}
-            <div className="mt-8 impact-card-apple">
-              <h4 className="mb-2">Need More Information?</h4>
-              <p className="text-sm mb-4">
+        {/* Centered Contact Section */}
+        <div className="mt-12 max-w-2xl mx-auto">
+          <div className="impact-card-apple contact-card-special">
+            <div className="text-center relative z-10">
+              <h4 className="resource-title mb-4 text-blue-400">Need More Information?</h4>
+              <p className="resource-description mb-6 leading-relaxed">
                 Can&rsquo;t find what you&rsquo;re looking for? We&rsquo;re here to help clarify any questions
                 about the legislation and its implications.
               </p>
-              <button className="btn">
+              <a 
+                href="mailto:questions@obbba-analysis.dev?subject=OBBBA%20Analysis%20Question"
+                className="btn inline-block hover:scale-105 transition-transform duration-200"
+              >
                 Contact Us
-              </button>
+              </a>
             </div>
           </div>
         </div>
