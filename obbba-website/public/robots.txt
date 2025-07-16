@@ -1,27 +1,17 @@
+# *
 User-agent: *
 Allow: /
-Disallow: /admin/
-Disallow: /_next/
-Disallow: /api/
 
-# Sitemap
+# GPTBot
+User-agent: GPTBot
+Disallow: /
+
+# ChatGPT-User
+User-agent: ChatGPT-User
+Disallow: /
+
+# Host
+Host: https://obbba.org
+
+# Sitemaps
 Sitemap: https://obbba.org/sitemap.xml
-
-# Crawl-delay for respectful crawling
-Crawl-delay: 1
-
-# Specific rules for major search engines
-User-agent: Googlebot
-Allow: /
-Disallow: /admin/
-Crawl-delay: 1
-
-User-agent: Bingbot
-Allow: /
-Disallow: /admin/
-Crawl-delay: 1
-
-User-agent: Slurp
-Allow: /
-Disallow: /admin/
-Crawl-delay: 2

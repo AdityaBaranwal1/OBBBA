@@ -4,13 +4,14 @@ import "./globals.css";
 import "../styles/mobile.css";
 
 export const metadata: Metadata = {
-  title: "OBBBA Act Analysis - Understanding the Real Costs | Comprehensive Economic Impact Study",
-  description: "Detailed analysis of the One Big Beautiful Bill Act (OBBBA) examining economic impacts, fiscal implications, and long-term consequences for American taxpayers. Interactive calculator and timeline included.",
+  title: "OBBBA Act Analysis - Personal Impact Calculator | Trump's One Big Beautiful Bill",
+  description: "Calculate how Trump's One Big Beautiful Bill Act (OBBBA) affects YOU personally. Free calculator with fact-checked analysis, direct PDF quotes, and instant results. See your impact now!",
   keywords: [
-    "OBBBA", "One Big Beautiful Bill Act", "legislation analysis", "economic impact", 
-    "federal spending", "policy analysis", "fiscal policy", "government spending", 
-    "tax implications", "economic consequences", "budget analysis", "legislative review",
-    "political economy", "public policy", "government finance", "taxpayer impact"
+    "OBBBA calculator", "Trump bill calculator", "One Big Beautiful Bill Act calculator", "personal impact calculator",
+    "OBBBA", "One Big Beautiful Bill Act", "Trump legislation", "economic impact calculator", 
+    "federal spending calculator", "policy analysis", "fiscal policy calculator", "government spending impact", 
+    "tax implications calculator", "economic consequences", "budget analysis", "legislative review",
+    "political calculator", "policy impact tool", "Trump bill analysis", "OBBBA cost calculator"
   ],
   authors: [{ name: "OBBBA Analysis Team" }],
   viewport: {
