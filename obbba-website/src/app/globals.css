@@ -1013,6 +1013,24 @@ input[type="range"]::-moz-range-thumb {
   z-index: 1;
 }
 
+/* Light mode thermometer styling */
+[data-theme='light'] .thermometer-track {
+  background: linear-gradient(180deg, 
+    rgba(0, 0, 0, 0.06) 0%, 
+    rgba(0, 0, 0, 0.08) 50%,
+    rgba(0, 0, 0, 0.06) 100%);
+  border: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+[data-theme='light'] .thermometer-centerline {
+  background: rgba(0, 0, 0, 0.15);
+}
+
+[data-theme='light'] .thermometers-container {
+  background: rgba(0, 0, 0, 0.02);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
 .thermometer-centerline {
   position: absolute;
   left: 0;
@@ -1049,12 +1067,25 @@ input[type="range"]::-moz-range-thumb {
   color: var(--gain);
 }
 
-.loss-icon {
-  color: var(--loss);
+/* Light mode thermometer styling */
+[data-theme='light'] .thermometer-track {
+  background: linear-gradient(180deg, 
+    rgba(0, 0, 0, 0.06) 0%, 
+    rgba(0, 0, 0, 0.08) 50%,
+    rgba(0, 0, 0, 0.06) 100%);
+  border: 1px solid rgba(0, 0, 0, 0.12);
 }
 
-.neutral-icon {
-  color: var(--text-secondary);
+[data-theme='light'] .thermometer-centerline {
+  background: rgba(0, 0, 0, 0.15);
+}
+
+[data-theme='light'] .thermometers-container {
+  background: rgba(0, 0, 0, 0.02);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+[data-theme='light'] .thermometer-status {
+  color: var(--text-primary);
 }
 
 .status-text {
@@ -2000,7 +2031,7 @@ p {
   [data-theme='light'] .fixed.inset-0.z-40 {
     background: var(--surface-0) !important;
     color: var(--text-primary) !important;
-  }
+   }
   
   /* Mobile Menu Navigation Container */
   .fixed.inset-0.z-40 nav {
