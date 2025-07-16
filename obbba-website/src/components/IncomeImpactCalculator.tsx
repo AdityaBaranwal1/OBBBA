@@ -173,8 +173,8 @@ export default function IncomeImpactCalculator() {
                   setInputIncome(val);
                 }}
                 onBlur={() => {
-                  let val = Math.round(inputIncome / 1000) * 1000;
-                  val = Math.max(0, Math.min(1000000, val));
+                  // Clamp value to range without forced rounding
+                  const val = Math.max(0, Math.min(1000000, inputIncome));
                   setInputIncome(val);
                   setSlider(incomeToSlider(val));
                   setIsEditingInput(false);

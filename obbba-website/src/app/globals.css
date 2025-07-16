@@ -622,12 +622,13 @@ input[type="range"]::-moz-range-thumb {
   width: 100%;
   height: 8px;
   background: linear-gradient(90deg, 
-    rgba(255, 255, 255, 0.1) 0%, 
-    rgba(255, 255, 255, 0.15) 100%);
+    rgba(255, 255, 255, 0.12) 0%, 
+    rgba(255, 255, 255, 0.18) 100%);
   border-radius: 4px;
   appearance: none;
   outline: none;
   cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .income-slider::-webkit-slider-thumb {
@@ -638,16 +639,18 @@ input[type="range"]::-moz-range-thumb {
   border-radius: 50%;
   cursor: pointer;
   box-shadow: 
-    0 4px 12px rgba(37, 99, 235, 0.4),
-    0 2px 4px rgba(0, 0, 0, 0.2);
+    0 4px 12px rgba(37, 99, 235, 0.45),
+    0 2px 4px rgba(0, 0, 0, 0.25),
+    0 0 0 2px rgba(255, 255, 255, 0.15);
   transition: all 0.2s ease;
 }
 
 .income-slider::-webkit-slider-thumb:hover {
-  transform: scale(1.1);
+  transform: scale(1.08);
   box-shadow: 
-    0 6px 16px rgba(37, 99, 235, 0.5),
-    0 2px 4px rgba(0, 0, 0, 0.25);
+    0 6px 16px rgba(37, 99, 235, 0.55),
+    0 2px 4px rgba(0, 0, 0, 0.3),
+    0 0 0 3px rgba(255, 255, 255, 0.2);
 }
 
 .income-slider::-moz-range-thumb {
@@ -655,11 +658,11 @@ input[type="range"]::-moz-range-thumb {
   height: 24px;
   background: linear-gradient(135deg, var(--accent) 0%, var(--accent-glow) 100%);
   border-radius: 50%;
-  border: none;
+  border: 2px solid rgba(255, 255, 255, 0.15);
   cursor: pointer;
   box-shadow: 
-    0 4px 12px rgba(37, 99, 235, 0.4),
-    0 2px 4px rgba(0, 0, 0, 0.2);
+    0 4px 12px rgba(37, 99, 235, 0.45),
+    0 2px 4px rgba(0, 0, 0, 0.25);
 }
 
 .slider-labels {
@@ -2031,7 +2034,7 @@ p {
   [data-theme='light'] .fixed.inset-0.z-40 {
     background: var(--surface-0) !important;
     color: var(--text-primary) !important;
-   }
+  }
   
   /* Mobile Menu Navigation Container */
   .fixed.inset-0.z-40 nav {
@@ -2049,7 +2052,7 @@ p {
     border: 1px solid rgba(0, 0, 0, 0.1) !important;
   }
 
-/* Mobile Menu Additional Styles */
+  /* Mobile Menu Additional Styles */
 @media (max-width: 768px) {
   /* Light mode fallback text for hamburger */
   [data-theme='light'] button[aria-label="Toggle mobile menu"] span {
