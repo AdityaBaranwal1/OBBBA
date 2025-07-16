@@ -78,6 +78,7 @@ function Thermometer({ value, maxGain, maxLoss, label }: ThermometerProps) {
 
 export default function IncomeImpactCalculator() {
   const [slider, setSlider] = useState(0);
+  const [exactIncome, setExactIncome] = useState(0); // For exact manually entered values
   const [inputIncome, setInputIncome] = useState(0);
   const [isEditingInput, setIsEditingInput] = useState(false);
   
@@ -88,16 +89,22 @@ export default function IncomeImpactCalculator() {
   const maxLoss = useMemo(() => Math.abs(Math.min(
     ...incomeBrackets.map(b => Math.min(b.impactPreSunset, b.impactPostSunset, 0))
   )), []);
-  // Memoize income and bracket
-  const income = useMemo(() => sliderToIncome(slider), [slider]);
+  
+  // Use exact income when manually entered, otherwise use slider-derived income
+  const income = useMemo(() => {
+    return isEditingInput ? inputIncome : exactIncome;
+  }, [isEditingInput, inputIncome, exactIncome]);
+  
   const bracket = useMemo(() => incomeBrackets.find(b => income >= b.min && income <= b.max) || incomeBrackets[0], [income]);
   
-  // In a useEffect, keep inputIncome in sync with slider changes only if not editing
+  // Keep exactIncome in sync with slider changes only if not editing manually
   React.useEffect(() => {
     if (!isEditingInput) {
-      setInputIncome(income);
+      const sliderIncome = sliderToIncome(slider);
+      setExactIncome(sliderIncome);
+      setInputIncome(sliderIncome);
     }
-  }, [income, isEditingInput]);
+  }, [slider, isEditingInput]);
 
   return (
     <section className="py-16 bg-neutral-light section-transition" id="income-impact">
@@ -133,8 +140,13 @@ export default function IncomeImpactCalculator() {
                 max={100}
                 value={slider}
                 onChange={e => {
-                  setSlider(Number(e.target.value));
-                  if (!isEditingInput) setInputIncome(sliderToIncome(Number(e.target.value)));
+                  const sliderValue = Number(e.target.value);
+                  setSlider(sliderValue);
+                  if (!isEditingInput) {
+                    const newIncome = sliderToIncome(sliderValue);
+                    setExactIncome(newIncome);
+                    setInputIncome(newIncome);
+                  }
                 }}
                 className="income-slider"
                 aria-label="Annual income slider"
@@ -173,9 +185,11 @@ export default function IncomeImpactCalculator() {
                   setInputIncome(val);
                 }}
                 onBlur={() => {
-                  // Clamp value to range without forced rounding
+                  // Clamp value to range and keep exact number
                   const val = Math.max(0, Math.min(1000000, inputIncome));
                   setInputIncome(val);
+                  setExactIncome(val); // Set the exact income to preserve manual entry
+                  // Update slider position to reflect the manual input
                   setSlider(incomeToSlider(val));
                   setIsEditingInput(false);
                 }}
