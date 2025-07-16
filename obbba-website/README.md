@@ -29,7 +29,7 @@ A modern, responsive informational website built with Next.js and Tailwind CSS t
 - **Language**: TypeScript
 - **Icons**: Lucide React
 - **Code Highlighting**: react-syntax-highlighter
-- **Deployment**: Vercel-ready
+- **Deployment**: Vercel
 
 ## 🚀 Getting Started
 
@@ -106,11 +106,6 @@ A modern, responsive informational website built with Next.js and Tailwind CSS t
    git push origin main
    ```
 
-2. **Deploy on Vercel**
-   - Connect your GitHub repository to Vercel
-   - Vercel will automatically detect Next.js and deploy
-   - Your site will be live at `https://your-project.vercel.app`
-
 ### Other Platforms
 
 The site is also deployable on:
@@ -184,15 +179,10 @@ obbba-website/
 
 ## 📄 License
 
-This project is open source and available under the [MIT License](LICENSE).
+This project is open source
 
 ## 🙏 Acknowledgments
 
 - Built with [Next.js](https://nextjs.org/)
 - Styled with [Tailwind CSS](https://tailwindcss.com/)
 - Icons from [Lucide](https://lucide.dev/)
-- Made with ❤️ and [Cursor](https://cursor.sh/)
-
----
-
-**Ready to deploy?** The site is fully functional and ready for your content. Just replace the placeholder text and add your charts!
