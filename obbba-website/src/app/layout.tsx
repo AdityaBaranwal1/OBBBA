@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import "../styles/mobile.css";
 
@@ -127,6 +128,7 @@ export default function RootLayout({
           <div className="bg-grid-pattern"></div>
         </div>
         {children}
+        <Analytics />
       </body>
     </html>
   );
