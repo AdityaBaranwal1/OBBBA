@@ -1,0 +1,8 @@
+<!-- This is a placeholder file to indicate where the og-image.jpg should be placed -->
+<!-- You need to create actual images for optimal SEO:
+- og-image.jpg (1200x630px) - OpenGraph image for social sharing
+- twitter-image.jpg (1200x630px) - Twitter card image
+- calculator-og.jpg (1200x630px) - Calculator page specific image
+
+These should be high-quality images that represent your OBBBA calculator and analysis.
+-->

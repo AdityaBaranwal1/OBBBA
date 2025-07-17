@@ -26,13 +26,14 @@ export default function Hero() {
         <div className="space-y-8">
           {/* Main Headline */}
           <h1 className="mb-4 scroll-fade-in">
-            One Big Beautiful Bill Act: Understanding the Real Costs
+            OBBBA Personal Impact Calculator 2025 - How Trump's One Big Beautiful Bill Affects YOUR Income
           </h1>
 
           {/* Subheading */}
           <p className="text-lg max-w-2xl mx-auto mb-8 scroll-fade-in-delay">
-            A comprehensive analysis of the proposed legislation and its far-reaching implications 
-            for our economy, society, and future generations.
+            Use our free OBBBA personal impact calculator to see exactly how Trump's One Big Beautiful Bill Act 
+            will affect your 2025 finances. Enter your income to get instant, personalized results with 
+            fact-checked analysis from official government sources including CBO and Tax Foundation reports.
           </p>
 
           {/* Call to Action */}

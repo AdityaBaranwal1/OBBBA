@@ -81,6 +81,7 @@ export default function IncomeImpactCalculator() {
   const [exactIncome, setExactIncome] = useState(0); // For exact manually entered values
   const [inputIncome, setInputIncome] = useState(0);
   const [isEditingInput, setIsEditingInput] = useState(false);
+  const [lastUpdateSource, setLastUpdateSource] = useState<'slider' | 'manual'>('slider');
   
   // Memoize maxGain and maxLoss
   const maxGain = useMemo(() => Math.max(
@@ -97,14 +98,14 @@ export default function IncomeImpactCalculator() {
   
   const bracket = useMemo(() => incomeBrackets.find(b => income >= b.min && income <= b.max) || incomeBrackets[0], [income]);
   
-  // Keep exactIncome in sync with slider changes only if not editing manually
+  // Keep exactIncome in sync with slider changes only if not editing manually and last update was from slider
   React.useEffect(() => {
-    if (!isEditingInput) {
+    if (!isEditingInput && lastUpdateSource === 'slider') {
       const sliderIncome = sliderToIncome(slider);
       setExactIncome(sliderIncome);
       setInputIncome(sliderIncome);
     }
-  }, [slider, isEditingInput]);
+  }, [slider, isEditingInput, lastUpdateSource]);
 
   return (
     <section className="py-16 bg-neutral-light section-transition" id="income-impact">
@@ -142,6 +143,7 @@ export default function IncomeImpactCalculator() {
                 onChange={e => {
                   const sliderValue = Number(e.target.value);
                   setSlider(sliderValue);
+                  setLastUpdateSource('slider');
                   if (!isEditingInput) {
                     const newIncome = sliderToIncome(sliderValue);
                     setExactIncome(newIncome);
@@ -189,7 +191,8 @@ export default function IncomeImpactCalculator() {
                   const val = Math.max(0, Math.min(1000000, inputIncome));
                   setInputIncome(val);
                   setExactIncome(val); // Set the exact income to preserve manual entry
-                  // Update slider position to reflect the manual input
+                  setLastUpdateSource('manual'); // Mark this as a manual update
+                  // Update slider position to match the manual input visually
                   setSlider(incomeToSlider(val));
                   setIsEditingInput(false);
                 }}

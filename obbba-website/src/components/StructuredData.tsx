@@ -38,7 +38,7 @@ export default function StructuredData({
         "@type": "Audience",
         "audienceType": "American taxpayers, policy researchers, political analysts"
       },
-      "keywords": "OBBBA, Trump bill, economic impact, personal calculator, policy analysis"
+      "keywords": "OBBBA personal impact calculator 2025, Trump One Big Beautiful Bill calculator, OBBBA Act personal finance tool, Trump bill income impact, federal legislation calculator"
     };
 
     if (pageType === 'calculator') {

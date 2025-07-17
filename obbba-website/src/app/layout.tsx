@@ -1,25 +1,30 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import "../styles/mobile.css";
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  themeColor: "#2563eb",
+};
+
 export const metadata: Metadata = {
-  title: "OBBBA Act Analysis - Personal Impact Calculator | Trump's One Big Beautiful Bill",
-  description: "Calculate how Trump's One Big Beautiful Bill Act (OBBBA) affects YOU personally. Free calculator with fact-checked analysis, direct PDF quotes, and instant results. See your impact now!",
+  metadataBase: new URL('https://obbba.org'),
+  title: "OBBBA Personal Impact Calculator FREE - Trump One Big Beautiful Bill Calculator 2025",
+  description: "FREE OBBBA Personal Impact Calculator! Calculate exactly how Trump's One Big Beautiful Bill Act affects YOUR specific income bracket in 2025. Instant results with fact-checked analysis from official government sources. Try the calculator now!",
   keywords: [
-    "OBBBA calculator", "Trump bill calculator", "One Big Beautiful Bill Act calculator", "personal impact calculator",
-    "OBBBA", "One Big Beautiful Bill Act", "Trump legislation", "economic impact calculator", 
-    "federal spending calculator", "policy analysis", "fiscal policy calculator", "government spending impact", 
-    "tax implications calculator", "economic consequences", "budget analysis", "legislative review",
-    "political calculator", "policy impact tool", "Trump bill analysis", "OBBBA cost calculator"
+    "OBBBA personal impact calculator 2025", "Trump One Big Beautiful Bill calculator free", "OBBBA Act calculator 2025", "personal impact calculator Trump bill",
+    "One Big Beautiful Bill Act personal calculator", "OBBBA income impact tool", "Trump legislation personal calculator", "OBBBA economic impact calculator 2025", 
+    "federal spending calculator Trump", "OBBBA policy analysis calculator", "Trump bill fiscal impact calculator", "government spending impact calculator 2025", 
+    "OBBBA tax implications calculator", "Trump economic consequences calculator", "OBBBA budget analysis calculator", "Trump legislative impact calculator",
+    "OBBBA political calculator free", "Trump policy impact tool 2025", "One Big Beautiful Bill analysis calculator", "OBBBA cost calculator 2025",
+    "Trump bill personal impact 2025", "OBBBA economic analysis tool", "Trump federal bill calculator", "government policy calculator 2025",
+    "how does OBBBA affect me calculator", "Trump bill impact on my income", "OBBBA personal finance calculator", "Trump legislation impact calculator"
   ],
   authors: [{ name: "OBBBA Analysis Team" }],
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 1,
-    userScalable: false,
-  },
   openGraph: {
     title: "OBBBA Act Analysis - Understanding the Real Economic Costs",
     description: "Comprehensive analysis of the One Big Beautiful Bill Act and its far-reaching economic implications for American taxpayers and future generations.",

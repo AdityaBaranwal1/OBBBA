@@ -7,19 +7,23 @@ import IncomeImpactCalculator from '@/components/IncomeImpactCalculator';
 import DistributionalImpact from '@/components/DistributionalImpact';
 import FAQSection from '@/components/FAQSection';
 import Footer from '@/components/Footer';
+import StructuredData from '@/components/StructuredData';
 
 export default function Home() {
   return (
-    <main className="min-h-screen">
-      <Header />
-      <Hero />
-      <KeyImpactCards />
-      <TimelineImpact />
-      <PillToggleSection />
-      <IncomeImpactCalculator />
-      <DistributionalImpact />
-      <FAQSection />
-      <Footer />
-    </main>
+    <>
+      <StructuredData pageType="website" />
+      <main className="min-h-screen">
+        <Header />
+        <Hero />
+        <KeyImpactCards />
+        <TimelineImpact />
+        <PillToggleSection />
+        <IncomeImpactCalculator />
+        <DistributionalImpact />
+        <FAQSection />
+        <Footer />
+      </main>
+    </>
   );
 }

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import StructuredData from '../../components/StructuredData';
+import SEOHead from '../../components/SEOHead';
 
 export const metadata: Metadata = {
   title: 'OBBBA Personal Impact Calculator - See How Trump\'s Bill Affects You',
