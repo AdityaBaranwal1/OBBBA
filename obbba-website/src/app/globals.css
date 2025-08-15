@@ -1998,6 +1998,69 @@ input[type='range']::-moz-range-thumb {
   width: 1.25rem;
 }
 
+/* Desktop-only fixes for Key Impacts section and citation alignment */
+@media (min-width: 769px) {
+  /* Fix text overflow in pill toggle content sections */
+  .impact-card-apple h3 {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    max-width: 100%;
+  }
+  
+  .impact-card-apple p {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    max-width: 100%;
+    line-height: 1.6;
+  }
+  
+  /* Ensure content sections have proper width constraints */
+  #pill-toggle-section .impact-card-apple {
+    max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    padding: clamp(1.5rem, 3vw, 2.5rem);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+  
+  /* Fix citation alignment in impact cards */
+  .impact-card-apple .impact-source {
+    margin-top: auto !important;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center !important;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  
+  [data-theme='light'] .impact-card-apple .impact-source {
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Ensure impact cards maintain consistent height and proper text flow */
+  .impact-card-apple {
+    min-height: 240px;
+    max-height: none;
+    height: auto !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .impact-card-apple .impact-title,
+  .impact-card-apple .impact-desc {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    max-width: 100%;
+  }
+}
+
 /* Desktop Calculator Grid - Robust styling to prevent mobile overrides */
 @media (min-width: 769px) {
   .calculator-grid {
