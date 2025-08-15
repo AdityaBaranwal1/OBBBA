@@ -6,7 +6,7 @@ const impacts = [
   {
     title: 'People Affected',
     description: '22.3M families lose or shrink SNAP benefits.',
-    source: 'National Low Income Housing Coalition',
+    source: 'NLIHC',
     url: 'https://nlihc.org/resource/president-trump-signs-sweeping-reconciliation-bill-law-house-appropriators-aim-review-hud',
     icon: '🧑‍🤝‍🧑',
   },
@@ -37,7 +37,18 @@ export default function KeyImpactCards() {
   return (
     <section className="section section-transition">
       <div className="container">
-        <div className="grid-layout grid-4" style={{ width: '100%' }}>
+        {/* Apple-style section header */}
+        <div className="text-center mb-20">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-primary">
+            Key Impact Overview
+          </h2>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
+            Understanding the scope and scale of legislative change
+          </p>
+        </div>
+        
+        {/* Apple-style grid with generous spacing */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           {impacts.map((impact, idx) => (
             <div
               key={idx}

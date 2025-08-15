@@ -108,7 +108,7 @@ export default function IncomeImpactCalculator() {
   }, [slider, isEditingInput, lastUpdateSource]);
 
   return (
-    <section className="py-16 bg-neutral-light section-transition" id="income-impact">
+    <section className="section bg-neutral-light section-transition" id="income-impact">
       <div className="max-w-6xl mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-8">

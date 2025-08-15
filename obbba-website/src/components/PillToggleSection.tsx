@@ -3,13 +3,13 @@
 import React, { useState } from 'react';
 
 const TOPICS = [
-  { key: 'gdp', label: 'GDP & Growth', description: 'Economic growth and GDP impacts' },
-  { key: 'snap', label: 'SNAP', description: 'Nutrition assistance program changes' },
-  { key: 'health', label: 'Healthcare', description: 'Medicaid, Medicare, and ACA modifications' },
-  { key: 'edu', label: 'Education', description: 'Student loans and education funding' },
-  { key: 'env', label: 'Environment', description: 'Climate and environmental policy' },
-  { key: 'finance', label: 'Finance', description: 'Financial regulation and consumer protection' },
-  { key: 'imm', label: 'Immigration', description: 'Immigration fees and border policies' },
+  { key: 'gdp', label: 'GDP & Growth', description: 'Economic growth and GDP impacts', color: 'emerald', icon: '📈' },
+  { key: 'snap', label: 'SNAP', description: 'Nutrition assistance program changes', color: 'orange', icon: '🍎' },
+  { key: 'health', label: 'Healthcare', description: 'Medicaid, Medicare, and ACA modifications', color: 'red', icon: '🏥' },
+  { key: 'edu', label: 'Education', description: 'Student loans and education funding', color: 'purple', icon: '🎓' },
+  { key: 'env', label: 'Environment', description: 'Climate and environmental policy', color: 'green', icon: '🌱' },
+  { key: 'finance', label: 'Finance', description: 'Financial regulation and consumer protection', color: 'blue', icon: '💰' },
+  { key: 'imm', label: 'Immigration', description: 'Immigration fees and border policies', color: 'indigo', icon: '🛂' },
 ];
 
 const SECTION_CONTENT = {
@@ -72,32 +72,47 @@ const SECTION_CONTENT = {
 };
 
 export default function PillToggleSection() {
-  const [selected, setSelected] = useState<string[]>(['gdp']);
+  const [selected, setSelected] = useState<string[]>([]); // Start with nothing selected
 
   const handleToggle = (key: string) => {
-    setSelected(prev => 
-      prev.includes(key) 
+    setSelected(prev => {
+      const newSelection = prev.includes(key) 
         ? prev.filter(k => k !== key)
-        : [...prev, key]
-    );
+        : [...prev, key];
+      return newSelection;
+    });
   };
 
   return (
-    <section id="pill-toggle-section" className="section">
+    <section id="pill-toggle-section" className="section section-glassmorphism">
       <div className="container">
-        <h2 className="mb-8">Key Impacts</h2>
+        {/* Enhanced Header with Glassmorphism */}
+        <div className="text-center mb-12">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-400 via-purple-400 to-emerald-400 bg-clip-text text-transparent">
+            Key Impacts
+          </h2>
+          <p className="text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed">
+            Explore different aspects of the legislation by selecting topics below
+          </p>
+        </div>
         
-        {/* Topic Pills */}
-        <div className="flex flex-wrap gap-2 mb-8 justify-center">
-          {TOPICS.map(topic => (
-            <button
-              key={topic.key}
-              onClick={() => handleToggle(topic.key)}
-              className={`btn ${selected.includes(topic.key) ? '' : 'btn-secondary'}`}
-            >
-              {topic.label}
-            </button>
-          ))}
+        {/* Topic Pills with Color Pop */}
+        <div className="flex flex-wrap gap-3 mb-8 justify-center">
+          {TOPICS.map(topic => {
+            const isSelected = selected.includes(topic.key);
+            return (
+              <button
+                key={topic.key}
+                onClick={() => handleToggle(topic.key)}
+                className={`pill-toggle ${isSelected ? `pill-active pill-${topic.color}` : 'pill-inactive'}`}
+                data-selected={isSelected}
+                data-color={isSelected ? topic.color : 'inactive'}
+              >
+                <span className="pill-icon">{topic.icon}</span>
+                <span className="pill-label">{topic.label}</span>
+              </button>
+            );
+          })}
         </div>
 
         {/* Content Sections */}
