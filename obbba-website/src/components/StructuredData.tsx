@@ -2,12 +2,14 @@ interface StructuredDataProps {
   pageType?: 'website' | 'calculator' | 'analysis' | 'faq';
   title?: string;
   description?: string;
+  url?: string;
 }
 
 export default function StructuredData({ 
   pageType = 'website',
   title,
   description
+  , url
 }: StructuredDataProps) {
   
   // Core data that all pages share
@@ -16,7 +18,7 @@ export default function StructuredData({
     "@type": pageType === 'calculator' ? 'WebApplication' : 'WebSite',
     "name": title || "OBBBA Personal Impact Calculator 2025",
     "description": description || "Calculate how Trump's One Big Beautiful Bill affects your personal finances with our free tool",
-    "url": "https://obbba.org",
+  "url": url || "https://obbba.org",
     "keywords": "OBBBA calculator 2025, Trump bill impact, personal finance tool"
   };
 
