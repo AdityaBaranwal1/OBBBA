@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import { ChevronDown, ChevronUp, Calendar, Minus } from 'lucide-react';
 import { incomeBrackets } from './incomeBrackets';
 
@@ -30,21 +30,29 @@ function Thermometer({ value, maxGain, maxLoss, label }: ThermometerProps) {
   const isLoss = value < -100;
   const isSmall = !isGain && !isLoss;
   const barHeight = isGain
-    ? `${Math.max(5, Math.abs(value) / maxGain * 50)}%`
+    ? `${Math.max(5, (Math.abs(value) / maxGain) * 50)}%`
     : isLoss
-    ? `${Math.max(5, Math.abs(value) / maxLoss * 50)}%`
-    : '4%';
-  const barColor = isGain
-    ? '#32d74b'
-    : isLoss
-    ? '#ff3b30'
-    : '#8e8e93';
+      ? `${Math.max(5, (Math.abs(value) / maxLoss) * 50)}%`
+      : '4%';
+  const barColor = isGain ? '#32d74b' : isLoss ? '#ff3b30' : '#8e8e93';
   const barStyle = isGain
-    ? { bottom: '50%', height: barHeight, transition: 'height 0.6s cubic-bezier(0.4,0,0.2,1)' }
+    ? {
+        bottom: '50%',
+        height: barHeight,
+        transition: 'height 0.6s cubic-bezier(0.4,0,0.2,1)',
+      }
     : isLoss
-    ? { top: '50%', height: barHeight, transition: 'height 0.6s cubic-bezier(0.4,0,0.2,1)' }
-    : { top: '48%', height: barHeight, transition: 'height 0.6s cubic-bezier(0.4,0,0.2,1)' };
-  
+      ? {
+          top: '50%',
+          height: barHeight,
+          transition: 'height 0.6s cubic-bezier(0.4,0,0.2,1)',
+        }
+      : {
+          top: '48%',
+          height: barHeight,
+          transition: 'height 0.6s cubic-bezier(0.4,0,0.2,1)',
+        };
+
   return (
     <div className="thermometer-wrapper">
       <div className="thermometer-label">{label}</div>
@@ -52,25 +60,30 @@ function Thermometer({ value, maxGain, maxLoss, label }: ThermometerProps) {
         {/* Background track */}
         <div className="thermometer-track" />
         <div className="thermometer-centerline" />
-        <div 
-          className="thermometer-bar" 
+        <div
+          className="thermometer-bar"
           style={{
             ...barStyle,
             background: `linear-gradient(180deg, ${barColor}, ${barColor}dd)`,
-            boxShadow: `0 2px 8px ${barColor}40`
-          }} 
+            boxShadow: `0 2px 8px ${barColor}40`,
+          }}
         />
       </div>
       <div className="thermometer-status">
-        {isGain && <ChevronUp className="status-icon gain-icon" />} 
-        {isLoss && <ChevronDown className="status-icon loss-icon" />} 
-        {isSmall && <Minus className="status-icon neutral-icon" />} 
-        <span className={`status-text ${isGain ? 'gain-text' : isLoss ? 'loss-text' : 'neutral-text'}`}>
+        {isGain && <ChevronUp className="status-icon gain-icon" />}
+        {isLoss && <ChevronDown className="status-icon loss-icon" />}
+        {isSmall && <Minus className="status-icon neutral-icon" />}
+        <span
+          className={`status-text ${isGain ? 'gain-text' : isLoss ? 'loss-text' : 'neutral-text'}`}
+        >
           {isLoss ? 'Loss' : isGain ? 'Gain' : 'Small change'}
         </span>
       </div>
-      <div className={`thermometer-value ${isGain ? 'gain-text' : isLoss ? 'loss-text' : 'neutral-text'}`}>
-        ${value < 0 ? '-' : ''}{Math.abs(value).toLocaleString()}/yr
+      <div
+        className={`thermometer-value ${isGain ? 'gain-text' : isLoss ? 'loss-text' : 'neutral-text'}`}
+      >
+        ${value < 0 ? '-' : ''}
+        {Math.abs(value).toLocaleString()}/yr
       </div>
     </div>
   );
@@ -81,23 +94,44 @@ export default function IncomeImpactCalculator() {
   const [exactIncome, setExactIncome] = useState(0); // For exact manually entered values
   const [inputIncome, setInputIncome] = useState(0);
   const [isEditingInput, setIsEditingInput] = useState(false);
-  const [lastUpdateSource, setLastUpdateSource] = useState<'slider' | 'manual'>('slider');
-  
+  const [lastUpdateSource, setLastUpdateSource] = useState<'slider' | 'manual'>(
+    'slider',
+  );
+
   // Memoize maxGain and maxLoss
-  const maxGain = useMemo(() => Math.max(
-    ...incomeBrackets.map(b => Math.max(b.impactPreSunset, b.impactPostSunset, 0))
-  ), []);
-  const maxLoss = useMemo(() => Math.abs(Math.min(
-    ...incomeBrackets.map(b => Math.min(b.impactPreSunset, b.impactPostSunset, 0))
-  )), []);
-  
+  const maxGain = useMemo(
+    () =>
+      Math.max(
+        ...incomeBrackets.map((b) =>
+          Math.max(b.impactPreSunset, b.impactPostSunset, 0),
+        ),
+      ),
+    [],
+  );
+  const maxLoss = useMemo(
+    () =>
+      Math.abs(
+        Math.min(
+          ...incomeBrackets.map((b) =>
+            Math.min(b.impactPreSunset, b.impactPostSunset, 0),
+          ),
+        ),
+      ),
+    [],
+  );
+
   // Use exact income when manually entered, otherwise use slider-derived income
   const income = useMemo(() => {
     return isEditingInput ? inputIncome : exactIncome;
   }, [isEditingInput, inputIncome, exactIncome]);
-  
-  const bracket = useMemo(() => incomeBrackets.find(b => income >= b.min && income <= b.max) || incomeBrackets[0], [income]);
-  
+
+  const bracket = useMemo(
+    () =>
+      incomeBrackets.find((b) => income >= b.min && income <= b.max) ||
+      incomeBrackets[0],
+    [income],
+  );
+
   // Keep exactIncome in sync with slider changes only if not editing manually and last update was from slider
   React.useEffect(() => {
     if (!isEditingInput && lastUpdateSource === 'slider') {
@@ -107,17 +141,45 @@ export default function IncomeImpactCalculator() {
     }
   }, [slider, isEditingInput, lastUpdateSource]);
 
+  const handleSliderChange = useCallback(
+    (sliderValue: number) => {
+      setSlider(sliderValue);
+      setLastUpdateSource('slider');
+      if (!isEditingInput) {
+        const newIncome = sliderToIncome(sliderValue);
+        setExactIncome(newIncome);
+        setInputIncome(newIncome);
+      }
+    },
+    [isEditingInput],
+  );
+
   return (
-    <section className="section bg-neutral-light section-transition" id="income-impact">
+    <section
+      className="section bg-neutral-light section-transition"
+      id="income-impact"
+    >
       <div className="max-w-6xl mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-8">
-          <h2 className="text-3xl sm:text-4xl font-bold text-brand-blue mb-3" style={{letterSpacing:'-0.01em'}}>Personal Impact Calculator</h2>
-          <p className="text-neutral-dark text-lg max-w-2xl mx-auto">Select your annual income to see how the OBBBA Act may affect your finances over time.</p>
+          <h2
+            className="text-3xl sm:text-4xl font-bold text-brand-blue mb-3"
+            style={{ letterSpacing: '-0.01em' }}
+          >
+            Personal Impact Calculator
+          </h2>
+          <p className="text-neutral-dark text-lg max-w-2xl mx-auto">
+            Select your annual income to see how the OBBBA Act may affect your
+            finances over time.
+          </p>
           <div className="mt-4 text-center">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-50 border border-blue-200 rounded-lg text-xs text-blue-700">
               <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+                <path
+                  fillRule="evenodd"
+                  d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                  clipRule="evenodd"
+                />
               </svg>
               Educational purposes only • Data is fact-checked
             </div>
@@ -132,7 +194,7 @@ export default function IncomeImpactCalculator() {
               <span className="income-label">Annual Income</span>
               <span className="income-value">${income.toLocaleString()}</span>
             </div>
-            
+
             <div className="slider-container">
               <input
                 id="income-slider"
@@ -140,16 +202,7 @@ export default function IncomeImpactCalculator() {
                 min={0}
                 max={100}
                 value={slider}
-                onChange={e => {
-                  const sliderValue = Number(e.target.value);
-                  setSlider(sliderValue);
-                  setLastUpdateSource('slider');
-                  if (!isEditingInput) {
-                    const newIncome = sliderToIncome(sliderValue);
-                    setExactIncome(newIncome);
-                    setInputIncome(newIncome);
-                  }
-                }}
+                onChange={(e) => handleSliderChange(Number(e.target.value))}
                 className="income-slider"
                 aria-label="Annual income slider"
               />
@@ -160,7 +213,7 @@ export default function IncomeImpactCalculator() {
                   { label: '$160k', value: 160000 },
                   { label: '$360k', value: 360000 },
                   { label: '$640k', value: 640000 },
-                  { label: '$1M', value: 1000000 }
+                  { label: '$1M', value: 1000000 },
                 ].map(({ label, value }) => {
                   const percent = incomeToSlider(value);
                   return (
@@ -180,7 +233,7 @@ export default function IncomeImpactCalculator() {
                 max={1000000}
                 step={1000}
                 value={isEditingInput ? inputIncome : income}
-                onChange={e => {
+                onChange={(e) => {
                   setIsEditingInput(true);
                   let val = Number(e.target.value.replace(/[^\d]/g, ''));
                   if (isNaN(val)) val = 0;
@@ -206,30 +259,51 @@ export default function IncomeImpactCalculator() {
           <div className="results-grid">
             {/* Impact Summary Card */}
             <div className="impact-summary-card">
-              <h3 className="bracket-title">{bracket.label.replace(/\s*\([^)]*\)/, '')}</h3>
-              
+              <h3 className="bracket-title">
+                {bracket.label.replace(/\s*\([^)]*\)/, '')}
+              </h3>
+
               <div className="impact-timeline">
                 <div className="impact-period">
                   <span className="period-label">Years 1-2</span>
-                  <span className={`impact-amount ${bracket.impactPreSunset < 0 ? 'negative' : 'positive'}`}>
-                    {bracket.impactPreSunset < 0 ? '-' : '+'}${Math.abs(bracket.impactPreSunset).toLocaleString()}/yr
+                  <span
+                    className={`impact-amount ${bracket.impactPreSunset < 0 ? 'negative' : 'positive'}`}
+                  >
+                    {bracket.impactPreSunset < 0 ? '-' : '+'}$
+                    {Math.abs(bracket.impactPreSunset).toLocaleString()}/yr
                   </span>
                 </div>
                 <div className="impact-period">
                   <span className="period-label">Year 3+</span>
-                  <span className={`impact-amount ${bracket.impactPostSunset < 0 ? 'negative' : 'positive'}`}>
-                    {bracket.impactPostSunset < 0 ? '-' : '+'}${Math.abs(bracket.impactPostSunset).toLocaleString()}/yr
+                  <span
+                    className={`impact-amount ${bracket.impactPostSunset < 0 ? 'negative' : 'positive'}`}
+                  >
+                    {bracket.impactPostSunset < 0 ? '-' : '+'}$
+                    {Math.abs(bracket.impactPostSunset).toLocaleString()}/yr
                   </span>
                 </div>
               </div>
 
               <div className="cliff-indicator">
-                {bracket.impactPreSunset > bracket.impactPostSunset ? 
-                  <span className="cliff-warning">Cliff: -${Math.abs(bracket.impactPreSunset - bracket.impactPostSunset).toLocaleString()}/yr drop</span> :
-                  bracket.impactPreSunset < bracket.impactPostSunset ?
-                  <span className="cliff-improvement">Improvement: +${Math.abs(bracket.impactPostSunset - bracket.impactPreSunset).toLocaleString()}/yr gain</span> :
+                {bracket.impactPreSunset > bracket.impactPostSunset ? (
+                  <span className="cliff-warning">
+                    Cliff: -$
+                    {Math.abs(
+                      bracket.impactPreSunset - bracket.impactPostSunset,
+                    ).toLocaleString()}
+                    /yr drop
+                  </span>
+                ) : bracket.impactPreSunset < bracket.impactPostSunset ? (
+                  <span className="cliff-improvement">
+                    Improvement: +$
+                    {Math.abs(
+                      bracket.impactPostSunset - bracket.impactPreSunset,
+                    ).toLocaleString()}
+                    /yr gain
+                  </span>
+                ) : (
                   <span className="cliff-neutral">No change</span>
-                }
+                )}
               </div>
 
               <p className="impact-explanation">{bracket.oneLineWhy}</p>
@@ -255,7 +329,7 @@ export default function IncomeImpactCalculator() {
                     <li key={index}>{detail}</li>
                   ))}
                 </ul>
-                
+
                 <div className="sources-section">
                   <p className="sources-label">Sources:</p>
                   <div className="sources-links">
@@ -275,8 +349,18 @@ export default function IncomeImpactCalculator() {
               </div>
 
               <div className="thermometers-container">
-                <Thermometer value={bracket.impactPreSunset} maxGain={maxGain} maxLoss={maxLoss} label="Years 1-2" />
-                <Thermometer value={bracket.impactPostSunset} maxGain={maxGain} maxLoss={maxLoss} label="Year 3+" />
+                <Thermometer
+                  value={bracket.impactPreSunset}
+                  maxGain={maxGain}
+                  maxLoss={maxLoss}
+                  label="Years 1-2"
+                />
+                <Thermometer
+                  value={bracket.impactPostSunset}
+                  maxGain={maxGain}
+                  maxLoss={maxLoss}
+                  label="Year 3+"
+                />
               </div>
             </div>
           </div>
@@ -284,4 +368,4 @@ export default function IncomeImpactCalculator() {
       </div>
     </section>
   );
-} 
+}
