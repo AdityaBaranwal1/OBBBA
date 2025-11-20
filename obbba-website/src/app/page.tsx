@@ -1,6 +1,5 @@
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
-import ImpactsOverview from '@/components/ImpactsOverview';
 import KeyImpactCards from '@/components/KeyImpactCards';
 import TimelineImpact from '@/components/TimelineImpact';
 import PillToggleSection from '@/components/PillToggleSection';
@@ -32,7 +31,6 @@ export default function Home() {
       <main className="min-h-screen">
         <Header />
         <Hero />
-        <ImpactsOverview />
         <KeyImpactCards />
         <TimelineImpact />
         <PillToggleSection />

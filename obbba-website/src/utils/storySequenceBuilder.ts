@@ -1,6 +1,6 @@
 import { incomeBrackets } from '@/components/incomeBrackets';
 
-export type SlideType = 'intro' | 'impact' | 'why' | 'details' | 'topicSelection' | 'leadCapture' | 'share';
+export type SlideType = 'intro' | 'impact' | 'why' | 'details' | 'incomeSelection' | 'topicSelection' | 'leadCapture' | 'share';
 
 export interface StorySlide {
   id: string;
@@ -26,7 +26,7 @@ export interface BracketData {
   details: string[];
   sunsetDetails: string[];
   sources: { text: string; url: string }[];
-  emoji: string;
+  emoji?: string;
   color: string;
 }
 
@@ -63,7 +63,7 @@ export function generateCalculatorStory(income: number, bracket: BracketData): S
       type: 'impact',
       title: 'Year 3 Onwards',
       content: `${bracket.impactPostSunset > 0 ? '+' : ''}${formatCurrency(bracket.impactPostSunset)} per year`,
-      footer: bracket.impactPostSunset < bracket.impactPreSunset 
+      footer: bracket.impactPostSunset < bracket.impactPreSunset
         ? `That's a drop of ${formatCurrency(bracket.impactPreSunset - bracket.impactPostSunset)}`
         : 'Long-term impact',
       color: getImpactColor(bracket.impactPostSunset),
@@ -102,13 +102,19 @@ export function generateGenericStory(): StorySlide[] {
       content: '22.3M families could lose SNAP benefits\n16M could lose Medicaid\nTop 10% get 80% of tax cuts',
       color: 'bg-gradient-to-br from-purple-800 to-pink-900',
     },
-    // Topic selection will be added here
+    {
+      id: 'income-selector',
+      type: 'incomeSelection',
+      title: 'Select Your Income',
+      content: '', // Will be replaced with IncomeStackSelector component
+      color: 'bg-transparent',
+    },
   ];
 }
 
 export function generateTopicSlides(topics: string[], bracket: BracketData | null): StorySlide[] {
   const slides: StorySlide[] = [];
-  
+
   topics.forEach((topic, index) => {
     switch (topic) {
       case 'snap':
@@ -116,69 +122,69 @@ export function generateTopicSlides(topics: string[], bracket: BracketData | nul
           id: `topic-snap-${index}`,
           type: 'details',
           title: 'SNAP Benefits',
-          content: bracket?.details.find(d => d.includes('SNAP')) || 
-                   '22.3M families face SNAP cuts; 5.3M lose ≥$25/month',
+          content: bracket?.details.find(d => d.includes('SNAP')) ||
+            '22.3M families face SNAP cuts; 5.3M lose ≥$25/month',
           color: 'bg-gradient-to-br from-orange-700 to-red-800',
         });
         break;
-      
+
       case 'medicaid':
         slides.push({
           id: `topic-medicaid-${index}`,
           type: 'details',
           title: 'Healthcare Coverage',
-          content: bracket?.details.find(d => d.includes('Medicaid')) || 
-                   '16M could lose Medicaid coverage by 2034',
+          content: bracket?.details.find(d => d.includes('Medicaid')) ||
+            '16M could lose Medicaid coverage by 2034',
           color: 'bg-gradient-to-br from-blue-700 to-cyan-800',
         });
         break;
-      
+
       case 'taxes':
         slides.push({
           id: `topic-taxes-${index}`,
           type: 'details',
           title: 'Tax Changes',
-          content: bracket?.sunsetDetails.find(d => d.includes('deduction')) || 
-                   'Standard deduction and tax brackets significantly modified',
+          content: bracket?.sunsetDetails.find(d => d.includes('deduction')) ||
+            'Standard deduction and tax brackets significantly modified',
           color: 'bg-gradient-to-br from-green-700 to-emerald-800',
         });
         break;
-      
+
       case 'childcredits':
         slides.push({
           id: `topic-child-${index}`,
           type: 'details',
           title: 'Child & Family Benefits',
-          content: bracket?.sunsetDetails.find(d => d.includes('Baby bonus') || d.includes('Child')) || 
-                   'Baby bonus and Trump Account expire after initial period',
+          content: bracket?.sunsetDetails.find(d => d.includes('Baby bonus') || d.includes('Child')) ||
+            'Baby bonus and Trump Account expire after initial period',
           color: 'bg-gradient-to-br from-pink-700 to-purple-800',
         });
         break;
-      
+
       case 'salt':
         slides.push({
           id: `topic-salt-${index}`,
           type: 'details',
           title: 'SALT Deduction',
-          content: bracket?.details.find(d => d.includes('SALT')) || 
-                   'State and Local Tax deduction cap raised to $40k for incomes under $500k',
+          content: bracket?.details.find(d => d.includes('SALT')) ||
+            'State and Local Tax deduction cap raised to $40k for incomes under $500k',
           color: 'bg-gradient-to-br from-indigo-700 to-blue-800',
         });
         break;
-      
+
       case 'estate':
         slides.push({
           id: `topic-estate-${index}`,
           type: 'details',
           title: 'Estate & Wealth',
-          content: bracket?.details.find(d => d.includes('Estate') || d.includes('estate')) || 
-                   'Estate tax benefits and wealth provisions favor highest earners',
+          content: bracket?.details.find(d => d.includes('Estate') || d.includes('estate')) ||
+            'Estate tax benefits and wealth provisions favor highest earners',
           color: 'bg-gradient-to-br from-yellow-700 to-amber-800',
         });
         break;
     }
   });
-  
+
   return slides;
 }
 
