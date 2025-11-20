@@ -48,7 +48,6 @@ export function generateCalculatorStory(income: number, bracket: BracketData): S
       type: 'intro',
       title: 'Your 2025 Forecast',
       content: `Based on ${formatCurrency(income)} annual income`,
-      emoji: '📊',
       color: 'bg-gradient-to-br from-blue-700 to-indigo-800',
     },
     {
@@ -65,7 +64,7 @@ export function generateCalculatorStory(income: number, bracket: BracketData): S
       title: 'Year 3 Onwards',
       content: `${bracket.impactPostSunset > 0 ? '+' : ''}${formatCurrency(bracket.impactPostSunset)} per year`,
       footer: bracket.impactPostSunset < bracket.impactPreSunset 
-        ? `⚠️ That's a drop of ${formatCurrency(bracket.impactPreSunset - bracket.impactPostSunset)}`
+        ? `That's a drop of ${formatCurrency(bracket.impactPreSunset - bracket.impactPostSunset)}`
         : 'Long-term impact',
       color: getImpactColor(bracket.impactPostSunset),
     },
@@ -74,7 +73,6 @@ export function generateCalculatorStory(income: number, bracket: BracketData): S
       type: 'why',
       title: 'Why?',
       content: bracket.oneLineWhy,
-      emoji: '💡',
       color: 'bg-gradient-to-br from-indigo-800 to-purple-900',
     },
     // Topic selection slide will be inserted here dynamically
@@ -88,7 +86,6 @@ export function generateGenericStory(): StorySlide[] {
       type: 'intro',
       title: 'How Will OBBBA Affect You?',
       content: 'Discover the real impact of the One Big Beautiful Bill',
-      emoji: '🎯',
       color: 'bg-gradient-to-br from-slate-800 to-blue-900',
     },
     {
@@ -96,7 +93,6 @@ export function generateGenericStory(): StorySlide[] {
       type: 'intro',
       title: 'Every Income Bracket Is Different',
       content: 'From tax cuts to benefit reductions—the impact varies dramatically',
-      emoji: '📊',
       color: 'bg-gradient-to-br from-blue-800 to-indigo-900',
     },
     {
@@ -104,7 +100,6 @@ export function generateGenericStory(): StorySlide[] {
       type: 'intro',
       title: 'For Example...',
       content: '22.3M families could lose SNAP benefits\n16M could lose Medicaid\nTop 10% get 80% of tax cuts',
-      emoji: '⚖️',
       color: 'bg-gradient-to-br from-purple-800 to-pink-900',
     },
     // Topic selection will be added here
@@ -123,7 +118,6 @@ export function generateTopicSlides(topics: string[], bracket: BracketData | nul
           title: 'SNAP Benefits',
           content: bracket?.details.find(d => d.includes('SNAP')) || 
                    '22.3M families face SNAP cuts; 5.3M lose ≥$25/month',
-          emoji: '🍽️',
           color: 'bg-gradient-to-br from-orange-700 to-red-800',
         });
         break;
@@ -135,7 +129,6 @@ export function generateTopicSlides(topics: string[], bracket: BracketData | nul
           title: 'Healthcare Coverage',
           content: bracket?.details.find(d => d.includes('Medicaid')) || 
                    '16M could lose Medicaid coverage by 2034',
-          emoji: '🏥',
           color: 'bg-gradient-to-br from-blue-700 to-cyan-800',
         });
         break;
@@ -147,7 +140,6 @@ export function generateTopicSlides(topics: string[], bracket: BracketData | nul
           title: 'Tax Changes',
           content: bracket?.sunsetDetails.find(d => d.includes('deduction')) || 
                    'Standard deduction and tax brackets significantly modified',
-          emoji: '💰',
           color: 'bg-gradient-to-br from-green-700 to-emerald-800',
         });
         break;
@@ -159,7 +151,6 @@ export function generateTopicSlides(topics: string[], bracket: BracketData | nul
           title: 'Child & Family Benefits',
           content: bracket?.sunsetDetails.find(d => d.includes('Baby bonus') || d.includes('Child')) || 
                    'Baby bonus and Trump Account expire after initial period',
-          emoji: '👶',
           color: 'bg-gradient-to-br from-pink-700 to-purple-800',
         });
         break;
@@ -171,7 +162,6 @@ export function generateTopicSlides(topics: string[], bracket: BracketData | nul
           title: 'SALT Deduction',
           content: bracket?.details.find(d => d.includes('SALT')) || 
                    'State and Local Tax deduction cap raised to $40k for incomes under $500k',
-          emoji: '🏠',
           color: 'bg-gradient-to-br from-indigo-700 to-blue-800',
         });
         break;
@@ -183,7 +173,6 @@ export function generateTopicSlides(topics: string[], bracket: BracketData | nul
           title: 'Estate & Wealth',
           content: bracket?.details.find(d => d.includes('Estate') || d.includes('estate')) || 
                    'Estate tax benefits and wealth provisions favor highest earners',
-          emoji: '💎',
           color: 'bg-gradient-to-br from-yellow-700 to-amber-800',
         });
         break;

@@ -73,6 +73,11 @@ const StoryCard: React.FC<StoryCardProps> = ({
                     Tap to continue
                 </div>
             )}
+            
+            {/* Cancel/Exit hint at bottom left */}
+            <div className="absolute bottom-4 left-4 text-white/40 text-xs pointer-events-none z-30">
+                Press ESC or × to exit
+            </div>
         </motion.div>
     );
 };

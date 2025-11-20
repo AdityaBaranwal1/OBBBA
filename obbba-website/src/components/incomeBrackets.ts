@@ -27,7 +27,6 @@ export const incomeBrackets = [
       { text: "CBPP", url: "https://www.cbpp.org" },
       { text: "CBO", url: "https://www.cbo.gov/publication/61387" }
     ],
-    emoji: '🚨',
     color: 'text-red-700'
   },
   {
@@ -55,7 +54,6 @@ export const incomeBrackets = [
     sources: [
       { text: "CBO", url: "https://www.cbo.gov/publication/61387" }
     ],
-    emoji: '😕',
     color: 'text-yellow-700'
   },
   {
@@ -83,7 +81,6 @@ export const incomeBrackets = [
     sources: [
       { text: "JCT", url: "https://www.jct.gov/publications/2025/jcx-33-25/" }
     ],
-    emoji: '😃',
     color: 'text-green-600'
   },
   {
@@ -112,7 +109,6 @@ export const incomeBrackets = [
     sources: [
       { text: "CBO", url: "https://www.cbo.gov/publication/61387" }
     ],
-    emoji: '🤑',
     color: 'text-green-700'
   },
   {
@@ -141,7 +137,6 @@ export const incomeBrackets = [
     sources: [
       { text: "CBO", url: "https://www.cbo.gov/publication/61387" }
     ],
-    emoji: '🤑',
     color: 'text-green-800'
   },
 ]; 

@@ -194,9 +194,9 @@ export default function Header() {
               aria-label="Toggle mobile menu"
             >
               {isMobileMenuOpen ? (
-                <span style={{ fontSize: '20px', lineHeight: 1 }}>✕</span>
+                <span style={{ fontSize: '20px', lineHeight: 1 }}>×</span>
               ) : (
-                <span style={{ fontSize: '16px', lineHeight: 1 }}>☰</span>
+                <span style={{ fontSize: '16px', lineHeight: 1 }}>≡</span>
               )}
             </button>
           </div>
@@ -247,7 +247,7 @@ export default function Header() {
                 boxShadow: '0 4px 12px rgba(102, 126, 234, 0.3)'
               }}
             >
-              ✨ Explore OBBBA Story
+              Explore OBBBA Story
             </button>
             
             {/* Theme Toggle in Mobile Menu */}

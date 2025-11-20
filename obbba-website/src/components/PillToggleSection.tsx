@@ -3,13 +3,13 @@
 import React, { useState } from 'react';
 
 const TOPICS = [
-  { key: 'gdp', label: 'GDP & Growth', description: 'Economic growth and GDP impacts', color: 'emerald', icon: '📈' },
-  { key: 'snap', label: 'SNAP', description: 'Nutrition assistance program changes', color: 'orange', icon: '🍎' },
-  { key: 'health', label: 'Healthcare', description: 'Medicaid, Medicare, and ACA modifications', color: 'red', icon: '🏥' },
-  { key: 'edu', label: 'Education', description: 'Student loans and education funding', color: 'purple', icon: '🎓' },
-  { key: 'env', label: 'Environment', description: 'Climate and environmental policy', color: 'green', icon: '🌱' },
-  { key: 'finance', label: 'Finance', description: 'Financial regulation and consumer protection', color: 'blue', icon: '💰' },
-  { key: 'imm', label: 'Immigration', description: 'Immigration fees and border policies', color: 'indigo', icon: '🛂' },
+  { key: 'gdp', label: 'GDP & Growth', description: 'Economic growth and GDP impacts', color: 'emerald' },
+  { key: 'snap', label: 'SNAP', description: 'Nutrition assistance program changes', color: 'orange' },
+  { key: 'health', label: 'Healthcare', description: 'Medicaid, Medicare, and ACA modifications', color: 'red' },
+  { key: 'edu', label: 'Education', description: 'Student loans and education funding', color: 'purple' },
+  { key: 'env', label: 'Environment', description: 'Climate and environmental policy', color: 'green' },
+  { key: 'finance', label: 'Finance', description: 'Financial regulation and consumer protection', color: 'blue' },
+  { key: 'imm', label: 'Immigration', description: 'Immigration fees and border policies', color: 'indigo' },
 ];
 
 const SECTION_CONTENT = {
@@ -108,7 +108,6 @@ export default function PillToggleSection() {
                 data-selected={isSelected}
                 data-color={isSelected ? topic.color : 'inactive'}
               >
-                <span className="pill-icon">{topic.icon}</span>
                 <span className="pill-label">{topic.label}</span>
               </button>
             );

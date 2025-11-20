@@ -178,7 +178,7 @@ export default function CalculatorPage() {
           <div className="grid md:grid-cols-3 gap-8 mt-16">
             <div className="text-center">
               <div className="w-16 h-16 bg-green-600/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl">📊</span>
+                <span className="text-2xl font-bold">$</span>
               </div>
               <h3 className="text-xl font-bold text-white mb-2">Detailed Breakdown</h3>
               <p className="text-slate-300">See exactly how each OBBBA provision affects your finances</p>

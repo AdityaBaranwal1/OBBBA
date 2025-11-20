@@ -278,7 +278,7 @@ export default function IncomeImpactCalculator() {
                   onClick={() => setIsStoryOpen(true)}
                   className="text-xs bg-gradient-to-r from-purple-600 to-blue-600 text-white px-3 py-1.5 rounded-full font-bold hover:shadow-lg hover:scale-105 transition-all flex items-center gap-1 animate-pulse"
                 >
-                  ✨ See Your Story
+                  See Your Story
                 </button>
               </div>
 
