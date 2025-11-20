@@ -2,11 +2,14 @@
 
 import { useState, useEffect } from 'react';
 import ThemeToggle from './ThemeToggle';
+import StoryMode from './StoryMode';
+import StoryModeButton from './StoryModeButton';
 import { useScrollDirection } from '../hooks/useScrollEffects';
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isGenericStoryOpen, setIsGenericStoryOpen] = useState(false);
   const scrollDirection = useScrollDirection();
 
   useEffect(() => {
@@ -49,8 +52,19 @@ export default function Header() {
     { label: 'FAQ', id: 'faq-section' }
   ];
 
+  const externalLinks = [
+    { label: 'All Impacts', href: '/impacts' },
+    { label: 'Analysis', href: '/analysis' }
+  ];
+
   return (
     <>
+      <StoryMode
+        isOpen={isGenericStoryOpen}
+        onClose={() => setIsGenericStoryOpen(false)}
+        mode="generic"
+      />
+      
       <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-out ${
         isScrolled 
           ? 'header-scrolled' 
@@ -94,20 +108,20 @@ export default function Header() {
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex" style={{ 
-            gap: 'clamp(1.5rem, 3vw, 2.5rem)', 
+          <nav className="hidden md:flex" style={{
+            gap: 'clamp(1.5rem, 3vw, 2.5rem)',
             fontSize: 'clamp(0.9rem, 2vw, 1rem)'
           }}>
             {navigationItems.slice(1, 4).map((item) => (
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
-                style={{ 
-                  background: 'none', 
-                  border: 'none', 
-                  color: 'var(--text-primary)', 
-                  cursor: 'pointer', 
-                  font: 'inherit', 
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  color: 'var(--text-primary)',
+                  cursor: 'pointer',
+                  font: 'inherit',
                   padding: '0.5rem 0',
                   fontWeight: 500,
                   transition: 'opacity 0.2s ease',
@@ -119,10 +133,36 @@ export default function Header() {
                 {item.label}
               </button>
             ))}
+            {externalLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                style={{
+                  color: 'var(--text-primary)',
+                  textDecoration: 'none',
+                  padding: '0.5rem 0',
+                  fontWeight: 500,
+                  transition: 'opacity 0.2s ease',
+                  opacity: 0.8
+                }}
+                onMouseEnter={(e) => (e.target as HTMLElement).style.opacity = '1'}
+                onMouseLeave={(e) => (e.target as HTMLElement).style.opacity = '0.8'}
+              >
+                {link.label}
+              </a>
+            ))}
           </nav>
 
           {/* Right side controls */}
           <div className="flex items-center" style={{ gap: 'clamp(0.75rem, 2vw, 1rem)' }}>
+            {/* Story Mode Button */}
+            <div className="hidden md:block">
+              <StoryModeButton 
+                variant="generic" 
+                onClick={() => setIsGenericStoryOpen(true)} 
+              />
+            </div>
+            
             {/* Desktop Theme Toggle */}
             <div className="hidden md:block">
               <ThemeToggle />
@@ -181,6 +221,35 @@ export default function Header() {
             flexDirection: 'column',
             gap: '0.75rem'
           }}>
+            {/* Explore OBBBA Story Button */}
+            <button
+              onClick={() => {
+                setIsGenericStoryOpen(true);
+                setIsMobileMenuOpen(false);
+              }}
+              style={{
+                borderRadius: '16px',
+                padding: '1rem 1.5rem',
+                fontSize: '1.125rem',
+                fontWeight: 600,
+                textAlign: 'center',
+                cursor: 'pointer',
+                transition: 'all 0.2s ease',
+                touchAction: 'manipulation',
+                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                border: 'none',
+                color: 'white',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '0.5rem',
+                marginBottom: '0.5rem',
+                boxShadow: '0 4px 12px rgba(102, 126, 234, 0.3)'
+              }}
+            >
+              ✨ Explore OBBBA Story
+            </button>
+            
             {/* Theme Toggle in Mobile Menu */}
             <div style={{
               background: 'var(--surface-glass)',

@@ -3,6 +3,7 @@
 import React, { useState, useMemo, useCallback } from 'react';
 import { ChevronDown, ChevronUp, Calendar, Minus } from 'lucide-react';
 import { incomeBrackets } from './incomeBrackets';
+import StoryMode from './StoryMode';
 
 function incomeToSlider(income: number) {
   const min = 0;
@@ -37,21 +38,21 @@ function Thermometer({ value, maxGain, maxLoss, label }: ThermometerProps) {
   const barColor = isGain ? '#32d74b' : isLoss ? '#ff3b30' : '#8e8e93';
   const barStyle = isGain
     ? {
-        bottom: '50%',
+      bottom: '50%',
+      height: barHeight,
+      transition: 'height 0.6s cubic-bezier(0.4,0,0.2,1)',
+    }
+    : isLoss
+      ? {
+        top: '50%',
         height: barHeight,
         transition: 'height 0.6s cubic-bezier(0.4,0,0.2,1)',
       }
-    : isLoss
-      ? {
-          top: '50%',
-          height: barHeight,
-          transition: 'height 0.6s cubic-bezier(0.4,0,0.2,1)',
-        }
       : {
-          top: '48%',
-          height: barHeight,
-          transition: 'height 0.6s cubic-bezier(0.4,0,0.2,1)',
-        };
+        top: '48%',
+        height: barHeight,
+        transition: 'height 0.6s cubic-bezier(0.4,0,0.2,1)',
+      };
 
   return (
     <div className="thermometer-wrapper">
@@ -154,11 +155,21 @@ export default function IncomeImpactCalculator() {
     [isEditingInput],
   );
 
+  const [isStoryOpen, setIsStoryOpen] = useState(false);
+
   return (
     <section
       className="section bg-neutral-light section-transition"
       id="income-impact"
     >
+      <StoryMode
+        isOpen={isStoryOpen}
+        onClose={() => setIsStoryOpen(false)}
+        mode="calculator"
+        income={income}
+        bracket={bracket}
+      />
+
       <div className="max-w-6xl mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-8">
@@ -259,9 +270,17 @@ export default function IncomeImpactCalculator() {
           <div className="results-grid">
             {/* Impact Summary Card */}
             <div className="impact-summary-card">
-              <h3 className="bracket-title">
-                {bracket.label.replace(/\s*\([^)]*\)/, '')}
-              </h3>
+              <div className="flex justify-between items-start mb-4">
+                <h3 className="bracket-title mb-0">
+                  {bracket.label.replace(/\s*\([^)]*\)/, '')}
+                </h3>
+                <button
+                  onClick={() => setIsStoryOpen(true)}
+                  className="text-xs bg-gradient-to-r from-purple-600 to-blue-600 text-white px-3 py-1.5 rounded-full font-bold hover:shadow-lg hover:scale-105 transition-all flex items-center gap-1 animate-pulse"
+                >
+                  ✨ See Your Story
+                </button>
+              </div>
 
               <div className="impact-timeline">
                 <div className="impact-period">
@@ -369,3 +388,4 @@ export default function IncomeImpactCalculator() {
     </section>
   );
 }
+

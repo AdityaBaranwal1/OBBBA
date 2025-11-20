@@ -15,11 +15,13 @@ interface SEOHeadProps {
 }
 
 export default function SEOHead({
-  title = "OBBBA Act Analysis - Personal Impact Calculator & Economic Analysis",
-  description = "Calculate how Trump's One Big Beautiful Bill Act (OBBBA) affects YOU personally. Fact-checked analysis with direct quotes and official PDF links. See your personal impact now!",
+  title = "Impacts of the Big Beautiful Bill - Personal Impact Calculator",
+  description = "Discover the impacts of the Big Beautiful Bill on your finances. Calculate how Trump's One Big Beautiful Bill affects YOU personally with our free calculator. See the real impacts with fact-checked analysis.",
   canonicalUrl = "https://obbba.org",
   ogImage = "https://obbba.org/og-image.jpg",
   keywords = [
+    "impacts of the big beautiful bill", "big beautiful bill impacts", "One Big Beautiful Bill impacts",
+    "impacts of Trump big beautiful bill", "big beautiful bill effects", "One Big Beautiful Bill consequences",
     "OBBBA calculator", "Trump bill personal impact", "One Big Beautiful Bill Act calculator",
     "OBBBA economic impact", "Trump legislation analysis", "personal tax calculator",
     "federal spending impact", "government bill calculator", "OBBBA cost analysis",

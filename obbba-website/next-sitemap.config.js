@@ -3,6 +3,10 @@ module.exports = {
   siteUrl: process.env.SITE_URL || 'https://obbba.org',
   generateRobotsTxt: true,
   generateIndexSitemap: false,
+  additionalPaths: async (config) => [
+    await config.transform(config, '/impacts'),
+    await config.transform(config, '/what-are-the-impacts'),
+  ],
   robotsTxtOptions: {
     policies: [
       {

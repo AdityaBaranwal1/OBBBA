@@ -17,10 +17,17 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL('https://obbba.org'),
   title:
-    'OBBBA Personal Impact Calculator FREE - Trump One Big Beautiful Bill Calculator 2025',
+    'Impacts of the Big Beautiful Bill - OBBBA Personal Impact Calculator 2025',
   description:
-    "FREE OBBBA Personal Impact Calculator! Calculate exactly how Trump's One Big Beautiful Bill Act affects YOUR specific income bracket in 2025. Instant results with fact-checked analysis from official government sources. Try the calculator now!",
+    "Discover the impacts of the Big Beautiful Bill on your finances. FREE calculator shows exactly how Trump's One Big Beautiful Bill affects YOUR income, taxes, and benefits in 2025. See the real impacts with fact-checked analysis from official sources.",
   keywords: [
+    'impacts of the big beautiful bill',
+    'big beautiful bill impacts',
+    'One Big Beautiful Bill impacts',
+    'OBBBA impacts calculator',
+    'impacts of Trump big beautiful bill',
+    'big beautiful bill effects',
+    'One Big Beautiful Bill consequences',
     'OBBBA personal impact calculator 2025',
     'Trump One Big Beautiful Bill calculator free',
     'OBBBA Act calculator 2025',
@@ -52,9 +59,9 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: 'OBBBA Analysis Team' }],
   openGraph: {
-    title: 'OBBBA Act Analysis - Understanding the Real Economic Costs',
+    title: 'Impacts of the Big Beautiful Bill - Personal Impact Calculator',
     description:
-      'Comprehensive analysis of the One Big Beautiful Bill Act and its far-reaching economic implications for American taxpayers and future generations.',
+      'Discover the real impacts of the Big Beautiful Bill on your finances. Free calculator shows how Trump\'s One Big Beautiful Bill affects your income, taxes, and benefits.',
     type: 'website',
     locale: 'en_US',
     siteName: 'OBBBA Analysis',
@@ -64,7 +71,7 @@ export const metadata: Metadata = {
         url: '/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'OBBBA Act Analysis - Economic Impact Overview',
+        alt: 'Impacts of the Big Beautiful Bill - Personal Impact Calculator',
       },
     ],
   },
@@ -72,9 +79,9 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     site: '@OBBBAAnalysis',
     creator: '@OBBBAAnalysis',
-    title: 'OBBBA Act Analysis - Understanding the Real Economic Costs',
+    title: 'Impacts of the Big Beautiful Bill - Personal Impact Calculator',
     description:
-      'Comprehensive analysis of the One Big Beautiful Bill Act and its economic implications. Interactive tools and detailed breakdowns included.',
+      'Discover the real impacts of the Big Beautiful Bill on your finances. Free calculator shows how the One Big Beautiful Bill affects you personally.',
     images: ['/twitter-image.jpg'],
   },
   robots: {
@@ -135,10 +142,10 @@ export default function RootLayout({
             __html: JSON.stringify({
               '@context': 'https://schema.org',
               '@type': 'WebSite',
-              name: 'OBBBA Act Analysis',
+              name: 'Impacts of the Big Beautiful Bill - OBBBA Analysis',
               url: 'https://obbba.org',
               description:
-                'Comprehensive analysis of the One Big Beautiful Bill Act and its economic implications',
+                'Discover the impacts of the Big Beautiful Bill on your finances. Comprehensive analysis of Trump\'s One Big Beautiful Bill and its economic implications.',
               publisher: {
                 '@type': 'Organization',
                 name: 'OBBBA Analysis Team',
@@ -148,6 +155,13 @@ export default function RootLayout({
                 target: 'https://obbba.org/search?q={search_term_string}',
                 'query-input': 'required name=search_term_string',
               },
+              mainEntity: {
+                '@type': 'WebApplication',
+                name: 'Big Beautiful Bill Impact Calculator',
+                description: 'Calculate the personal impacts of the Big Beautiful Bill on your income and benefits',
+                applicationCategory: 'FinanceApplication',
+                operatingSystem: 'Web Browser'
+              }
             }),
           }}
         />

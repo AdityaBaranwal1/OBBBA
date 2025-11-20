@@ -24,19 +24,19 @@ export default function Hero() {
       
       <div className="container text-center relative z-10">
         <div className="space-y-8">
-          {/* Concise Main Headline for users */}
+          {/* Main Headline targeting key search terms */}
           <h1 className="mb-4 scroll-fade-in">
-            OBBBA Impact Calculator 2025
+            Impacts of the Big Beautiful Bill Calculator
           </h1>
 
           {/* Keyword-rich H2 for SEO, visually styled as subheading */}
           <h2 className="text-xl font-semibold text-blue-700 mb-2 scroll-fade-in-delay" style={{marginTop: '-0.5rem'}}>
-            How Trump's One Big Beautiful Bill Will Affect Your Income
+            Discover How Trump's One Big Beautiful Bill Impacts Your Finances
           </h2>
 
           {/* Improved subheading for clarity and trust */}
           <p className="text-lg max-w-2xl mx-auto mb-8 scroll-fade-in-delay">
-            Instantly calculate your 2025 personal impact using official government data. Enter your income for fact-checked, personalized results from CBO and Tax Foundation reports.
+            Calculate the real impacts of the Big Beautiful Bill on your income, taxes, and benefits. Get instant, personalized results using official government data from CBO and Tax Foundation reports.
           </p>
 
           {/* Call to Action - Centered Button */}

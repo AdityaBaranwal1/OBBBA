@@ -1,5 +1,6 @@
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
+import ImpactsOverview from '@/components/ImpactsOverview';
 import KeyImpactCards from '@/components/KeyImpactCards';
 import TimelineImpact from '@/components/TimelineImpact';
 import PillToggleSection from '@/components/PillToggleSection';
@@ -27,13 +28,17 @@ export default function Home() {
   return (
     <>
       <StructuredData pageType="website" />
+      <StructuredData pageType="faq" />
       <main className="min-h-screen">
         <Header />
         <Hero />
+        <ImpactsOverview />
         <KeyImpactCards />
         <TimelineImpact />
         <PillToggleSection />
-        <IncomeImpactCalculator />
+        <div id="calculator-section">
+          <IncomeImpactCalculator />
+        </div>
         <DistributionalImpact />
         <FAQSection />
         <Footer />

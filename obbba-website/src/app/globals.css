@@ -2915,3 +2915,114 @@ p {
     border: 1px solid rgba(0, 0, 0, 0.1) !important;
   }
 }
+
+/* ============================================
+   Story Mode Styles
+   ============================================ */
+
+/* Story Mode overlay backdrop */
+.story-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* Story card glassmorphic container */
+.story-card-container {
+  background: var(--surface-glass);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-2xl);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+[data-theme='light'] .story-card-container {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Story progress dots */
+.story-progress-dots {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.story-progress-dot {
+  flex: 1;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-full);
+  transition: background-color 0.3s ease;
+}
+
+.story-progress-dot.active {
+  background: rgba(255, 255, 255, 1);
+}
+
+[data-theme='light'] .story-progress-dot {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme='light'] .story-progress-dot.active {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+/* Topic selection buttons */
+.topic-button {
+  position: relative;
+  padding: 1rem;
+  border-radius: var(--radius-lg);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.05);
+  transition: all 0.2s ease;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  text-align: center;
+}
+
+.topic-button:hover {
+  border-color: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.topic-button-selected {
+  border-color: #3b82f6;
+  background: rgba(59, 130, 246, 0.2);
+}
+
+[data-theme='light'] .topic-button {
+  border-color: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.05);
+}
+
+[data-theme='light'] .topic-button:hover {
+  border-color: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme='light'] .topic-button-selected {
+  border-color: #2563eb;
+  background: rgba(37, 99, 235, 0.15);
+}
+
+/* Glass effect for story mode elements */
+.glass {
+  background: var(--surface-glass);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+[data-theme='light'] .glass {
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}

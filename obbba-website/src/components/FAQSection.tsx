@@ -8,6 +8,10 @@ export default function FAQSection() {
   /* ----------  NEW FAQs WITH HYPERLINKED SOURCES  ---------- */
   const faqs = [
     {
+      question: 'What are the main impacts of the Big Beautiful Bill?',
+      answer: `The Big Beautiful Bill has wide-ranging impacts including: economic effects (+1.2% GDP growth), healthcare changes (≈16M could lose insurance), social program modifications (22.3M families affected by SNAP changes), and fiscal impacts ($3T added debt). <a class="underline" href="#impacts-overview" rel="noopener noreferrer">See detailed impacts above</a>.`
+    },
+    {
       question: 'What is the One Big Beautiful Bill (OBBBA)?',
       answer: `OBBBA is <strong>H.R. 1, 119th Congress</strong>—an omnibus budget-reconciliation act reshaping taxes, health care, and energy policy. Read the full text <a class="underline" href="https://www.congress.gov/bill/119th-congress/house-bill/1/text" target="_blank" rel="noopener noreferrer">here</a>.`
     },
@@ -26,6 +30,14 @@ export default function FAQSection() {
     {
       question: 'What new revenue measures fund the bill?',
       answer: `The Joint Committee on Taxation lists corporate-rate permanence, excise hikes, and a 0.2 % financial-transaction levy—raising <strong>$1.56 trillion</strong>. Table JCX-46-21 is <a class="underline" href="https://www.jct.gov/publications/2021/jcx-46-21/" target="_blank" rel="noopener noreferrer">here</a>.`
+    },
+    {
+      question: 'How will the Big Beautiful Bill impact my taxes?',
+      answer: `Tax impacts vary by income level. The bill includes changes to tax rates, deductions, and credits. Use our <a class="underline" href="#calculator-section" rel="noopener noreferrer">personal impact calculator</a> to see exactly how your specific tax situation would be affected.`
+    },
+    {
+      question: 'When do the impacts of the Big Beautiful Bill take effect?',
+      answer: `Implementation begins in FY 2025 with gradual phase-in through 2028. Peak economic impacts are expected around 2028, with full implementation by 2034. The timeline varies by provision type.`
     }
   ];
 
